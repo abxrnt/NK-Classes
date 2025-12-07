@@ -1,4 +1,4 @@
-<!-- components/engineering.html - Engineering page for NK Classes -->
+<!-- components/engineering.html - Engineering page for NK Classes (6 cards) -->
 <section id="engineering-page" class="w-full py-8">
   <div class="max-w-4xl mx-auto px-4">
     <div class="bg-white rounded-xl shadow-sm p-6 md:p-10">
@@ -64,22 +64,83 @@
         </aside>
       </div>
 
-      <!-- sample lessons / resources -->
+      <!-- 6 cards grid -->
       <div class="mt-8">
-        <h3 class="text-lg font-semibold">Resources & Lessons</h3>
-        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <a class="card p-4 hover:shadow-md transition" href="#">
-            <div class="font-semibold">Mechanics — Concept Pack</div>
-            <div class="text-xs text-muted mt-2">Short conceptual videos + notes.</div>
-          </a>
-          <a class="card p-4 hover:shadow-md transition" href="#">
-            <div class="font-semibold">Organic Chemistry Starter</div>
-            <div class="text-xs text-muted mt-2">Beginner-friendly approach to reactions & mechanisms.</div>
-          </a>
-          <a class="card p-4 hover:shadow-md transition" href="#">
-            <div class="font-semibold">Calculus Practice Set</div>
-            <div class="text-xs text-muted mt-2">40 mixed-difficulty problems with solutions.</div>
-          </a>
+        <h3 class="text-lg font-semibold">Top Engineering Resources</h3>
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+          <!-- Card 1 -->
+          <article class="card p-4 flex flex-col h-full">
+            <img src="/assets/thumbnails/mechanics.jpg" alt="Mechanics thumbnail" class="w-full h-32 object-cover rounded-md mb-3" />
+            <div class="flex-1">
+              <div class="font-semibold">Mechanics — Concept Pack</div>
+              <div class="text-xs text-muted mt-2">Short conceptual videos and crisp notes covering kinematics to rotational dynamics.</div>
+            </div>
+            <div class="mt-3 text-right">
+              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card p-4 flex flex-col h-full">
+            <img src="/assets/thumbnails/organic.jpg" alt="Organic thumbnail" class="w-full h-32 object-cover rounded-md mb-3" />
+            <div class="flex-1">
+              <div class="font-semibold">Organic Chemistry Starter</div>
+              <div class="text-xs text-muted mt-2">Beginner-friendly approach to reactions, mechanism basics and naming conventions.</div>
+            </div>
+            <div class="mt-3 text-right">
+              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="card p-4 flex flex-col h-full">
+            <img src="/assets/thumbnails/calculus.jpg" alt="Calculus thumbnail" class="w-full h-32 object-cover rounded-md mb-3" />
+            <div class="flex-1">
+              <div class="font-semibold">Calculus Practice Set</div>
+              <div class="text-xs text-muted mt-2">40 mixed-difficulty problems with step-by-step solutions and tips to increase speed.</div>
+            </div>
+            <div class="mt-3 text-right">
+              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="card p-4 flex flex-col h-full">
+            <img src="/assets/thumbnails/electrostatics.jpg" alt="Electrostatics thumbnail" class="w-full h-32 object-cover rounded-md mb-3" />
+            <div class="flex-1">
+              <div class="font-semibold">Electrostatics — Problem Sets</div>
+              <div class="text-xs text-muted mt-2">Challenging problems with hints and full solutions to build conceptual clarity.</div>
+            </div>
+            <div class="mt-3 text-right">
+              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="card p-4 flex flex-col h-full">
+            <img src="/assets/thumbnails/thermo.jpg" alt="Thermodynamics thumbnail" class="w-full h-32 object-cover rounded-md mb-3" />
+            <div class="flex-1">
+              <div class="font-semibold">Thermodynamics & Equilibrium</div>
+              <div class="text-xs text-muted mt-2">Key concepts, formula sheet and PYQ-backed practice questions for quick mastery.</div>
+            </div>
+            <div class="mt-3 text-right">
+              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
+            </div>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="card p-4 flex flex-col h-full">
+            <img src="/assets/thumbnails/vectors.jpg" alt="Vectors thumbnail" class="w-full h-32 object-cover rounded-md mb-3" />
+            <div class="flex-1">
+              <div class="font-semibold">Vectors & 3D Geometry</div>
+              <div class="text-xs text-muted mt-2">Concise notes and problem sets for mastering 3D coordinate geometry and vector techniques.</div>
+            </div>
+            <div class="mt-3 text-right">
+              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
+            </div>
+          </article>
+
         </div>
       </div>
 
