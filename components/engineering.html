@@ -1,189 +1,184 @@
-<section id="engineering-page" class="w-full bg-white py-6 px-4 md:px-8">
+<!-- components/engineering.html - Clean groups (big containers invisible) -->
+<section id="engineering-page" class="w-full bg-transparent py-6 px-4 md:px-8">
 
   <style>
-    .big-card {
-      background: white;
-      border-radius: 18px;
-      padding: 16px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-      margin-bottom: 22px;
+    /* Remove any visible wrapper styling for the main section */
+    #engineering-page { background: transparent; }
+
+    /* Big-group wrapper is invisible: no bg, no shadow, no border */
+    .big-group {
+      background: transparent;
+      border-radius: 0;
+      padding: 8px 0;           /* small vertical spacing only */
+      margin-bottom: 20px;
+      box-shadow: none;
     }
 
     .big-title {
       font-family: 'Playfair Display', serif;
       font-size: 20px;
       font-weight: 700;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
+      color: #0b3650;
     }
 
-    /* 4 cards in a row */
+    /* 4-in-row grid (responsive) */
     .small-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
+      align-items: start;
     }
 
-    /* On mobiles → 2 per row */
-    @media (max-width: 600px) {
-      .small-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    @media (max-width: 900px) {
+      .small-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
+    /* small cards */
     .small-card {
-      background: white;
+      background: #ffffff;
       border-radius: 10px;
       padding: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
       display: flex;
       flex-direction: column;
-      font-size: 11px;
+      box-shadow: 0 6px 18px rgba(7,36,58,0.04);
+      font-size: 12px;
+      min-height: 120px;
     }
 
     .small-card img {
-      height: 60px;
+      height: 64px;
       width: 100%;
       object-fit: cover;
       border-radius: 6px;
     }
 
     .small-title {
-      margin-top: 6px;
+      margin-top: 8px;
       font-weight: 600;
       font-size: 13px;
+      color: #07365a;
     }
 
     .small-desc {
-      color: #6b7a86;
-      font-size: 10px;
-      margin-top: 4px;
+      color: #5b6b78;
+      font-size: 11px;
+      margin-top: 6px;
+      flex: 0;
     }
 
     .small-card a {
       margin-top: auto;
       background: #1976F2;
       color: white;
-      padding: 5px 8px;
+      padding: 6px 8px;
       border-radius: 6px;
-      font-size: 11px;
-      text-align: center;
+      font-size: 12px;
       text-decoration: none;
+      text-align: center;
+      display:inline-block;
     }
   </style>
 
-
-  <!-- ================= BIG CARD 1 ================== -->
-  <div class="big-card">
+  <!-- GROUP 1 (invisible wrapper) -->
+  <div class="big-group">
     <div class="big-title">JEE Rankings & Cutoffs</div>
-
     <div class="small-grid">
-
       <div class="small-card">
-        <img src="/assets/thumbnails/jeemains.jpg">
+        <img src="/assets/thumbnails/jeemains.jpg" alt="JEE Mains">
         <div class="small-title">JEE Mains Cutoffs</div>
-        <div class="small-desc">Latest ranks.</div>
+        <div class="small-desc">Latest branch ranks & closing ranks.</div>
         <a href="#">Go →</a>
       </div>
 
       <div class="small-card">
-        <img src="/assets/thumbnails/jeeadv.jpg">
+        <img src="/assets/thumbnails/jeeadv.jpg" alt="JEE Advanced">
         <div class="small-title">JEE Advanced Cutoffs</div>
-        <div class="small-desc">Updated IIT cutoffs.</div>
+        <div class="small-desc">IIT closing ranks & seat matrix.</div>
         <a href="#">Go →</a>
       </div>
 
       <div class="small-card">
-        <img src="/assets/thumbnails/nits.jpg">
+        <img src="/assets/thumbnails/nits.jpg" alt="NITs">
         <div class="small-title">NIT Rankings</div>
-        <div class="small-desc">Compare NITs.</div>
+        <div class="small-desc">Compare NIT branches & ranks.</div>
         <a href="#">Go →</a>
       </div>
 
       <div class="small-card">
-        <img src="/assets/thumbnails/iiits.jpg">
+        <img src="/assets/thumbnails/iiits.jpg" alt="IIITs">
         <div class="small-title">IIIT Rankings</div>
-        <div class="small-desc">Placement-based list.</div>
+        <div class="small-desc">IIITs & placement insights.</div>
         <a href="#">Go →</a>
       </div>
-
     </div>
   </div>
 
-
-
-  <!-- ================= BIG CARD 2 ================== -->
-  <div class="big-card">
+  <!-- GROUP 2 (invisible wrapper) -->
+  <div class="big-group">
     <div class="big-title">Study Materials & Notes</div>
-
     <div class="small-grid">
-
       <div class="small-card">
-        <img src="/assets/thumbnails/notes.jpg">
+        <img src="/assets/thumbnails/notes.jpg" alt="Notes">
         <div class="small-title">Notes & Resources</div>
-        <div class="small-desc">Quick revision.</div>
+        <div class="small-desc">Concise chapter notes for revision.</div>
         <a href="#">Go →</a>
       </div>
 
       <div class="small-card">
-        <img src="/assets/thumbnails/dpp.jpg">
+        <img src="/assets/thumbnails/dpp.jpg" alt="DPPs">
         <div class="small-title">DPPs & Modules</div>
-        <div class="small-desc">Daily practice.</div>
+        <div class="small-desc">Daily practice & chapter modules.</div>
         <a href="#">Go →</a>
       </div>
 
       <div class="small-card">
-        <img src="/assets/thumbnails/math.jpg">
+        <img src="/assets/thumbnails/math.jpg" alt="Math">
         <div class="small-title">Math Boosters</div>
-        <div class="small-desc">Formula drills.</div>
+        <div class="small-desc">Formula sheets & problem drills.</div>
         <a href="#">Go →</a>
       </div>
 
       <div class="small-card">
-        <img src="/assets/thumbnails/physics.jpg">
+        <img src="/assets/thumbnails/physics.jpg" alt="Physics">
         <div class="small-title">Physics Concepts</div>
-        <div class="small-desc">Core clarity.</div>
+        <div class="small-desc">Core concept packs & examples.</div>
         <a href="#">Go →</a>
       </div>
-
     </div>
   </div>
 
-
-
-  <!-- ================= BIG CARD 3 ================== -->
-  <div class="big-card">
+  <!-- GROUP 3 (invisible wrapper) -->
+  <div class="big-group">
     <div class="big-title">PYQs & Practice Sets</div>
-
     <div class="small-grid">
-
       <div class="small-card">
-        <img src="/assets/thumbnails/pyq.jpg">
+        <img src="/assets/thumbnails/pyq.jpg" alt="PYQ Mains">
         <div class="small-title">JEE Mains PYQs</div>
-        <div class="small-desc">Topic-wise.</div>
+        <div class="small-desc">Topic-wise previous questions.</div>
         <a href="#">Go →</a>
       </div>
 
       <div class="small-card">
-        <img src="/assets/thumbnails/pyq.jpg">
+        <img src="/assets/thumbnails/pyq.jpg" alt="PYQ Adv">
         <div class="small-title">JEE Advanced PYQs</div>
-        <div class="small-desc">Detailed solutions.</div>
+        <div class="small-desc">Detailed advanced solutions.</div>
         <a href="#">Go →</a>
       </div>
 
       <div class="small-card">
-        <img src="/assets/thumbnails/test.jpg">
+        <img src="/assets/thumbnails/test.jpg" alt="Mocks">
         <div class="small-title">Mock Tests</div>
-        <div class="small-desc">Timed practice.</div>
+        <div class="small-desc">Timed full-length mocks.</div>
         <a href="#">Go →</a>
       </div>
 
       <div class="small-card">
-        <img src="/assets/thumbnails/analysis.jpg">
+        <img src="/assets/thumbnails/analysis.jpg" alt="Analysis">
         <div class="small-title">Performance Analysis</div>
-        <div class="small-desc">Weakness finder.</div>
+        <div class="small-desc">Reports to identify weak topics.</div>
         <a href="#">Go →</a>
       </div>
-
     </div>
   </div>
 
