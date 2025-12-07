@@ -18,7 +18,6 @@
 
   <link rel="icon" type="image/png" href="favicon.png" />
 
-  <!-- BLUE THEME -->
   <style>
     :root {
       --blue-light: #9EE9FF;
@@ -165,7 +164,7 @@
           </div>
         </div>
 
-        <!-- Desktop Tabs -->
+        <!-- Desktop Tabs + Auth -->
         <div class="flex items-center gap-4">
           <ul id="desktopTabs" class="hidden md:flex gap-3 items-center text-sm">
             <li><button data-tab="home" class="nav-link px-2 py-1 rounded-md">Home</button></li>
@@ -177,13 +176,13 @@
             <li><button data-tab="contact" class="nav-link px-2 py-1 rounded-md">Contact Us</button></li>
           </ul>
 
-          <!-- Auth area will be injected here -->
+          <!-- Auth area -->
           <div id="authArea" class="ml-2 hidden md:flex items-center gap-3"></div>
         </div>
 
       </div>
 
-      <!-- COMPACT NON-SCROLLABLE MOBILE ICON BAR -->
+      <!-- MOBILE ICON BAR (compact non-scrollable) -->
       <div class="md:hidden pb-1">
         <div class="grid grid-cols-7 gap-1 items-center text-center px-1 no-tap-highlight">
           <!-- Home -->
@@ -253,10 +252,8 @@
     </div>
   </nav>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main id="app" class="max-w-6xl mx-auto px-4 md:px-8 py-6">
-
-    <!-- HOME PAGE -->
     <section id="home-page" class="fade-in">
       <div class="p-6 card">
         <h2 class="text-2xl font-bold mb-2">Welcome to NK Classes</h2>
@@ -264,19 +261,17 @@
       </div>
     </section>
 
-    <!-- ABOUT PAGE -->
     <section id="about-page" class="hidden fade-in p-6 card">
       <h2 class="text-2xl font-bold mb-2">About Us</h2>
       <p class="text-gray-700">AAHES — empowering Assam’s engineering aspirants with data-backed resources.</p>
     </section>
 
-    <!-- MATERIALS PAGE (placeholder) -->
     <section id="materials-page" class="hidden fade-in p-6 card">
       <h2 class="text-2xl font-bold mb-2">Study Materials</h2>
       <p class="text-gray-700">PDFs, notes and revision packs will appear here.</p>
     </section>
 
-    <!-- LECTURES PAGE (full component included) -->
+    <!-- Lectures -->
     <section id="lectures-page" class="hidden fade-in">
       <div class="max-w-6xl mx-auto px-4 py-6">
         <h1 class="text-3xl font-bold mb-4">🎥 Lectures Dashboard</h1>
@@ -301,7 +296,6 @@
         <div id="lectureGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
       </div>
 
-      <!-- Modal -->
       <div id="lectureModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
         <div class="bg-white rounded-xl w-full max-w-3xl shadow-xl p-4 relative">
           <button onclick="closeLectureModal()" class="absolute top-2 right-3 text-gray-700 hover:text-red-500 text-xl font-bold">✕</button>
@@ -312,24 +306,20 @@
       </div>
     </section>
 
-    <!-- CUTOFFS PAGE -->
     <section id="cutoffs-page" class="hidden fade-in p-6 card">
       <h2 class="text-2xl font-bold mb-2">Cutoffs</h2>
       <p class="text-gray-700">College cutoffs explorer (placeholder).</p>
     </section>
 
-    <!-- PLACEMENTS PAGE -->
     <section id="placements-page" class="hidden fade-in p-6 card">
       <h2 class="text-2xl font-bold mb-2">Placements & Campus</h2>
       <p class="text-gray-700">Placements statistics and campus details (placeholder).</p>
     </section>
 
-    <!-- CONTACT PAGE -->
     <section id="contact-page" class="hidden fade-in p-6 card">
       <h2 class="text-2xl font-bold mb-2">Contact Us</h2>
       <p class="text-gray-700">Email: abishrant@gmail.com</p>
     </section>
-
   </main>
 
   <!-- FOOTER -->
@@ -368,7 +358,7 @@
     </div>
   </footer>
 
-  <!-- AUTH MODAL (Login / Register) -->
+  <!-- AUTH MODAL -->
   <div id="authModal" class="fixed inset-0 hidden items-center justify-center z-50 p-4">
     <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6 relative">
       <button id="authClose" class="absolute right-3 top-2 text-gray-600">✕</button>
@@ -387,13 +377,11 @@
 
       <div id="registerForm" class="hidden">
         <input id="regName" type="text" placeholder="Full name" class="w-full border px-3 py-2 rounded mb-3" />
-        <input id="regEmail" type="email" placeholder="Email" class="w-full border px-3 py-2 rounded mb-3" />
+        <input id='regEmail' type="email" placeholder="Email" class="w-full border px-3 py-2 rounded mb-3" />
         <input id="regPassword" type="password" placeholder="Password (6+ chars)" class="w-full border px-3 py-2 rounded mb-3" />
-        <!-- optionally add phone/username inputs if you like -->
         <div id="regError" class="text-sm text-red-500 mb-2 hidden"></div>
         <button id="registerBtn" class="w-full bg-emerald-600 text-white px-4 py-2 rounded">Register</button>
       </div>
-
     </div>
   </div>
 
@@ -402,8 +390,8 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
-  <!-- Your firebaseConfig -->
   <script>
+    // your firebaseConfig
     const firebaseConfig = {
       apiKey: "AIzaSyAcIHLJdYe_tUA7t4fuapxmyeXXESo4Ze4",
       authDomain: "nk-classes.firebaseapp.com",
@@ -418,42 +406,12 @@
     const db = firebase.firestore();
   </script>
 
-  <!-- LECTURES DATA + Rendering -->
+  <!-- LECTURES DATA + RENDER -->
   <script>
     const lectures = [
-      {
-        id: "l1",
-        title: "Electrochemistry – Full Playlist",
-        subject: "Chemistry",
-        topic: "Electrochemistry",
-        difficulty: "Medium",
-        playlist: "https://www.youtube.com/embed/videoseries?list=PLFAKEPLAYLIST1",
-        notes: "notes/electrochemistry.pdf",
-        thumb: "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
-        tags: ["Boards", "JEE", "MCQ"]
-      },
-      {
-        id: "l2",
-        title: "Kinematics Crash Course",
-        subject: "Physics",
-        topic: "Kinematics",
-        difficulty: "Easy",
-        playlist: "https://www.youtube.com/embed/videoseries?list=PLFAKEPLAYLIST2",
-        notes: "notes/kinematics.pdf",
-        thumb: "https://img.youtube.com/vi/oHg5SJYRHA0/hqdefault.jpg",
-        tags: ["Concepts", "PYQ"]
-      },
-      {
-        id: "l3",
-        title: "Integral Calculus – Important Playlist",
-        subject: "Maths",
-        topic: "Calculus",
-        difficulty: "Hard",
-        playlist: "https://www.youtube.com/embed/videoseries?list=PLFAKEPLAYLIST3",
-        notes: "notes/integral_calculus.pdf",
-        thumb: "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg",
-        tags: ["Advanced", "JEE Mains"]
-      }
+      { id: "l1", title: "Electrochemistry – Full Playlist", subject: "Chemistry", topic: "Electrochemistry", difficulty: "Medium", playlist: "https://www.youtube.com/embed/videoseries?list=PLFAKEPLAYLIST1", notes: "notes/electrochemistry.pdf", thumb: "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg", tags: ["Boards", "JEE", "MCQ"] },
+      { id: "l2", title: "Kinematics Crash Course", subject: "Physics", topic: "Kinematics", difficulty: "Easy", playlist: "https://www.youtube.com/embed/videoseries?list=PLFAKEPLAYLIST2", notes: "notes/kinematics.pdf", thumb: "https://img.youtube.com/vi/oHg5SJYRHA0/hqdefault.jpg", tags: ["Concepts", "PYQ"] },
+      { id: "l3", title: "Integral Calculus – Important Playlist", subject: "Maths", topic: "Calculus", difficulty: "Hard", playlist: "https://www.youtube.com/embed/videoseries?list=PLFAKEPLAYLIST3", notes: "notes/integral_calculus.pdf", thumb: "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg", tags: ["Advanced", "JEE Mains"] }
     ];
 
     const grid = document.getElementById("lectureGrid");
@@ -467,24 +425,17 @@
       const d = (filterDifficulty ? filterDifficulty.value : "All");
       if (!grid) return;
       grid.innerHTML = "";
-      lectures
-        .filter(l =>
-          ((l.title + ' ' + l.topic + ' ' + l.tags.join(' ')).toLowerCase().includes(q)) &&
-          (s === "All" || l.subject === s) &&
-          (d === "All" || l.difficulty === d)
-        )
-        .forEach(l => {
-          grid.innerHTML += `
-            <div class="card cursor-pointer hover:shadow-xl transition border rounded-xl overflow-hidden" onclick="openLectureModal('${l.id}')">
-              <img src="${l.thumb}" class="w-full h-40 object-cover" />
-              <div class="p-4">
-                <h3 class="text-lg font-bold mb-1">${l.title}</h3>
-                <p class="text-sm text-gray-600">${l.subject} • ${l.topic}</p>
-                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded mt-2 inline-block">${l.difficulty}</span>
-              </div>
+      lectures.filter(l => ((l.title + ' ' + l.topic + ' ' + l.tags.join(' ')).toLowerCase().includes(q)) && (s === "All" || l.subject === s) && (d === "All" || l.difficulty === d)).forEach(l => {
+        grid.innerHTML += `
+          <div class="card cursor-pointer hover:shadow-xl transition border rounded-xl overflow-hidden" onclick="openLectureModal('${l.id}')">
+            <img src="${l.thumb}" class="w-full h-40 object-cover" />
+            <div class="p-4">
+              <h3 class="text-lg font-bold mb-1">${l.title}</h3>
+              <p class="text-sm text-gray-600">${l.subject} • ${l.topic}</p>
+              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded mt-2 inline-block">${l.difficulty}</span>
             </div>
-          `;
-        });
+          </div>`;
+      });
     }
 
     function openLectureModal(id) {
@@ -506,7 +457,7 @@
     renderLectures();
   </script>
 
-  <!-- Small client-side tab switcher -->
+  <!-- Tab switcher -->
   <script>
     (function () {
       const tabs = document.querySelectorAll('[data-tab]');
@@ -531,24 +482,54 @@
         });
       }
 
-      tabs.forEach(btn => {
-        btn.addEventListener('click', () => show(btn.getAttribute('data-tab')));
-      });
-
-      // default
+      tabs.forEach(btn => btn.addEventListener('click', () => show(btn.getAttribute('data-tab'))));
       show('home');
     })();
   </script>
 
-  <!-- ===== AUTH: UI + Firebase logic (includes legacy fallback) ===== -->
+  <!-- AUTH LOGIC (includes ensureAuthUI patch) -->
   <script>
-    // Ensure authArea visible on desktop
-    (function ensureAuthArea() {
+    // ensure authArea visible
+    (function ensureAuthUI() {
       const authArea = document.getElementById('authArea');
-      if (authArea) authArea.classList.remove('hidden');
+      if (!authArea) {
+        console.warn('authArea missing — creating one.');
+        const nav = document.querySelector('nav .max-w-6xl') || document.querySelector('nav');
+        const created = document.createElement('div');
+        created.id = 'authArea';
+        created.className = 'ml-2 flex items-center gap-3';
+        if (nav) nav.appendChild(created); else document.body.prepend(created);
+      }
+      const area = document.getElementById('authArea');
+      area.classList.remove('hidden');
+      area.style.display = 'flex';
+
+      // If already populated, attach handlers; otherwise inject default
+      if (area.innerHTML && area.innerHTML.trim().length > 0) {
+        attachNavHandlers();
+        return;
+      }
+
+      area.innerHTML = `
+        <button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button>
+        <button id="navRegister" class="px-3 py-1 rounded-md border">Register</button>
+      `;
+      attachNavHandlers();
+
+      // debug
+      setTimeout(() => {
+        console.log('DEBUG: firebase present?', !!window.firebase, 'auth object?', !!(window.firebase && firebase.auth));
+      }, 200);
     })();
 
-    // Modal show/hide helpers
+    function attachNavHandlers() {
+      const loginBtn = document.getElementById('navLogin');
+      const regBtn = document.getElementById('navRegister');
+      if (loginBtn) loginBtn.onclick = () => { if (typeof showModal === 'function') showModal('login'); else document.getElementById('authModal')?.classList.remove('hidden'); };
+      if (regBtn) regBtn.onclick = () => { if (typeof showModal === 'function') showModal('register'); else document.getElementById('authModal')?.classList.remove('hidden'); };
+    }
+
+    // modal helpers
     const authModal = document.getElementById('authModal');
     function showModal(view = 'login') {
       document.getElementById('loginError').classList.add('hidden');
@@ -567,27 +548,15 @@
       authModal.classList.remove('hidden');
       authModal.classList.add('flex');
     }
-    function closeModal() {
-      authModal.classList.add('hidden');
-      authModal.classList.remove('flex');
-    }
+    function closeModal() { authModal.classList.add('hidden'); authModal.classList.remove('flex'); }
     document.getElementById('authClose').addEventListener('click', closeModal);
     document.getElementById('showLogin').addEventListener('click', () => showModal('login'));
     document.getElementById('showRegister').addEventListener('click', () => showModal('register'));
 
-    // Helper: get user doc by UID
+    // helpers to read/write user docs
     async function getUserDocByUid(uid) {
-      try {
-        const doc = await db.collection('users').doc(uid).get();
-        if (!doc.exists) return null;
-        return { id: doc.id, data: doc.data() };
-      } catch (e) {
-        console.error('getUserDocByUid error', e);
-        return null;
-      }
+      try { const doc = await db.collection('users').doc(uid).get(); if (!doc.exists) return null; return { id: doc.id, data: doc.data() }; } catch (e) { console.error(e); return null; }
     }
-
-    // Helper: find user doc by username or email
     async function findUserDocByIdentifier(identifier) {
       const usersRef = db.collection('users');
       let q = await usersRef.where('username', '==', identifier).limit(1).get();
@@ -597,140 +566,75 @@
       return null;
     }
 
-    // ===== Registration: create Firebase Auth user + Firestore doc (do NOT store plaintext password) =====
+    // Register
     document.getElementById('registerBtn').addEventListener('click', async () => {
       const name = document.getElementById('regName').value.trim();
       const email = document.getElementById('regEmail').value.trim();
       const password = document.getElementById('regPassword').value;
       const errEl = document.getElementById('regError');
       errEl.classList.add('hidden');
-
-      if (!name || !email || password.length < 6) {
-        errEl.innerText = 'Please provide name, valid email and password (6+ chars).';
-        errEl.classList.remove('hidden');
-        return;
-      }
-
+      if (!name || !email || password.length < 6) { errEl.innerText = 'Please provide name, valid email and password (6+ chars).'; errEl.classList.remove('hidden'); return; }
       try {
         const userCred = await auth.createUserWithEmailAndPassword(email, password);
         const uid = userCred.user.uid;
-
-        await db.collection('users').doc(uid).set({
-          email,
-          name,
-          paid: "no",
-          // password: intentionally omitted
-          phone: "",
-          regn: new Date().toISOString(),
-          username: email.split('@')[0]
-        });
-
+        await db.collection('users').doc(uid).set({ email, name, paid: "no", phone: "", regn: new Date().toISOString(), username: email.split('@')[0] });
         await userCred.user.updateProfile({ displayName: name });
         closeModal();
-      } catch (err) {
-        console.error('Register error', err);
-        errEl.innerText = err.message || 'Registration failed';
-        errEl.classList.remove('hidden');
-      }
+      } catch (err) { console.error('Register error', err); errEl.innerText = err.message || 'Registration failed'; errEl.classList.remove('hidden'); }
     });
 
-    // ===== Login: prefer Firebase Auth; fallback to Firestore legacy plaintext password (temporary) =====
+    // Login (firebase auth preferred, then legacy fallback)
     document.getElementById('loginBtn').addEventListener('click', async () => {
       const identifier = document.getElementById('loginEmail').value.trim();
       const password = document.getElementById('loginPassword').value;
       const errEl = document.getElementById('loginError');
       errEl.classList.add('hidden');
+      if (!identifier || !password) { errEl.innerText = 'Enter email/username and password.'; errEl.classList.remove('hidden'); return; }
 
-      if (!identifier || !password) {
-        errEl.innerText = 'Enter email/username and password.';
-        errEl.classList.remove('hidden');
-        return;
-      }
+      try { await auth.signInWithEmailAndPassword(identifier, password); closeModal(); return; } catch (authErr) { console.warn('Firebase signIn error (will try legacy):', authErr && authErr.code); }
 
-      try {
-        // try firebase auth with identifier as email
-        await auth.signInWithEmailAndPassword(identifier, password);
-        closeModal();
-        return;
-      } catch (authErr) {
-        console.warn('Firebase signIn error (will try legacy):', authErr && authErr.code);
-      }
-
-      // Legacy fallback (checks Firestore 'password' field) - temporary migration support
+      // legacy fallback
       try {
         const doc = await findUserDocByIdentifier(identifier);
-        if (!doc) {
-          errEl.innerText = 'No user found with that email/username.';
-          errEl.classList.remove('hidden');
-          return;
-        }
-
+        if (!doc) { errEl.innerText = 'No user found with that email/username.'; errEl.classList.remove('hidden'); return; }
         if (doc.data && doc.data.password && doc.data.password === password) {
-          // create a local legacy session (not secure)
           localStorage.setItem('legacyUser', doc.id);
           closeModal();
           renderAuthArea(doc);
-          alert('Logged in via legacy fallback. Please update your account to a secure password (use password reset or re-register).');
+          alert('Logged in via legacy fallback. Please update your account to use secure authentication.');
           return;
-        } else {
-          errEl.innerText = 'Invalid credentials.';
-          errEl.classList.remove('hidden');
-          return;
-        }
-      } catch (e) {
-        console.error('Legacy login error', e);
-        errEl.innerText = 'Login failed. Try again later.';
-        errEl.classList.remove('hidden');
-      }
+        } else { errEl.innerText = 'Invalid credentials.'; errEl.classList.remove('hidden'); return; }
+      } catch (e) { console.error('Legacy login error', e); errEl.innerText = 'Login failed. Try again later.'; errEl.classList.remove('hidden'); }
     });
 
-    // ===== Logout: sign out Firebase + clear legacy session =====
-    async function logout() {
-      try { await auth.signOut(); } catch (e) { console.warn('signOut issue', e); }
-      localStorage.removeItem('legacyUser');
-      renderAuthArea(null);
-    }
+    // Logout
+    async function logout() { try { await auth.signOut(); } catch (e) { console.warn(e); } localStorage.removeItem('legacyUser'); renderAuthArea(null); }
 
-    // ===== Render auth area =====
+    // render auth area
     const authAreaEl = document.getElementById('authArea');
     function renderAuthArea(userDoc) {
       if (!authAreaEl) return;
       if (!userDoc) {
-        authAreaEl.innerHTML = `
-          <button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button>
-          <button id="navRegister" class="px-3 py-1 rounded-md border">Register</button>
-        `;
+        authAreaEl.innerHTML = `<button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button><button id="navRegister" class="px-3 py-1 rounded-md border">Register</button>`;
         document.getElementById('navLogin').addEventListener('click', () => showModal('login'));
         document.getElementById('navRegister').addEventListener('click', () => showModal('register'));
       } else {
         const displayName = (userDoc.data && userDoc.data.name) ? userDoc.data.name : (userDoc.data && userDoc.data.email) ? userDoc.data.email : 'User';
         const short = escapeHtml(shortName(displayName));
-        authAreaEl.innerHTML = `
-          <div class="flex items-center gap-3">
-            <span class="text-sm font-semibold text-slate-700">Hi, ${short}</span>
-            <button id="navLogout" class="px-3 py-1 rounded-md border text-sm">Logout</button>
-          </div>
-        `;
+        authAreaEl.innerHTML = `<div class="flex items-center gap-3"><span class="text-sm font-semibold text-slate-700">Hi, ${short}</span><button id="navLogout" class="px-3 py-1 rounded-md border text-sm">Logout</button></div>`;
         document.getElementById('navLogout').addEventListener('click', logout);
       }
     }
     function escapeHtml(s) { return String(s).replace(/[&<>"']/g, function(m) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]; }); }
     function shortName(full) { return full.split(' ')[0]; }
 
-    // ===== Auth state listener: Firebase user OR legacy local session =====
+    // onAuthStateChanged
     auth.onAuthStateChanged(async (user) => {
       try {
         if (user) {
           const docData = await getUserDocByUid(user.uid);
           if (!docData) {
-            await db.collection('users').doc(user.uid).set({
-              name: user.displayName || '',
-              email: user.email || '',
-              paid: "no",
-              phone: "",
-              regn: new Date().toISOString(),
-              username: user.email ? user.email.split('@')[0] : user.uid
-            });
+            await db.collection('users').doc(user.uid).set({ name: user.displayName || '', email: user.email || '', paid: "no", phone: "", regn: new Date().toISOString(), username: user.email ? user.email.split('@')[0] : user.uid });
             renderAuthArea({ id: user.uid, data: { name: user.displayName || user.email } });
           } else {
             renderAuthArea(docData);
@@ -738,41 +642,20 @@
           return;
         }
 
-        // No firebase user - check legacy local session
+        // no firebase user -> check legacy session
         const legacyId = localStorage.getItem('legacyUser');
         if (legacyId) {
           try {
             const doc = await db.collection('users').doc(legacyId).get();
-            if (doc.exists) {
-              renderAuthArea({ id: doc.id, data: doc.data() });
-              return;
-            } else {
-              localStorage.removeItem('legacyUser');
-            }
-          } catch (e) {
-            console.error('Error reading legacy user doc', e);
-            localStorage.removeItem('legacyUser');
-          }
+            if (doc.exists) { renderAuthArea({ id: doc.id, data: doc.data() }); return; } else { localStorage.removeItem('legacyUser'); }
+          } catch (e) { console.error(e); localStorage.removeItem('legacyUser'); }
         }
         renderAuthArea(null);
-      } catch (e) {
-        console.error('onAuthStateChanged error', e);
-        renderAuthArea(null);
-      }
+      } catch (e) { console.error('onAuthStateChanged error', e); renderAuthArea(null); }
     });
 
-    // make sure authArea exists on DOMContentLoaded
-    document.addEventListener('DOMContentLoaded', () => {
-      const a = document.getElementById('authArea');
-      if (!a) {
-        const parent = document.querySelector('.max-w-6xl') || document.body;
-        const wrapper = document.createElement('div');
-        wrapper.id = 'authArea';
-        wrapper.className = 'ml-4 flex items-center gap-3';
-        parent.prepend(wrapper);
-      }
-    });
-
+    // initial attach
+    document.addEventListener('DOMContentLoaded', () => { if (!authAreaEl) { const parent = document.querySelector('.max-w-6xl') || document.body; const wrapper = document.createElement('div'); wrapper.id = 'authArea'; wrapper.className = 'ml-4 flex items-center gap-3'; parent.prepend(wrapper); } });
   </script>
 
 </body>
