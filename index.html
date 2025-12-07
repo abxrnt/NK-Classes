@@ -30,7 +30,7 @@
     .logo-glow{box-shadow:0 0 18px rgba(25,118,242,.35)} button:hover{background:var(--blue-gradient) !important;color:white !important;transition:.25s;border-radius:8px}
     footer h2{background:var(--blue-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
     nav{border-bottom-color:rgba(7,32,50,.06)} .text-muted{color:#5b6b78} .mobile-icon{color:#0b3b66} .no-tap-highlight{-webkit-tap-highlight-color:rgba(0,0,0,0)}
-    @media (max-width:640px){ #authArea { display:none !important } } /* hide auth area on very small screens if needed */
+    /* removed the rule that hid #authArea on small screens */
     /* small circle avatar */
     .avatar-circle { width:32px; height:32px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:#e6eef9; color:#0b3b66; font-weight:700; font-size:13px; text-transform:uppercase; }
   </style>
@@ -61,11 +61,12 @@
           </ul>
 
           <!-- auth area (profile icon + logout OR login/register buttons) -->
-          <div id="authArea" class="ml-2 hidden md:flex items-center gap-3"></div>
+          <!-- Make authArea visible at all sizes (removed hidden md:flex) -->
+          <div id="authArea" class="ml-2 flex items-center gap-3"></div>
         </div>
       </div>
 
-      <!-- MOBILE ICON BAR (7 items without lectures) -->
+      <!-- MOBILE ICON BAR (6 items without lectures) -->
       <div class="md:hidden pb-1">
         <div class="grid grid-cols-6 gap-1 items-center text-center px-1 no-tap-highlight">
           <button data-route="home" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z"/></svg><span class="text-[9px] leading-[10px]">Home</span></button>
@@ -108,34 +109,34 @@
     </div>
   </footer>
 
-  <!-- AUTH MODAL -->
-  <div id="authModal" class="fixed inset-0 hidden items-center justify-center z-50 p-4">
-    <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6 relative">
-      <button id="authClose" class="absolute right-3 top-2 text-gray-600">✕</button>
+  <!-- AUTH MODAL (FULL-SCREEN) -->
+  <div id="authModal" class="fixed inset-0 hidden z-50 flex bg-white">
+    <div class="w-full h-full p-6 overflow-auto relative">
+      <button id="authClose" class="absolute right-3 top-3 text-gray-600 text-xl">✕</button>
 
-      <div id="authTabs" class="flex gap-2 mb-4">
-        <button id="showLogin" class="px-3 py-1 rounded-md tab-active">Login</button>
-        <button id="showRegister" class="px-3 py-1 rounded-md">Register</button>
+      <div id="authTabs" class="flex gap-2 mb-6 mt-10">
+        <button id="showLogin" class="px-4 py-2 rounded-md tab-active text-lg">Login</button>
+        <button id="showRegister" class="px-4 py-2 rounded-md text-lg">Register</button>
       </div>
 
       <!-- LOGIN: only username + password -->
-      <div id="loginForm">
-        <input id="loginUsername" type="text" placeholder="Username" class="w-full border px-3 py-2 rounded mb-3" />
-        <input id="loginPassword" type="password" placeholder="Password" class="w-full border px-3 py-2 rounded mb-3" />
-        <div id="loginError" class="text-sm text-red-500 mb-2 hidden"></div>
-        <button id="loginBtn" class="w-full bg-blue-600 text-white px-4 py-2 rounded">Login</button>
+      <div id="loginForm" class="max-w-xl mx-auto">
+        <input id="loginUsername" type="text" placeholder="Username" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
+        <input id="loginPassword" type="password" placeholder="Password" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
+        <div id="loginError" class="text-sm text-red-500 mb-4 hidden"></div>
+        <button id="loginBtn" class="w-full bg-blue-600 text-white px-4 py-3 rounded text-lg">Login</button>
       </div>
 
       <!-- REGISTER: username, full name, password, phone, email, regn -->
-      <div id="registerForm" class="hidden">
-        <input id="regUsername" type="text" placeholder="Username" class="w-full border px-3 py-2 rounded mb-3" />
-        <input id="regName" type="text" placeholder="Full name" class="w-full border px-3 py-2 rounded mb-3" />
-        <input id="regPassword" type="password" placeholder="Password (6+ chars)" class="w-full border px-3 py-2 rounded mb-3" />
-        <input id="regPhone" type="text" placeholder="Phone" class="w-full border px-3 py-2 rounded mb-3" />
-        <input id="regEmail" type="email" placeholder="Email" class="w-full border px-3 py-2 rounded mb-3" />
-        <input id="regn" type="text" readonly class="w-full border px-3 py-2 rounded mb-3 bg-gray-50" />
-        <div id="regError" class="text-sm text-red-500 mb-2 hidden"></div>
-        <button id="registerBtn" class="w-full bg-emerald-600 text-white px-4 py-2 rounded">Register</button>
+      <div id="registerForm" class="hidden max-w-xl mx-auto mt-6">
+        <input id="regUsername" type="text" placeholder="Username" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
+        <input id="regName" type="text" placeholder="Full name" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
+        <input id="regPassword" type="password" placeholder="Password (6+ chars)" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
+        <input id="regPhone" type="text" placeholder="Phone" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
+        <input id="regEmail" type="email" placeholder="Email" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
+        <input id="regn" type="text" readonly class="w-full border px-4 py-3 rounded mb-4 bg-gray-50 text-lg" />
+        <div id="regError" class="text-sm text-red-500 mb-4 hidden"></div>
+        <button id="registerBtn" class="w-full bg-emerald-600 text-white px-4 py-3 rounded text-lg">Register</button>
       </div>
     </div>
   </div>
@@ -197,6 +198,17 @@
 
   <!-- AUTH UI + Logic (username login, register stores fields you requested) -->
   <script>
+    // small helper: escape HTML for safe insertion
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]); }
+
+    // helpers: get user doc by uid and find by username
+    async function getUserDocByUid(uid){
+      try{ const doc = await db.collection('users').doc(uid).get(); if(!doc.exists) return null; return {id:doc.id, data: doc.data()}; } catch(e){ console.error(e); return null; }
+    }
+    async function findUserDocByUsername(username){
+      try{ const q = await db.collection('users').where('username','==',username).limit(1).get(); if(!q.empty) return {id:q.docs[0].id, data:q.docs[0].data()}; } catch(e){ console.error(e); } return null;
+    }
+
     // Ensure auth area present and visible, inject default if empty
     (function ensureAuthArea(){
       let area = document.getElementById('authArea');
@@ -213,51 +225,58 @@
     })();
 
     function attachNavHandlers(){
+      // attach handlers safely (buttons may be recreated)
+      document.getElementById('navLogin')?.removeEventListener?.('click', ()=>{}); // noop safe remove
+      document.getElementById('navRegister')?.removeEventListener?.('click', ()=>{});
       document.getElementById('navLogin')?.addEventListener('click', ()=> showModal('login'));
       document.getElementById('navRegister')?.addEventListener('click', ()=> showModal('register'));
     }
 
     // modal helpers
     const authModal = document.getElementById('authModal');
-    document.getElementById('authClose').addEventListener('click', ()=> { authModal.classList.add('hidden'); authModal.classList.remove('flex'); });
-    document.getElementById('showLogin').addEventListener('click', ()=> showModal('login'));
-    document.getElementById('showRegister').addEventListener('click', ()=> showModal('register'));
+    document.getElementById('authClose')?.addEventListener('click', ()=> { authModal.classList.add('hidden'); authModal.classList.remove('flex'); });
+    document.getElementById('showLogin')?.addEventListener('click', ()=> showModal('login'));
+    document.getElementById('showRegister')?.addEventListener('click', ()=> showModal('register'));
     function showModal(view='login'){
       document.getElementById('loginError').classList.add('hidden'); document.getElementById('regError').classList.add('hidden');
-      if(view==='login'){ document.getElementById('loginForm').classList.remove('hidden'); document.getElementById('registerForm').classList.add('hidden'); document.getElementById('showLogin').classList.add('tab-active'); document.getElementById('showRegister').classList.remove('tab-active'); }
-      else { document.getElementById('loginForm').classList.add('hidden'); document.getElementById('registerForm').classList.remove('hidden'); document.getElementById('showLogin').classList.remove('tab-active'); document.getElementById('showRegister').classList.add('tab-active'); }
+      if(view==='login'){
+        document.getElementById('loginForm').classList.remove('hidden');
+        document.getElementById('registerForm').classList.add('hidden');
+        document.getElementById('showLogin').classList.add('tab-active');
+        document.getElementById('showRegister').classList.remove('tab-active');
+      } else {
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('registerForm').classList.remove('hidden');
+        document.getElementById('showLogin').classList.remove('tab-active');
+        document.getElementById('showRegister').classList.add('tab-active');
+      }
       // prefill regn with current ISO timestamp
-      document.getElementById('regn').value = new Date().toISOString();
+      const regnEl = document.getElementById('regn');
+      if(regnEl) regnEl.value = new Date().toISOString();
       authModal.classList.remove('hidden'); authModal.classList.add('flex');
-    }
-
-    // helpers: get user doc by uid and find by username
-    async function getUserDocByUid(uid){
-      try{ const doc = await db.collection('users').doc(uid).get(); if(!doc.exists) return null; return {id:doc.id, data: doc.data()}; } catch(e){ console.error(e); return null; }
-    }
-    async function findUserDocByUsername(username){
-      try{ const q = await db.collection('users').where('username','==',username).limit(1).get(); if(!q.empty) return {id:q.docs[0].id, data:q.docs[0].data()}; } catch(e){ console.error(e); } return null;
+      // scroll to top for mobile
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // ===== REGISTER =====
-    document.getElementById('registerBtn').addEventListener('click', async () => {
+    document.getElementById('registerBtn')?.addEventListener('click', async () => {
       const username = document.getElementById('regUsername').value.trim();
       const name = document.getElementById('regName').value.trim();
       const password = document.getElementById('regPassword').value;
       const phone = document.getElementById('regPhone').value.trim();
       const email = document.getElementById('regEmail').value.trim();
       const regn = document.getElementById('regn').value || new Date().toISOString();
-      const errEl = document.getElementById('regError'); errEl.classList.add('hidden');
+      const errEl = document.getElementById('regError'); if(errEl) errEl.classList.add('hidden');
 
       if(!username || !name || password.length < 3){
-        errEl.innerText = 'Please enter username, full name and password (>=3 chars).';
-        errEl.classList.remove('hidden'); return;
+        if(errEl){ errEl.innerText = 'Please enter username, full name and password (>=3 chars).'; errEl.classList.remove('hidden'); }
+        return;
       }
 
       try{
         // check username uniqueness
         const existing = await findUserDocByUsername(username);
-        if(existing){ errEl.innerText = 'Username already taken.'; errEl.classList.remove('hidden'); return; }
+        if(existing){ if(errEl){ errEl.innerText = 'Username already taken.'; errEl.classList.remove('hidden'); } return; }
 
         // Create Firebase Auth account using email if provided (preferred).
         // If email not provided, we'll skip Firebase Auth creation and still create Firestore doc (legacy).
@@ -268,7 +287,7 @@
             uid = userCred.user.uid;
             await userCred.user.updateProfile({ displayName: name });
           } catch(firebaseErr){
-            // If Firebase account creation fails (e.g., email in use), we continue to create only Firestore doc as fallback.
+            // If Firebase account creation fails (e.g., email in use), continue to create Firestore doc as fallback.
             console.warn('Firebase account creation failed — creating Firestore-only user. Error:', firebaseErr);
           }
         }
@@ -289,26 +308,24 @@
 
         // close modal, UI will update via onAuthStateChanged or legacy session
         authModal.classList.add('hidden'); authModal.classList.remove('flex');
-        // If we created a Firebase user, onAuthStateChanged will run and pick it up.
       } catch(e){
         console.error('Registration error', e);
-        errEl.innerText = e.message || 'Registration failed';
-        errEl.classList.remove('hidden');
+        if(errEl){ errEl.innerText = e.message || 'Registration failed'; errEl.classList.remove('hidden'); }
       }
     });
 
     // ===== LOGIN =====
-    document.getElementById('loginBtn').addEventListener('click', async () => {
+    document.getElementById('loginBtn')?.addEventListener('click', async () => {
       const username = document.getElementById('loginUsername').value.trim();
       const password = document.getElementById('loginPassword').value;
-      const errEl = document.getElementById('loginError'); errEl.classList.add('hidden');
+      const errEl = document.getElementById('loginError'); if(errEl) errEl.classList.add('hidden');
 
-      if(!username || !password){ errEl.innerText = 'Enter username and password.'; errEl.classList.remove('hidden'); return; }
+      if(!username || !password){ if(errEl){ errEl.innerText = 'Enter username and password.'; errEl.classList.remove('hidden'); } return; }
 
       try{
         // find user doc by username
         const doc = await findUserDocByUsername(username);
-        if(!doc){ errEl.innerText = 'User not found.'; errEl.classList.remove('hidden'); return; }
+        if(!doc){ if(errEl){ errEl.innerText = 'User not found.'; errEl.classList.remove('hidden'); } return; }
 
         // If Firestore doc has email and corresponding Firebase Auth user exists, try Firebase Auth
         const email = doc.data.email;
@@ -332,11 +349,12 @@
           authModal.classList.add('hidden'); authModal.classList.remove('flex');
           return;
         } else {
-          errEl.innerText = 'Invalid credentials.'; errEl.classList.remove('hidden'); return;
+          if(errEl){ errEl.innerText = 'Invalid credentials.'; errEl.classList.remove('hidden'); }
+          return;
         }
       } catch(e){
         console.error('Login error', e);
-        errEl.innerText = 'Login failed. Try again later.'; errEl.classList.remove('hidden');
+        if(errEl){ errEl.innerText = 'Login failed. Try again later.'; errEl.classList.remove('hidden'); }
       }
     });
 
@@ -369,7 +387,6 @@
         document.getElementById('navLogout')?.addEventListener('click', logout);
       }
     }
-    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]); }
 
     // ===== onAuthStateChanged: prefer Firebase user, otherwise legacy local session =====
     auth.onAuthStateChanged(async (user) => {
@@ -409,18 +426,17 @@
       }
     });
 
-    // small helper used above
-    async function getUserDocByUid(uid){
-      try{ const doc = await db.collection('users').doc(uid).get(); if(!doc.exists) return null; return { id: doc.id, data: doc.data() }; } catch(e){ console.error(e); return null; }
-    }
-
-    // Ensure authArea exists on DOM ready
+    // Ensure authArea exists on DOM ready (safety)
     document.addEventListener('DOMContentLoaded', () => {
       if(!document.getElementById('authArea')){
         const parent = document.querySelector('.max-w-6xl') || document.body;
         const wrapper = document.createElement('div'); wrapper.id='authArea'; wrapper.className='ml-4 flex items-center gap-3';
         parent.prepend(wrapper);
       }
+      // attach handlers to tab buttons (if they are present)
+      document.getElementById('showLogin')?.addEventListener('click', ()=> showModal('login'));
+      document.getElementById('showRegister')?.addEventListener('click', ()=> showModal('register'));
+      document.getElementById('authClose')?.addEventListener('click', ()=> { authModal.classList.add('hidden'); authModal.classList.remove('flex'); });
     });
 
     // small runtime error logging
@@ -428,4 +444,3 @@
   </script>
 </body>
 </html>
-
