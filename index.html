@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NK Classes — SPA Notes + Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- DOMPurify for safe HTML rendering of notes -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js" integrity="sha512-4q/7y3kK3qQx7G4T1+5D0qVYz2q4J1mDgVnQkq6b6hOw6p8Yc3Qm5b3n/0L6Q7yYQ9q9F1kY8u8q1vQf9GQvRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<style>
+:root{
+  --bg-1:#e9f8f4;
+  --accent-1:#0fbf9a;
+  --accent-2:#0b8f74;
+  --muted:#2f5b51;
+  --nav-h:56px;
+}
+
+/* Reset & base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: linear-gradient(180deg, var(--bg-1), #f7fffb 60%);
+  color:#063b33;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* ----------------
+   SLIM PROFESSIONAL NAVBAR (layout fixed)
+   ---------------- */
+nav{
+  position:fixed;
+  left:0; right:0; top:0;
+  height:var(--nav-h);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 20px;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  z-index:1200;
+}
+
+/* brand (left) */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex: 0 0 auto; /* never shrink */
+}
+.logo{
+  width:36px; height:36px; border-radius:8px; object-fit:cover;
+}
+.title h1{ margin:0; font-family:'Playfair Display', serif; font-size:15px; font-weight:700; line-height:1; }
+.title p{ margin:0; font-size:11px; color:var(--muted); font-weight:500; line-height:1; }
+
+/* container for the right side (links + auth) */
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex: 1 1 auto;            /* take remaining space */
+  justify-content:flex-end;  /* align links & auth to the right */
+  min-width:0;               /* allow children to shrink sensibly */
+}
+
+/* links group: never shrink to invisibility */
+.nav-links{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex: 0 0 auto; /* do not shrink */
+  margin-right:10px;
+}
+
+/* nav links appearance */
+.nav-links a{
+  padding:6px 10px;
+  border-radius:8px;
+  text-decoration:none;
+  color:#06443a;
+  font-weight:600;
+  font-size:13px;
+  white-space:nowrap; /* prevent wrapping */
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.nav-links a.btn-primary{ background: linear-gradient(90deg,var(--accent-1),var(--accent-2)); color:#fff; box-shadow:none; }
+.nav-links a.active{ background: rgba(11,143,116,0.08); color:var(--accent-2); }
+
+/* auth area (explicit class) */
+.auth-area{
+  flex: 0 0 auto; /* fixed size */
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* auth pill */
+.auth-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid rgba(0,0,0,0.06);
+  flex: 0 0 auto;
+}
+.avatar{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(135deg,var(--accent-1),var(--accent-2));
+  color:#fff;
+  font-weight:700;
+  font-size:13px;
+  flex: 0 0 auto;
+}
+.auth-pill .name{ font-size:13px; font-weight:700; }
+.auth-pill .small{ font-size:11px; color:var(--muted); margin-top:2px; }
+
+/* Sign out button small (to the right of pill) */
+.auth-area > .btn { white-space:nowrap; }
+
+/* buttons small */
+.btn{ padding:6px 12px; border-radius:8px; font-weight:700; font-size:13px; cursor:pointer; border:0; }
+.btn-primary{ background: linear-gradient(90deg,var(--accent-1),var(--accent-2)); color:#fff; }
+
+/* ----------------
+   PAGE LAYOUT
+   ---------------- */
+.wrap{ max-width:1100px; margin: calc(var(--nav-h) + 20px) auto; padding:20px; }
+.page{ background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96)); border-radius:12px; padding:20px; border:1px solid rgba(0,0,0,0.04); box-shadow:0 14px 36px rgba(6,40,34,0.05); }
+
+/* home hero: use home-hero wrapper to scope reversal safely */
+.home-hero .hero{ display:grid; grid-template-columns: 1fr 320px; gap:32px; align-items:center; }
+.text-section{ order:1; }
+.photo-section{ order:2; }
+.photo-wrap{ width:300px; height:380px; border-radius:14px; padding:12px; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 18px 50px rgba(6,40,34,0.06); }
+.photo{ width:100%; height:100%; object-fit:cover; border-radius:10px; }
+.eyebrow{ display:inline-block; background:rgba(15,191,154,0.12); padding:6px 10px; border-radius:999px; color:var(--accent-2); font-weight:700; font-size:13px; }
+.hero-title{ font-family:'Playfair Display', serif; font-size:32px; margin:10px 0; font-weight:700; line-height:1.02; }
+.hero-desc{ color:#18433a; font-size:15px; line-height:1.6; }
+
+/* smaller muted text */
+.small-muted{ color:var(--muted); font-size:13px; }
+
+/* profile card small */
+.profile-card{ display:flex; gap:10px; align-items:center; padding:10px; border-radius:10px; background:linear-gradient(180deg,#fff,#f6fffb); border:1px solid rgba(0,0,0,0.03); }
+.profile-card .meta{ font-size:13px; color:#16443a; }
+
+/* ----------------
+   NOTES SPA styles (kept for functionality)
+   ---------------- */
+.notes-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; margin-top:12px; }
+.note-card{ background:#fff; padding:14px; border-radius:12px; border:1px solid rgba(0,0,0,0.04); box-shadow:0 8px 20px rgba(6,40,34,0.03); cursor:pointer; transition:transform 150ms ease, box-shadow 150ms ease; }
+.note-card:hover{ transform: translateY(-6px); box-shadow:0 18px 40px rgba(6,40,34,0.06); }
+.note-title{ font-weight:700; color:#0c3b33; margin-bottom:6px; }
+.note-excerpt{ color:#18433a; font-size:13px; }
+
+/* note detail */
+.note-detail{ background:#fff; padding:18px; border-radius:12px; border:1px solid rgba(0,0,0,0.04); box-shadow:0 12px 30px rgba(6,40,34,0.05); margin-top:12px; }
+.note-back{ display:inline-block; margin-bottom:12px; color:var(--accent-2); cursor:pointer; font-weight:700; }
+
+/* ----------------
+   FULLSCREEN AUTH OVERLAY (replaces card-style, attractive)
+   ---------------- */
+.auth-overlay{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(1200px 600px at 10% 10%, rgba(11,143,116,0.06), transparent 8%),
+    radial-gradient(900px 500px at 90% 90%, rgba(15,191,154,0.04), transparent 8%),
+    linear-gradient(180deg, rgba(2,10,8,0.75), rgba(2,10,8,0.65));
+  display:none;
+  z-index:2000;
+  padding:0;
+  align-items:stretch;
+  justify-content:stretch;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* centered container but full-bleed background; content has a soft glass card */
+.auth-full{
+  width:100%;
+  height:100%;
+  display:grid;
+  grid-template-columns: 420px 1fr;
+  gap:32px;
+  overflow:hidden;
+  align-items:center;
+  padding:48px;
+  box-sizing:border-box;
+}
+
+/* left promotional panel: stronger visual treatment */
+.auth-full .left{
+  padding:36px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(245,255,250,0.92));
+  border-radius:16px;
+  box-shadow: 0 20px 50px rgba(3,30,26,0.32), inset 0 1px 0 rgba(255,255,255,0.6);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  justify-content:center;
+  min-height:0;
+  border-left: 6px solid rgba(15,191,154,0.12);
+}
+.auth-full .left h2{
+  margin:0;
+  font-family: 'Playfair Display', serif;
+  font-size:22px;
+  color:#06443a;
+}
+.auth-full .left p{
+  margin:0;
+  color:#175047;
+  font-size:14px;
+  line-height:1.45;
+}
+.auth-full .left .footer-small{
+  color:#2b645b;
+  opacity:0.9;
+}
+
+/* right column: form card with floating glass effect */
+.auth-full .right{
+  padding:28px;
+  overflow:auto;
+  min-height:0;
+  background: linear-gradient(180deg,#ffffff, #f9fffc);
+  border-radius:16px;
+  box-shadow: 0 24px 60px rgba(3,30,26,0.28);
+  border: 1px solid rgba(6,40,34,0.04);
+}
+
+/* tabbar: pill tabs with subtle active indicator */
+.tabbar{ display:flex; gap:12px; margin-bottom:20px; align-items:center; }
+.tab{
+  padding:10px 16px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:800;
+  font-size:15px;
+  color:#0a4036;
+  background:transparent;
+  border: 1px solid transparent;
+  transition: all 180ms ease;
+  box-shadow: none;
+}
+.tab:hover{ transform: translateY(-2px); }
+.tab.active{
+  background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+  color:#fff;
+  box-shadow: 0 8px 22px rgba(11,143,116,0.18);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* input groups: larger and airy */
+.form-row{ margin-bottom:14px; }
+.input{
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid rgba(7,40,36,0.08);
+  background: #ffffff;
+  font-size:15px;
+  box-shadow: 0 6px 18px rgba(6,40,34,0.04);
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 120ms ease;
+}
+.input::placeholder{ color: #8aa7a0; font-weight:600; }
+.input:focus{
+  border-color: rgba(15,191,154,0.9);
+  box-shadow: 0 8px 30px rgba(11,143,116,0.12);
+  transform: translateY(-1px);
+}
+
+/* make the error text look nicer */
+.form-row.small { font-size:13px; color:#b33; margin-bottom:8px; }
+
+/* actions area: primary + ghost style */
+.actions{
+  display:flex;
+  gap:12px;
+  justify-content:flex-end;
+  margin-top:8px;
+  align-items:center;
+}
+.btn{
+  padding:9px 16px;
+  border-radius:10px;
+  font-weight:800;
+  font-size:14px;
+  cursor:pointer;
+  border: none;
+  background: #f3f6f5;
+  color:#02332b;
+  box-shadow: 0 8px 18px rgba(6,40,34,0.05);
+  transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+.btn:hover{ transform: translateY(-3px); box-shadow: 0 18px 36px rgba(6,40,34,0.08); }
+.btn:active { transform: translateY(-1px); }
+
+.btn.btn-primary{
+  background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+  color:#fff;
+  box-shadow: 0 14px 30px rgba(11,143,116,0.18);
+}
+
+/* floating close button (polished) */
+.auth-close-btn{
+  position:absolute;
+  right:28px;
+  top:28px;
+  z-index:2100;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.12);
+  font-weight:700;
+  padding:8px 12px;
+  cursor:pointer;
+  font-size:16px;
+  border-radius:10px;
+  backdrop-filter: blur(6px);
+  transition: background 160ms ease, transform 120ms ease;
+}
+.auth-close-btn:hover{ background: rgba(255,255,255,0.14); transform: translateY(-2px); }
+
+/* note back link (enhanced) */
+.note-back{ display:inline-block; margin-bottom:12px; color:var(--accent-2); cursor:pointer; font-weight:800; }
+
+/* ---------- Loading / spinner styles ---------- */
+/* button spinner (inline) */
+.btn .btn-spinner{
+  display:inline-block;
+  width:18px;
+  height:18px;
+  vertical-align:middle;
+  margin-left:8px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,0.2);
+  border-top-color:rgba(255,255,255,0.95);
+  animation: spin 900ms linear infinite;
+  box-sizing:border-box;
+  transform-origin: center;
+}
+
+/* darker spinner for ghost buttons */
+.btn.ghost .btn-spinner{
+  border:2px solid rgba(6,40,34,0.12);
+  border-top-color: rgba(6,40,34,0.7);
+}
+
+/* when button is loading, slightly reduce text opacity and prevent pointer events */
+.btn.loading{
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* small spinner keyframes */
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Fullscreen subtle loader (centered) */
+.fullscreen-loader{
+  position:fixed;
+  inset:0;
+  display:none;            /* toggled by JS */
+  align-items:center;
+  justify-content:center;
+  z-index:4000;
+  background: rgba(2,8,6,0.35);
+}
+
+/* loader card */
+.fullscreen-loader .loader-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,255,252,0.95));
+  padding:18px 22px;
+  border-radius:12px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  box-shadow: 0 20px 50px rgba(3,30,26,0.36);
+  border:1px solid rgba(6,40,34,0.06);
+}
+
+/* big spinner for fullscreen */
+.fullscreen-loader .big-spinner{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:4px solid rgba(11,143,116,0.14);
+  border-top-color: var(--accent-1);
+  animation: spin 900ms linear infinite;
+}
+
+/* optional loading text */
+.fullscreen-loader .loading-text{
+  font-weight:800;
+  color:#063b33;
+  font-size:15px;
+}
+
+/* responsive - stack on narrow screens */
+@media (max-width:980px){
+  .auth-full{
+    grid-template-columns: 1fr;
+    padding:20px;
+    gap:16px;
+  }
+  .auth-full .left, .auth-full .right{
+    border-radius:12px;
+    padding:16px;
+  }
+  .tab{ font-size:14px; padding:8px 12px; }
+  .input{ padding:11px; font-size:14px; }
+  .auth-close-btn{ right:14px; top:14px; }
+  .photo-wrap{ height:260px; width:100%; }
+  .notes-grid{ grid-template-columns: 1fr; }
+  .nav-right{ gap:8px; }
+  .nav-links{ gap:6px; }
+  .auth-pill .name{ font-size:12px; }
+  .avatar{ width:26px; height:26px; font-size:12px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand" role="banner">
+    <img src="logo.png" alt="NK Classes logo" class="logo" />
+    <div class="title">
+      <div><h1>NK Classes</h1></div>
+      <div><p>Chemistry Educator</p></div>
+    </div>
+  </div>
+
+  <div class="nav-right" role="navigation">
+    <div class="nav-links" aria-label="Main navigation">
+      <!-- Home + new About Us + Library -->
+      <a href="#home" data-route="home" id="nav-home">Home</a>
+      <a href="#about" data-route="about" id="nav-about">About Us</a>
+      <a href="#library" data-route="library" id="nav-library">Library</a>
+    </div>
+
+    <div id="authArea" class="auth-area" aria-live="polite"></div>
+  </div>
+</nav>
+
+<div class="wrap" id="mainContent" aria-hidden="false">
+
+  <!-- HOME (text left, photo right) -->
+  <section id="page-home" class="page home-hero" data-route="home">
+    <div class="hero">
+      <div class="text-section">
+        <span class="eyebrow">Trusted Chemistry Mentor</span>
+        <h1 class="hero-title">Neeraj Kumar — NK Classes</h1>
+        <p class="hero-desc">
+          B.Tech (NIT Rourkela) • 12+ years teaching experience. We make difficult concepts simple and scoring.
+        </p>
+
+        <div style="margin-top:12px">
+          <button class="btn btn-primary" data-route="notes">📘 View Notes</button>
+          <button class="btn" data-route="contact">📅 Book a Session</button>
+        </div>
+
+        <div style="margin-top:18px">
+          <div id="welcomePanel" class="profile-card" style="display:none">
+            <div class="avatar" id="welcomeAvatar">U</div>
+            <div>
+              <div id="welcomeUser" style="font-weight:700">Full Name</div>
+              <div class="meta" id="welcomeInfo"></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="small-muted" style="margin-top:18px"><strong>Quick links:</strong> Click the buttons to open sections without reloading the page.</p>
+      </div>
+
+      <div class="photo-section">
+        <div class="photo-wrap" aria-hidden="false">
+          <img src="photo.png" alt="NK Sir" class="photo" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT US -->
+  <section id="page-about" class="page" data-route="about" style="display:none; margin-top:18px;">
+    <h3>About Us</h3>
+    <p class="small-muted">NK Classes — guided by Neeraj Kumar. We focus on clarity, problem-solving, and exam-ready strategies. This section is a placeholder; replace with your full about copy, mission, testimonials, and instructor bio.</p>
+
+    <div style="margin-top:12px">
+      <div class="profile-card">
+        <div class="avatar">N</div>
+        <div>
+          <div style="font-weight:700">Neeraj Kumar</div>
+          <div class="meta">B.Tech (NIT Rourkela) • 12+ years teaching Chemistry</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIBRARY -->
+  <section id="page-library" class="page" data-route="library" style="display:none; margin-top:18px;">
+    <h3>Library</h3>
+    <p class="small-muted">A curated library of notes, PDFs, and resources. This is a placeholder list — link real resources or integrate file storage.</p>
+
+    <div style="margin-top:12px; display:grid; gap:10px;">
+      <div style="background:#fff; padding:12px; border-radius:10px; border:1px solid rgba(0,0,0,0.04);">
+        <strong>Organic Chemistry Cheatsheet (PDF)</strong>
+        <div class="small" style="color:#18433a">High-yield reactions & mechanisms</div>
+      </div>
+      <div style="background:#fff; padding:12px; border-radius:10px; border:1px solid rgba(0,0,0,0.04);">
+        <strong>Inorganic Quick Notes</strong>
+        <div class="small" style="color:#18433a">Periodic trends and key numericals</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTES (kept but not in nav) -->
+  <section id="page-notes" class="page" data-route="notes" style="display:none; margin-top:18px;">
+    <div id="notes-list-view">
+      <h3>Notes — Free & Paid</h3>
+      <p class="small-muted">Browse curated notes. Click any note to open it without reloading the page.</p>
+
+      <div style="margin-top:12px">
+        <input id="searchNotes" class="input" placeholder="Search notes (organic, inorganic, physical)">
+      </div>
+
+      <div id="notesGrid" class="notes-grid"></div>
+    </div>
+
+    <div id="notes-detail-view" style="display:none">
+      <!-- detail content injected by JS -->
+    </div>
+  </section>
+
+  <!-- COURSES (kept but not in nav) -->
+  <section id="page-courses" class="page" data-route="courses" style="display:none; margin-top:18px;">
+    <h3>Courses</h3>
+    <div id="coursesList"></div>
+  </section>
+
+  <!-- CONTACT (kept but not in nav) -->
+  <section id="page-contact" class="page" data-route="contact" style="display:none; margin-top:18px;">
+    <h3>Contact / Book a Session</h3>
+    <form id="contactForm">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+        <input id="name" class="input" placeholder="Your name" />
+        <input id="email" class="input" placeholder="Email" />
+      </div>
+      <div style="margin-top:10px">
+        <input id="subject" class="input" placeholder="Subject" />
+      </div>
+      <div style="margin-top:10px">
+        <textarea id="message" class="input" rows="6" placeholder="Write your message..."></textarea>
+      </div>
+      <div style="margin-top:10px"><button class="btn btn-primary" type="submit">Send Message</button></div>
+    </form>
+  </section>
+
+  <footer style="margin-top:18px">© <span id="year"></span> NK Classes • Built with ♥</footer>
+</div>
+
+<!-- FULLSCREEN AUTH overlay (fills entire viewport) -->
+<div id="authOverlay" class="auth-overlay" role="dialog" aria-modal="true" aria-labelledby="authTitle" aria-hidden="true">
+  <button class="auth-close-btn" id="btnAuthClose" aria-label="Close">✕</button>
+
+  <div class="auth-full" role="document">
+    <div class="left" aria-hidden="false">
+      <h2 id="authTitle">Welcome to NK Classes</h2>
+      <p>Sign in to access saved notes and your profile. New here? Create an account — it only takes a minute.</p>
+      <div class="footer-small" style="margin-top:8px; font-size:12px; color:rgba(0,0,0,0.6);">
+        Security note: For production use Firebase Authentication. This demo writes plaintext passwords to Firestore for testing only.
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="tabbar" role="tablist">
+        <div id="tabLogin" class="tab active" role="tab" aria-selected="true">Login</div>
+        <div id="tabRegister" class="tab" role="tab">Register</div>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="loginForm" aria-labelledby="tabLogin">
+        <div id="loginError" class="form-row small" style="color:crimson;display:none"></div>
+        <div class="form-row"><input id="loginUsername" class="input" placeholder="Username (eg: nk001)" autocomplete="username"></div>
+        <div class="form-row"><input id="loginPassword" class="input" type="password" placeholder="Password" autocomplete="current-password"></div>
+        <div class="actions">
+          <button id="btnLoginCancel" class="btn">Close</button>
+          <button id="btnLogin" class="btn btn-primary">Login</button>
+        </div>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="registerForm" style="display:none" aria-labelledby="tabRegister">
+        <div id="registerError" class="form-row small" style="color:crimson;display:none"></div>
+
+        <div class="form-row"><input id="regName" class="input" placeholder="Full Name" autocomplete="name" required></div>
+        <div class="form-row"><input id="regUsername" class="input" placeholder="Choose a username (eg: nk001)" autocomplete="username" required></div>
+        <div class="form-row"><input id="regEmail" class="input" type="email" placeholder="Email" autocomplete="email" required></div>
+        <div class="form-row"><input id="regPhone" class="input" placeholder="Phone Number" autocomplete="tel" required></div>
+        <div class="form-row"><input id="regPassword" class="input" type="password" placeholder="Password" autocomplete="new-password" required></div>
+
+        <div class="actions">
+          <button id="btnRegisterCancel" class="btn">Close</button>
+          <button id="btnRegister" class="btn btn-primary">Register</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Fullscreen loader (hidden by default) -->
+<div id="fullscreenLoader" class="fullscreen-loader" aria-hidden="true" role="status" aria-live="polite">
+  <div class="loader-card" role="presentation">
+    <div class="big-spinner" aria-hidden="true"></div>
+    <div class="loading-text">Working…</div>
+  </div>
+</div>
+
+<script type="module">
+/* same script as before with navbar links for home/about/library */
+const firebaseConfig = {
+  apiKey: "AIzaSyAcIHLJdYe_tUA7t4fuapxmyeXXESo4Ze4",
+  authDomain: "nk-classes.firebaseapp.com",
+  projectId: "nk-classes",
+  storageBucket: "nk-classes.firebasestorage.app",
+  messagingSenderId: "999944440818",
+  appId: "1:999944440818:web:326234d2623f53fa25396b",
+  measurementId: "G-56128412GG"
+};
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* --------------------
+   Element refs
+   -------------------- */
+const authArea = document.getElementById('authArea');
+const authOverlay = document.getElementById('authOverlay');
+const mainContent = document.getElementById('mainContent');
+
+const tabLogin = document.getElementById('tabLogin');
+const tabRegister = document.getElementById('tabRegister');
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+
+const loginUsername = document.getElementById('loginUsername');
+const loginPassword = document.getElementById('loginPassword');
+const loginError = document.getElementById('loginError');
+const btnLogin = document.getElementById('btnLogin');
+const btnLoginCancel = document.getElementById('btnLoginCancel');
+
+const regName = document.getElementById('regName');
+const regUsername = document.getElementById('regUsername');
+const regEmail = document.getElementById('regEmail');
+const regPhone = document.getElementById('regPhone');
+const regPassword = document.getElementById('regPassword');
+const registerError = document.getElementById('registerError');
+const btnRegister = document.getElementById('btnRegister');
+const btnRegisterCancel = document.getElementById('btnRegisterCancel');
+
+const welcomePanel = document.getElementById('welcomePanel');
+const welcomeAvatar = document.getElementById('welcomeAvatar');
+const welcomeUser = document.getElementById('welcomeUser');
+const welcomeInfo = document.getElementById('welcomeInfo');
+
+const notesGrid = document.getElementById('notesGrid');
+const notesListView = document.getElementById('notes-list-view');
+const notesDetailView = document.getElementById('notes-detail-view');
+
+const btnAuthClose = document.getElementById('btnAuthClose');
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* --------------------
+   Overlay control (hidden by default)
+   -------------------- */
+function openAuthOverlay(){
+  authOverlay.style.display = 'flex';
+  authOverlay.setAttribute('aria-hidden','false');
+  mainContent.setAttribute('aria-hidden','true');
+  setTimeout(()=> {
+    const firstInput = document.querySelector('#loginUsername, #regName');
+    if(firstInput) firstInput.focus();
+  }, 50);
+}
+function closeAuthOverlay(){
+  authOverlay.style.display = 'none';
+  authOverlay.setAttribute('aria-hidden','true');
+  mainContent.setAttribute('aria-hidden','false');
+}
+
+/* Tabs */
+function setTab(mode){
+  if(mode === 'login'){
+    tabLogin.classList.add('active'); tabRegister.classList.remove('active');
+    loginForm.style.display = 'block'; registerForm.style.display = 'none';
+  } else {
+    tabRegister.classList.add('active'); tabLogin.classList.remove('active');
+    registerForm.style.display = 'block'; loginForm.style.display = 'none';
+  }
+}
+tabLogin.addEventListener('click', ()=> setTab('login'));
+tabRegister.addEventListener('click', ()=> setTab('register'));
+
+/* --------------------
+   Auth UI rendering + persistence helpers
+   -------------------- */
+let currentProfile = null;
+
+function renderSignedOut(){
+  authArea.innerHTML = '';
+  const btn = document.createElement('button');
+  btn.className = 'btn';
+  btn.textContent = 'Login / Register';
+  btn.addEventListener('click', openAuthOverlay);
+  authArea.appendChild(btn);
+
+  welcomePanel.style.display = 'none';
+  currentProfile = null;
+
+  document.querySelectorAll('.auth-pill, .auth-pill + .btn').forEach(el => el.remove());
+}
+
+function renderSignedIn(profile){
+  currentProfile = profile;
+  authArea.innerHTML = '';
+
+  const pill = document.createElement('div'); pill.className = 'auth-pill';
+  const avatar = document.createElement('div'); avatar.className = 'avatar';
+  avatar.textContent = (profile.name ? profile.name.charAt(0) : (profile.username ? profile.username.charAt(0) : 'U')).toUpperCase();
+
+  const nameWrap = document.createElement('div');
+  const nameEl = document.createElement('div'); nameEl.className = 'name';
+  nameEl.textContent = profile.name || profile.username || 'User';
+
+  const small = document.createElement('div'); small.className = 'small'; small.textContent = profile.phone || '';
+
+  nameWrap.appendChild(nameEl);
+  nameWrap.appendChild(small);
+
+  const btnOut = document.createElement('button'); btnOut.className = 'btn'; btnOut.textContent = 'Sign out';
+  btnOut.addEventListener('click', ()=> {
+    try { localStorage.removeItem('nk_user'); } catch(e){ console.warn(e); }
+    renderSignedOut();
+  });
+
+  pill.appendChild(avatar); pill.appendChild(nameWrap);
+  authArea.appendChild(pill); authArea.appendChild(btnOut);
+
+  welcomePanel.style.display = 'flex';
+  welcomeAvatar.textContent = avatar.textContent;
+  welcomeUser.textContent = profile.name || profile.username || 'User';
+
+  let meta = '';
+  if(profile.regn) meta += `Joined: ${new Date(profile.regn).toLocaleString()}`;
+  if(profile.phone) meta += (meta ? ' • ' : '') + profile.phone;
+  welcomeInfo.textContent = meta;
+}
+
+/* safe local persist (remove password) */
+function persistProfile(profile){
+  const { password, ...safeProfile } = profile;
+  try { localStorage.setItem('nk_user', JSON.stringify(safeProfile)); } catch(e){ console.warn('localStorage failed', e); }
+}
+
+/* ---------- Loading helpers ---------- */
+function setLoading(buttonOrId, on = true){
+  const btn = typeof buttonOrId === 'string' ? document.getElementById(buttonOrId) : buttonOrId;
+  if(!btn) return;
+  if(on){
+    btn.classList.add('loading');
+    if(!btn.querySelector('.btn-spinner')){
+      const sp = document.createElement('span');
+      sp.className = 'btn-spinner';
+      btn.appendChild(sp);
+    }
+  } else {
+    btn.classList.remove('loading');
+    const sp = btn.querySelector('.btn-spinner');
+    if(sp) sp.remove();
+  }
+}
+function showFullscreenLoader(show = true, text = 'Working…'){
+  const el = document.getElementById('fullscreenLoader');
+  if(!el) return;
+  el.style.display = show ? 'flex' : 'none';
+  el.setAttribute('aria-hidden', show ? 'false' : 'true');
+  const txt = el.querySelector('.loading-text');
+  if(txt) txt.textContent = text;
+}
+
+/* -------------------------
+   LOGIN logic: read users/{username} and compare password
+   ------------------------- */
+async function handleLogin(){
+  loginError.style.display = 'none';
+  const username = (loginUsername.value || '').trim();
+  const password = (loginPassword.value || '').trim();
+
+  if(!username || !password){
+    loginError.style.display = 'block';
+    loginError.textContent = 'Please enter username and password.';
+    return;
+  }
+
+  setLoading(btnLogin, true);
+  showFullscreenLoader(true, 'Signing in…');
+
+  try{
+    const userRef = doc(db, 'users', username.toLowerCase());
+    const snap = await getDoc(userRef);
+    if(!snap.exists()){
+      loginError.style.display = 'block';
+      loginError.textContent = 'User not found. Check username.';
+      return;
+    }
+    const data = snap.data();
+    if(!data.password || data.password !== password){
+      loginError.style.display = 'block';
+      loginError.textContent = 'Incorrect password.';
+      return;
+    }
+
+    const profile = { username: username.toLowerCase(), ...data };
+    persistProfile(profile);
+
+    renderSignedIn(profile);
+    closeAuthOverlay();
+    loginUsername.value = ''; loginPassword.value = '';
+  }catch(err){
+    console.error('Login failed:', err);
+    loginError.style.display = 'block';
+    loginError.textContent = 'Login failed. Check console (permissions/rules).';
+  }finally{
+    setLoading(btnLogin, false);
+    showFullscreenLoader(false);
+  }
+}
+
+/* -------------------------
+   REGISTER logic
+   ------------------------- */
+function validateEmailFormat(email){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+function validatePhone(phone){
+  return /^[0-9]{7,15}$/.test(phone);
+}
+
+async function handleRegister(){
+  registerError.style.display = 'none';
+
+  const name = (regName.value || '').trim();
+  const usernameRaw = (regUsername.value || '').trim();
+  const username = usernameRaw.toLowerCase();
+  const email = (regEmail.value || '').trim();
+  const phone = (regPhone.value || '').trim();
+  const password = (regPassword.value || '').trim();
+
+  if(!name || !username || !email || !phone || !password){
+    registerError.style.display = 'block';
+    registerError.textContent = 'All fields are required.';
+    return;
+  }
+
+  if(!/^[a-zA-Z0-9_-]{3,30}$/.test(usernameRaw)){
+    registerError.style.display = 'block';
+    registerError.textContent = 'Username must be 3–30 chars: letters, numbers, _ or -';
+    return;
+  }
+  if(!validateEmailFormat(email)){
+    registerError.style.display = 'block';
+    registerError.textContent = 'Enter a valid email address.';
+    return;
+  }
+  if(!validatePhone(phone)){
+    registerError.style.display = 'block';
+    registerError.textContent = 'Enter a valid phone number (digits only).';
+    return;
+  }
+
+  setLoading(btnRegister, true);
+  showFullscreenLoader(true, 'Creating account…');
+
+  try{
+    const userRef = doc(db, 'users', username);
+    const snap = await getDoc(userRef);
+    if(snap.exists()){
+      registerError.style.display = 'block';
+      registerError.textContent = 'Username already taken.';
+      return;
+    }
+
+    const profileToStore = {
+      name,
+      username,
+      email,
+      phone,
+      password,
+      regn: new Date().toISOString()
+    };
+
+    await setDoc(userRef, profileToStore);
+
+    const { password: _pwd, ...profileLocal } = profileToStore;
+    persistProfile(profileLocal);
+
+    renderSignedIn(profileLocal);
+    closeAuthOverlay();
+
+    regName.value=''; regUsername.value=''; regEmail.value=''; regPhone.value=''; regPassword.value='';
+  }catch(err){
+    console.error('Register error:', err);
+    registerError.style.display = 'block';
+    if(err && err.code && err.code.includes('permission')){
+      registerError.textContent = 'Permission denied: check Firestore rules for writes to /users.';
+    } else {
+      registerError.textContent = 'Registration failed. See console.';
+    }
+  }finally{
+    setLoading(btnRegister, false);
+    showFullscreenLoader(false);
+  }
+}
+
+/* -------------------------
+   Auto login from localStorage
+   ------------------------- */
+async function tryAutoLogin(){
+  const raw = localStorage.getItem('nk_user');
+  if(!raw) return false;
+  try{
+    const saved = JSON.parse(raw);
+    if(!saved || !saved.username) return false;
+
+    try{
+      const userRef = doc(db, 'users', saved.username);
+      const snap = await getDoc(userRef);
+      if(snap.exists()){
+        const data = snap.data();
+        const profile = { username: saved.username, ...data };
+        const { password, ...safe } = profile;
+        renderSignedIn(safe);
+        return true;
+      } else {
+        renderSignedIn(saved);
+        return true;
+      }
+    }catch(fetchErr){
+      console.warn('Could not refresh profile from Firestore:', fetchErr);
+      renderSignedIn(saved);
+      return true;
+    }
+  }catch(e){
+    console.error('Failed to parse saved profile:', e);
+    try { localStorage.removeItem('nk_user'); } catch(_) {}
+    return false;
+  }
+}
+
+/* -------------------------
+   Wire up events
+   ------------------------- */
+btnLogin.addEventListener('click', handleLogin);
+btnLoginCancel.addEventListener('click', closeAuthOverlay);
+btnRegister.addEventListener('click', handleRegister);
+btnRegisterCancel.addEventListener('click', closeAuthOverlay);
+
+if(btnAuthClose){
+  btnAuthClose.addEventListener('click', closeAuthOverlay);
+}
+
+[loginUsername, loginPassword].forEach(i=> i.addEventListener('keydown', e => { if(e.key === 'Enter') handleLogin(); }));
+[regName, regUsername, regEmail, regPhone, regPassword].forEach(i=> i.addEventListener('keydown', e => { if(e.key === 'Enter') handleRegister(); }));
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape' && authOverlay.style.display === 'flex') closeAuthOverlay();
+});
+
+(async ()=> {
+  renderSignedOut();
+  await tryAutoLogin();
+})();
+
+/* ----------------------------
+   Minimal SPA router + notes SPA (updated)
+   ---------------------------- */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+function setActiveNav(route){
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.dataset.route === route));
+}
+
+// NEW — only select page sections (sections with data-route)
+const pages = document.querySelectorAll('section[data-route]');
+
+function showRoute(route){
+  // show only the matching page sections, hide other page sections
+  pages.forEach(p => {
+    p.style.display = (p.dataset.route === route) ? 'block' : 'none';
+  });
+
+  // update nav active state (this targets only the anchors in the nav)
+  setActiveNav(route);
+}
+
+
+// handle SPA clicks only for interactive elements
+document.querySelectorAll('a[data-route], button[data-route]').forEach(el => {
+  el.addEventListener('click', (e) => {
+    e.preventDefault();
+    const r = el.dataset.route;
+    history.pushState({r}, '', '#'+r);
+    handleRouteChange();
+  });
+});
+
+window.addEventListener('popstate', handleRouteChange);
+
+function handleRouteChange(){
+  const raw = location.hash.replace('#','') || 'home';
+  // support notes/:id
+  const [route, id] = raw.split('/');
+  if(route === 'notes' && id){
+    // show notes list & detail
+    showRoute('notes');
+    openNoteDetail(id, { pushState: false });
+  } else {
+    // show normal routes
+    hideNoteDetail();
+    showRoute(route);
+  }
+}
+
+/* -------------------------
+   Demo NOTES data (could be fetched from server)
+   ------------------------- */
+const NOTES = [
+  { id: '1', title: 'Organic Chemistry — Basics', tags:['organic'], excerpt:'Functional groups, nomenclature, reaction types.', body: `<h4>Functional groups</h4><p>Alcohols, ethers, aldehydes, ketones — basics and examples.</p><h4>Nomenclature</h4><p>IUPAC rules: parent chain, numbering, substituents.</p>` },
+  { id: '2', title: 'Inorganic — Periodic Table Notes', tags:['inorganic'], excerpt:'Trends, groups, periodic properties with solved examples.', body: `<h4>Periodic trends</h4><p>Atomic radius, ionization energy — explanations with examples.</p>` },
+  { id: '3', title: 'Physical Chemistry — Equilibrium', tags:['physical'], excerpt:'Kp, Kc, Le Chatelier, worked examples.', body: `<h4>Chemical equilibrium</h4><p>Kc vs Kp explained with sample problems.</p>` },
+  { id: '4', title: 'Organic — Reaction Mechanisms', tags:['organic'], excerpt:'SN1, SN2, E1, E2 explained step-by-step.', body: `<h4>SN1 vs SN2</h4><p>Mechanism, stereochemistry, rate laws and examples.</p>` },
+  { id: '5', title: 'Thermochemistry — Short Notes', tags:['physical'], excerpt:'Enthalpy, Hess law & numerical tricks.', body: `<h4>Hess's Law</h4><p>Using Hess's law to compute enthalpy changes.</p>` },
+  { id: '6', title: 'Coordination Compounds', tags:['inorganic'], excerpt:'Nomenclature, isomerism, stability constants.', body: `<h4>Coordination basics</h4><p>Ligands, coordination numbers, isomerism examples.</p>` }
+];
+
+function renderNotes(q=''){
+  notesGrid.innerHTML = '';
+  const query = (q||'').trim().toLowerCase();
+  const list = NOTES.filter(n => {
+    if(!query) return true;
+    const title = (n.title || '').toLowerCase();
+    const excerpt = (n.excerpt || '').toLowerCase();
+    const tags = (n.tags || []).join(' ').toLowerCase();
+    return title.includes(query) || excerpt.includes(query) || tags.includes(query);
+  });
+  if(list.length === 0){
+    notesGrid.innerHTML = `<div style="color:#2b4a40">No notes found.</div>`;
+    return;
+  }
+  list.forEach(n => {
+    const card = document.createElement('div');
+    card.className = 'note-card';
+    card.innerHTML = `<div class="note-title">${escapeHtml(n.title)}</div>
+                      <div class="note-excerpt">${escapeHtml(n.excerpt)}</div>`;
+    card.addEventListener('click', ()=> {
+      openNoteDetail(n.id, { pushState: true });
+    });
+    notesGrid.appendChild(card);
+  });
+}
+
+function escapeHtml(s){
+  if(!s) return '';
+  return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+}
+
+function openNoteDetail(id, { pushState=true } = {}){
+  const note = NOTES.find(x => x.id === String(id));
+  if(!note){
+    notesDetailView.innerHTML = `<div class="note-detail"><div class="note-back" onclick="history.back()">← Back</div><div>Note not found.</div></div>`;
+    notesDetailView.style.display = 'block';
+    notesListView.style.display = 'none';
+    return;
+  }
+  const safeHtml = DOMPurify.sanitize(note.body || '');
+  notesDetailView.innerHTML = `
+    <div class="note-detail">
+      <div class="note-back" id="noteBack">← Back to notes</div>
+      <h2 style="margin-top:0">${escapeHtml(note.title)}</h2>
+      <div style="color:var(--muted); margin-bottom:12px">${escapeHtml(note.tags.join(' • '))}</div>
+      <div>${safeHtml}</div>
+    </div>
+  `;
+  document.getElementById('noteBack').addEventListener('click', ()=> {
+    history.pushState({}, '', '#notes');
+    hideNoteDetail();
+  });
+  notesDetailView.style.display = 'block';
+  notesListView.style.display = 'none';
+  if(pushState){
+    history.pushState({}, '', '#notes/' + note.id);
+  }
+}
+function hideNoteDetail(){
+  notesDetailView.style.display = 'none';
+  notesListView.style.display = 'block';
+}
+
+document.getElementById('searchNotes').addEventListener('input', e => renderNotes(e.target.value));
+renderNotes();
+
+/* Courses + contact behavior unchanged */
+const COURSES = [ {id:'c1',title:'Crash Course: JEE Mains Chemistry',desc:'High-yield topics'} ];
+const coursesList = document.getElementById('coursesList');
+COURSES.forEach(c => {
+  const div = document.createElement('div'); div.style.padding='12px'; div.style.borderRadius='10px'; div.style.background='#fff'; div.style.marginTop='10px';
+  div.innerHTML = `<strong>${escapeHtml(c.title)}</strong><div class="small" style="color:#18433a">${escapeHtml(c.desc)}</div>`;
+  coursesList.appendChild(div);
+});
+
+const contactForm = document.getElementById('contactForm');
+contactForm.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  alert('Message sent (demo).');
+  contactForm.reset();
+});
+</script>
+</body>
+</html>
