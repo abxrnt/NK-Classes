@@ -1,105 +1,114 @@
-<!-- FULL-BLEED HERO CAROUSEL — shows full image (no cropping), auto-swipe + dots -->
-<section id="hero-carousel" class="w-full">
-  <div class="relative w-full overflow-hidden">
-
-    <!-- VIEWPORT (full-bleed) -->
-    <div id="carousel-viewport" class="overflow-hidden w-full">
-      <div id="carousel-track" class="flex transition-transform duration-700 ease-out">
-
+<!-- ====== HERO CAROUSEL COMPONENT (drop-in) ====== -->
+<section id="hero-carousel-component" class="w-full m-0 p-0 block">
+  <div id="hero-wrap-c" style="position:relative; width:100vw; left:50%; transform:translateX(-50%); overflow:hidden;">
+    <!-- VIEWPORT -->
+    <div id="carousel-viewport-c" class="overflow-hidden w-full">
+      <div id="carousel-track-c" class="flex transition-transform duration-700 ease-out will-change-transform">
         <!-- Slide 1 -->
-        <div class="slide flex-shrink-0" style="flex:0 0 100%;">
-          <!-- NOTE: width:100% height:auto ensures the image is shown entirely -->
+        <div class="slide-c flex-shrink-0" style="flex:0 0 100%;">
           <img src="components/1.jpeg" alt="Slide 1" class="w-full h-auto object-contain object-center block" />
         </div>
 
         <!-- Slide 2 -->
-        <div class="slide flex-shrink-0" style="flex:0 0 100%;">
+        <div class="slide-c flex-shrink-0" style="flex:0 0 100%;">
           <img src="components/1.jpeg" alt="Slide 2" class="w-full h-auto object-contain object-center block" />
         </div>
 
-        <!-- optional Slide 3 -->
-        <div class="slide flex-shrink-0" style="flex:0 0 100%;">
+        <!-- Slide 3 -->
+        <div class="slide-c flex-shrink-0" style="flex:0 0 100%;">
           <img src="components/1.jpg" alt="Slide 3" class="w-full h-auto object-contain object-center block" />
         </div>
-
       </div>
     </div>
 
-    <!-- Dots (bottom center) -->
-    <div id="carousel-dots" class="absolute bottom-4 left-0 right-0 flex justify-center gap-3 z-40"></div>
+    <!-- Dots -->
+    <div id="carousel-dots-c" class="absolute bottom-4 left-0 right-0 flex justify-center gap-3 z-40 pointer-events-auto"></div>
   </div>
+
+  <!-- Inline script for the component (self-contained) -->
+  <script>
+    (function () {
+      // Element refs (scoped to component)
+      const track = document.getElementById('carousel-track-c');
+      const dotsWrap = document.getElementById('carousel-dots-c');
+      const viewport = document.getElementById('carousel-viewport-c');
+      if (!track || !dotsWrap || !viewport) return;
+
+      const slides = Array.from(track.querySelectorAll('.slide-c'));
+      if (!slides.length) return;
+
+      // Make slides exactly viewport width (handles container padding or layout)
+      function refreshSlideSizes() {
+        const vw = viewport.clientWidth || document.documentElement.clientWidth;
+        slides.forEach(s => { s.style.width = vw + 'px'; });
+      }
+
+      // initial & on resize
+      refreshSlideSizes();
+      window.addEventListener('resize', refreshSlideSizes);
+
+      // build dots
+      let activeIndex = 0;
+      slides.forEach((_, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'w-3 h-3 rounded-full bg-white/80 border border-white/30';
+        btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        btn.style.opacity = i === 0 ? '1' : '0.45';
+        btn.style.transform = i === 0 ? 'scale(1.15)' : 'scale(1)';
+        btn.addEventListener('click', () => { goTo(i); resetTimer(); });
+        dotsWrap.appendChild(btn);
+      });
+      const dots = Array.from(dotsWrap.children);
+
+      function updateDots() {
+        dots.forEach((d, idx) => {
+          d.style.opacity = idx === activeIndex ? '1' : '0.45';
+          d.style.transform = idx === activeIndex ? 'scale(1.15)' : 'scale(1)';
+        });
+      }
+
+      function goTo(i) {
+        activeIndex = ((i % slides.length) + slides.length) % slides.length;
+        const offset = (viewport.clientWidth || document.documentElement.clientWidth) * activeIndex;
+        track.style.transform = `translateX(-${offset}px)`;
+        updateDots();
+      }
+
+      // autoplay
+      let timer = null;
+      function startTimer() { timer = setInterval(() => goTo(activeIndex + 1), 4500); }
+      function resetTimer() { clearInterval(timer); startTimer(); }
+      startTimer();
+
+      // pause on hover (desktop)
+      viewport.addEventListener('mouseenter', () => clearInterval(timer));
+      viewport.addEventListener('mouseleave', resetTimer);
+
+      // swipe
+      let startX = 0, deltaX = 0;
+      const threshold = 50;
+      viewport.addEventListener('touchstart', e => { clearInterval(timer); startX = e.touches[0].clientX; }, { passive: true });
+      viewport.addEventListener('touchmove', e => { deltaX = e.touches[0].clientX - startX; }, { passive: true });
+      viewport.addEventListener('touchend', () => {
+        if (Math.abs(deltaX) > threshold) {
+          if (deltaX < 0) goTo(activeIndex + 1);
+          else goTo(activeIndex - 1);
+        }
+        startX = 0; deltaX = 0;
+        resetTimer();
+      });
+
+      // small timeout to ensure images load and layout stabilizes
+      setTimeout(() => { refreshSlideSizes(); goTo(0); }, 80);
+    })();
+  </script>
+
+  <style>
+    /* Component-level styles (keeps everything scoped visually) */
+    #hero-wrap-c { box-sizing: border-box; margin: 0; padding: 0; }
+    #carousel-viewport-c { margin: 0; padding: 0; }
+    #carousel-track-c { margin: 0; padding: 0; transition: transform 0.65s cubic-bezier(.22,.9,.26,1); will-change: transform; }
+    #carousel-dots-c button { background: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.32); width: 12px; height: 12px; border-radius: 9999px; }
+  </style>
 </section>
-
-<script>
-(function () {
-  const track = document.getElementById('carousel-track');
-  const dotsWrap = document.getElementById('carousel-dots');
-  const viewport = document.getElementById('carousel-viewport');
-  const slides = Array.from(track.querySelectorAll('.slide'));
-  if (!slides.length) return;
-
-  // Use viewport width (container width) for slide sizing — fixes oversize/zoom issues
-  function refreshSlideSizes() {
-    const vw = viewport.clientWidth || document.documentElement.clientWidth;
-    slides.forEach(s => { s.style.width = vw + 'px'; });
-  }
-
-  // initial
-  refreshSlideSizes();
-  // if page layout changes/resizes
-  window.addEventListener('resize', refreshSlideSizes);
-
-  // create dots
-  let activeIndex = 0;
-  slides.forEach((_, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'w-3 h-3 rounded-full bg-white/80 border border-white/30';
-    btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-    btn.addEventListener('click', () => { goTo(i); resetTimer(); });
-    dotsWrap.appendChild(btn);
-  });
-  const dots = Array.from(dotsWrap.children);
-
-  function updateDots() {
-    dots.forEach((d, idx) => {
-      d.style.opacity = idx === activeIndex ? '1' : '0.45';
-      d.style.transform = idx === activeIndex ? 'scale(1.15)' : 'scale(1)';
-    });
-  }
-
-  function goTo(i) {
-    activeIndex = ((i % slides.length) + slides.length) % slides.length;
-    const offset = (viewport.clientWidth || document.documentElement.clientWidth) * activeIndex;
-    track.style.transform = `translateX(-${offset}px)`;
-    updateDots();
-  }
-
-  // autoplay
-  let timer = null;
-  function startTimer() { timer = setInterval(() => goTo(activeIndex + 1), 4500); }
-  function resetTimer() { clearInterval(timer); startTimer(); }
-  startTimer();
-
-  // pause on hover (desktop)
-  viewport.addEventListener('mouseenter', () => clearInterval(timer));
-  viewport.addEventListener('mouseleave', resetTimer);
-
-  // swipe support
-  let startX = 0, deltaX = 0;
-  const threshold = 50;
-  viewport.addEventListener('touchstart', e => { clearInterval(timer); startX = e.touches[0].clientX; }, { passive: true });
-  viewport.addEventListener('touchmove', e => { deltaX = e.touches[0].clientX - startX; }, { passive: true });
-  viewport.addEventListener('touchend', () => {
-    if (Math.abs(deltaX) > threshold) {
-      if (deltaX < 0) goTo(activeIndex + 1);
-      else goTo(activeIndex - 1);
-    }
-    startX = 0; deltaX = 0;
-    resetTimer();
-  });
-
-  // small timeout to ensure images load and layout stabilizes
-  setTimeout(() => { refreshSlideSizes(); goTo(0); }, 80);
-})();
-</script>
-
+<!-- ====== END HERO CAROUSEL COMPONENT ====== -->
