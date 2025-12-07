@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -15,7 +14,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
-
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
@@ -26,225 +24,84 @@
       --blue-dark: #07203A;
       --blue-gradient: linear-gradient(45deg, var(--blue-light), var(--blue-accent), var(--blue-main), var(--blue-dark));
     }
-
-    body {
-      font-family: Inter, system-ui, sans-serif;
-      background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
-      color: #062433;
-    }
-
-    .fade-in {
-      animation: fadeIn 250ms ease-out both;
-    }
-
-    .fade-out {
-      animation: fadeOut 200ms ease-in both;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(6px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      to {
-        opacity: 0;
-        transform: translateY(-6px);
-      }
-    }
-
-    .nav-link {
-      position: relative;
-      font-weight: 600;
-      color: #07365a;
-    }
-
-    .nav-link::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 0;
-      height: 2px;
-      background: var(--blue-main);
-      transition: width 0.22s ease;
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
-    .tab-active {
-      color: white !important;
-      background: var(--blue-gradient);
-      border-radius: 10px;
-      padding: 6px 12px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 14px;
-      box-shadow: 0 6px 20px rgba(7, 36, 58, 0.06);
-      padding: 18px;
-    }
-
-    .logo-glow {
-      box-shadow: 0 0 18px rgba(25, 118, 242, 0.35);
-    }
-
-    button:hover {
-      background: var(--blue-gradient) !important;
-      color: white !important;
-      transition: 0.25s;
-      border-radius: 8px;
-    }
-
-    footer h2 {
-      background: var(--blue-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    footer svg:hover {
-      color: var(--blue-accent) !important;
-    }
-
-    nav {
-      border-bottom-color: rgba(7, 32, 50, 0.06);
-    }
-
-    .text-muted {
-      color: #5b6b78;
-    }
-
-    .mobile-icon {
-      color: #0b3b66;
-    }
-
-    /* compact mobile navbar tweaks */
-    .no-tap-highlight {
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-    }
+    body { font-family: Inter, system-ui, sans-serif; background: linear-gradient(180deg,#f7fbff 0%,#fff 100%); color:#062433; }
+    .fade-in{animation:fadeIn .25s ease-out both} .fade-out{animation:fadeOut .2s ease-in both}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}} @keyframes fadeOut{from{opacity:1}to{opacity:0;transform:translateY(-6px)}}
+    .nav-link{position:relative;font-weight:600;color:#07365a}
+    .nav-link::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--blue-main);transition:width .22s}
+    .nav-link:hover::after{width:100%}
+    .tab-active{color:#fff !important;background:var(--blue-gradient);border-radius:10px;padding:6px 12px}
+    .card{background:white;border-radius:14px;box-shadow:0 6px 20px rgba(7,36,58,.06);padding:18px}
+    .logo-glow{box-shadow:0 0 18px rgba(25,118,242,.35)}
+    button:hover{background:var(--blue-gradient) !important;color:white !important;transition:.25s;border-radius:8px}
+    footer h2{background:var(--blue-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    nav{border-bottom-color:rgba(7,32,50,.06)}
+    .text-muted{color:#5b6b78}
+    .mobile-icon{color:#0b3b66}
+    .no-tap-highlight{-webkit-tap-highlight-color:rgba(0,0,0,0)}
+    /* small responsive tweak for auth area on very small screens */
+    @media (max-width:640px){ #authArea { display:none !important } }
   </style>
 </head>
-
 <body class="text-slate-900">
 
   <!-- NAVBAR -->
   <nav class="sticky top-0 z-50 bg-white border-b shadow-sm">
     <div class="max-w-6xl mx-auto px-4 md:px-8">
-
-      <!-- TOP ROW: LOGO + TITLE -->
       <div class="flex items-center justify-between py-2">
-
-        <!-- Logo + Name -->
         <div class="flex items-center gap-3">
           <img src="favicon.png" class="w-10 h-10 rounded-full shadow-sm object-cover logo-glow" />
-
           <div class="leading-tight">
-            <a class="text-xl font-extrabold"
-              style="font-family:'Playfair Display',serif; background:var(--blue-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
-              NK Classes
-            </a>
-            <div class="text-[10px] text-muted">
-              Where Chemistry Becomes Crystal Clear
-            </div>
+            <a class="text-xl font-extrabold" style="font-family:'Playfair Display',serif;background:var(--blue-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">NK Classes</a>
+            <div class="text-[10px] text-muted">Where Chemistry Becomes Crystal Clear</div>
           </div>
         </div>
 
-        <!-- Desktop Tabs + Auth -->
         <div class="flex items-center gap-4">
           <ul id="desktopTabs" class="hidden md:flex gap-3 items-center text-sm">
-            <li><button data-tab="home" class="nav-link px-2 py-1 rounded-md">Home</button></li>
-            <li><button data-tab="about" class="nav-link px-2 py-1 rounded-md">About Us</button></li>
-            <li><button data-tab="materials" class="nav-link px-2 py-1 rounded-md">Study Materials</button></li>
-            <li><button data-tab="lectures" class="nav-link px-2 py-1 rounded-md">Lectures</button></li>
-            <li><button data-tab="cutoffs" class="nav-link px-2 py-1 rounded-md">Cutoffs</button></li>
-            <li><button data-tab="placements" class="nav-link px-2 py-1 rounded-md">Placements & Campus</button></li>
-            <li><button data-tab="contact" class="nav-link px-2 py-1 rounded-md">Contact Us</button></li>
+            <li><button data-route="home" class="nav-link px-2 py-1 rounded-md">Home</button></li>
+            <li><button data-route="about" class="nav-link px-2 py-1 rounded-md">About Us</button></li>
+            <li><button data-route="materials" class="nav-link px-2 py-1 rounded-md">Study Materials</button></li>
+            <li><button data-route="lectures" class="nav-link px-2 py-1 rounded-md">Lectures</button></li>
+            <li><button data-route="cutoffs" class="nav-link px-2 py-1 rounded-md">Cutoffs</button></li>
+            <li><button data-route="placements" class="nav-link px-2 py-1 rounded-md">Placements & Campus</button></li>
+            <li><button data-route="contact" class="nav-link px-2 py-1 rounded-md">Contact Us</button></li>
           </ul>
 
-          <!-- Auth area -->
+          <!-- auth area (injected / populated) -->
           <div id="authArea" class="ml-2 hidden md:flex items-center gap-3"></div>
         </div>
-
       </div>
 
       <!-- MOBILE ICON BAR (compact non-scrollable) -->
       <div class="md:hidden pb-1">
         <div class="grid grid-cols-7 gap-1 items-center text-center px-1 no-tap-highlight">
-          <!-- Home -->
-          <button data-tab="home" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z" />
-            </svg>
+          <button data-route="home" class="flex flex-col items-center w-full py-1 mobile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z"/></svg>
             <span class="text-[9px] leading-[10px]">Home</span>
           </button>
-
-          <!-- About -->
-          <button data-tab="about" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 4.5c2.485 0 4.5 2.015 4.5 4.5s-2.015 4.5-4.5 4.5-4.5-2.015-4.5-4.5S9.515 4.5 12 4.5zm0 12c4.142 0 7.5 2.015 7.5 4.5V21H4.5v-.75c0-2.485 3.358-4.5 7.5-4.5z" />
-            </svg>
+          <button data-route="about" class="flex flex-col items-center w-full py-1 mobile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5c2.485 0 4.5 2.015 4.5 4.5s-2.015 4.5-4.5 4.5-4.5-2.015-4.5-4.5S9.515 4.5 12 4.5zm0 12c4.142 0 7.5 2.015 7.5 4.5V21H4.5v-.75c0-2.485 3.358-4.5 7.5-4.5z"/></svg>
             <span class="text-[9px] leading-[10px]">About</span>
           </button>
-
-          <!-- Materials -->
-          <button data-tab="materials" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M3 6.75V19.5A1.5 1.5 0 004.5 21h12A1.5 1.5 0 0018 19.5V6.75m-15 0L12 3l9 3.75m-15 0l9 3.75 9-3.75" />
-            </svg>
+          <button data-route="materials" class="flex flex-col items-center w-full py-1 mobile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6.75V19.5A1.5 1.5 0 004.5 21h12A1.5 1.5 0 0018 19.5V6.75m-15 0L12 3l9 3.75m-15 0l9 3.75 9-3.75"/></svg>
             <span class="text-[9px] leading-[10px]">Materials</span>
           </button>
-
-          <!-- Lectures -->
-          <button data-tab="lectures" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M15 10.5l6-3-6-3v6zm-12 9V6a1.5 1.5 0 011.5-1.5H12A1.5 1.5 0 0113.5 6v13.5A1.5 1.5 0 0112 21H4.5A1.5 1.5 0 013 19.5z" />
-            </svg>
+          <button data-route="lectures" class="flex flex-col items-center w-full py-1 mobile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5l6-3-6-3v6zm-12 9V6a1.5 1.5 0 011.5-1.5H12A1.5 1.5 0 0113.5 6v13.5A1.5 1.5 0 0112 21H4.5A1.5 1.5 0 013 19.5z"/></svg>
             <span class="text-[9px] leading-[10px]">Lectures</span>
           </button>
-
-          <!-- Cutoffs -->
-          <button data-tab="cutoffs" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M3 3h18M9 3v18m6-18v18M3 12h18" />
-            </svg>
+          <button data-route="cutoffs" class="flex flex-col items-center w-full py-1 mobile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18M9 3v18m6-18v18M3 12h18"/></svg>
             <span class="text-[9px] leading-[10px]">Cutoffs</span>
           </button>
-
-          <!-- Placements -->
-          <button data-tab="placements" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 6a9 9 0 100 18 9 9 0 000-18zm0 3v9m4.5-4.5h-9" />
-            </svg>
+          <button data-route="placements" class="flex flex-col items-center w-full py-1 mobile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6a9 9 0 100 18 9 9 0 000-18zm0 3v9m4.5-4.5h-9"/></svg>
             <span class="text-[9px] leading-[10px]">Placements</span>
           </button>
-
-          <!-- Contact -->
-          <button data-tab="contact" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25v13.5A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18.75V5.25zM7.5 9h9m-9 3h9m-9 3h6" />
-            </svg>
+          <button data-route="contact" class="flex flex-col items-center w-full py-1 mobile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25v13.5A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18.75V5.25zM7.5 9h9m-9 3h9m-9 3h6"/></svg>
             <span class="text-[9px] leading-[10px]">Contact</span>
           </button>
         </div>
@@ -252,77 +109,12 @@
     </div>
   </nav>
 
-  <!-- MAIN -->
+  <!-- MAIN APP (components will be loaded here) -->
   <main id="app" class="max-w-6xl mx-auto px-4 md:px-8 py-6">
-    <section id="home-page" class="fade-in">
-      <div class="p-6 card">
-        <h2 class="text-2xl font-bold mb-2">Welcome to NK Classes</h2>
-        <p class="text-gray-700">This is a demo homepage. Use the navbar to navigate to Lectures, Study Materials and more.</p>
-      </div>
-    </section>
-
-    <section id="about-page" class="hidden fade-in p-6 card">
-      <h2 class="text-2xl font-bold mb-2">About Us</h2>
-      <p class="text-gray-700">AAHES — empowering Assam’s engineering aspirants with data-backed resources.</p>
-    </section>
-
-    <section id="materials-page" class="hidden fade-in p-6 card">
-      <h2 class="text-2xl font-bold mb-2">Study Materials</h2>
-      <p class="text-gray-700">PDFs, notes and revision packs will appear here.</p>
-    </section>
-
-    <!-- Lectures -->
-    <section id="lectures-page" class="hidden fade-in">
-      <div class="max-w-6xl mx-auto px-4 py-6">
-        <h1 class="text-3xl font-bold mb-4">🎥 Lectures Dashboard</h1>
-        <p class="text-gray-600 mb-6">Browse playlists, view notes, filter by subject, difficulty & more.</p>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-          <input id="lectureSearch" type="text" placeholder="Search topics, playlists, tags..." class="border px-3 py-2 rounded-lg w-full shadow-sm focus:ring-2 focus:ring-blue-400" />
-          <select id="filterSubject" class="border px-3 py-2 rounded-lg w-full shadow-sm focus:ring-2 focus:ring-blue-400">
-            <option value="All">All Subjects</option>
-            <option value="Physics">Physics</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Maths">Maths</option>
-          </select>
-          <select id="filterDifficulty" class="border px-3 py-2 rounded-lg w-full shadow-sm focus:ring-2 focus:ring-blue-400">
-            <option value="All">All Difficulty</option>
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-          </select>
-        </div>
-
-        <div id="lectureGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-      </div>
-
-      <div id="lectureModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-xl w-full max-w-3xl shadow-xl p-4 relative">
-          <button onclick="closeLectureModal()" class="absolute top-2 right-3 text-gray-700 hover:text-red-500 text-xl font-bold">✕</button>
-          <h2 id="modalTitle" class="text-xl font-bold mb-3"></h2>
-          <iframe id="modalVideo" class="w-full h-64 md:h-80 rounded-lg" allowfullscreen></iframe>
-          <a id="modalPDF" target="_blank" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">📄 Download Notes</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="cutoffs-page" class="hidden fade-in p-6 card">
-      <h2 class="text-2xl font-bold mb-2">Cutoffs</h2>
-      <p class="text-gray-700">College cutoffs explorer (placeholder).</p>
-    </section>
-
-    <section id="placements-page" class="hidden fade-in p-6 card">
-      <h2 class="text-2xl font-bold mb-2">Placements & Campus</h2>
-      <p class="text-gray-700">Placements statistics and campus details (placeholder).</p>
-    </section>
-
-    <section id="contact-page" class="hidden fade-in p-6 card">
-      <h2 class="text-2xl font-bold mb-2">Contact Us</h2>
-      <p class="text-gray-700">Email: abishrant@gmail.com</p>
-    </section>
+    <!-- content injected by router -->
   </main>
 
-  <!-- FOOTER -->
+  <!-- FOOTER (same as before) -->
   <footer class="bg-[#042235] text-gray-300 py-10 mt-16">
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
@@ -330,26 +122,17 @@
           <h2 class="text-2xl font-bold tracking-wide">AAHES</h2>
           <p class="text-sm mt-2 text-gray-300 max-w-md">Empowering Assam’s engineering aspirants with authentic updates, data-driven insights, and resources — all in one trusted platform.</p>
         </div>
-
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 text-sm">
           <div class="group">
             <p class="text-white font-semibold flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400 group-hover:text-emerald-300 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400 group-hover:text-emerald-300 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
               Abishrant Shandilya
             </p>
             <p class="text-gray-300 group-hover:text-gray-200 transition">Website Manager</p>
             <div class="flex items-center gap-3 mt-2">
-              <a href="#" class="text-gray-300 hover:text-blue-300 transition" aria-label="LinkedIn">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.027-3.058-1.862-3.058-1.865 0-2.152 1.456-2.152 2.961v5.701h-3v-10h2.885v1.367h.041c.402-.761 1.385-1.562 2.85-1.562 3.048 0 3.611 2.007 3.611 4.617v5.578z" /></svg>
-              </a>
-              <a href="#" class="text-gray-300 hover:text-blue-300 transition" aria-label="GitHub">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.648.5.5 5.648.5 12c0 5.086 3.292 9.392 7.862 10.91.574.102.784-.249.784-.554 0-.273-.01-1.002-.015-1.967-3.197.695-3.873-1.541-3.873-1.541-.523-1.328-1.277-1.682-1.277-1.682-1.044-.714.08-.699.08-.699 1.155.082 1.764 1.188 1.764 1.188 1.027 1.76 2.693 1.252 3.35.958.104-.745.403-1.252.732-1.54-2.55-.29-5.231-1.275-5.231-5.675 0-1.253.448-2.277 1.183-3.078-.119-.29-.513-1.456.112-3.036 0 0 .965-.309 3.166 1.175a10.96 10.96 0 0 1 2.884-.388c.978.005 1.964.132 2.884.388 2.2-1.484 3.165-1.175 3.165-1.175.625 1.58.231 2.746.113 3.036.736.801 1.183 1.825 1.183 3.078 0 4.412-2.686 5.382-5.246 5.667.414.357.78 1.06.78 2.138 0 1.544-.014 2.787-.014 3.167 0 .308.208.66.79.548C20.71 21.39 24 17.083 24 12c0-6.352-5.148-11.5-12-11.5z" /></svg>
-              </a>
-              <a href="mailto:abishrant@gmail.com" class="text-gray-300 hover:text-blue-300 transition" aria-label="Email">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.065 0 6.5v11A2.5 2.5 0 0 0 2.5 20h19a2.5 2.5 0 0 0 2.5-2.5v-11l-12 6.565zM12 11 24 4.5V4a2.5 2.5 0 0 0-2.5-2.5h-19A2.5 2.5 0 0 0 0 4v.5L12 11z" /></svg>
-              </a>
+              <a href="#" class="text-gray-300 hover:text-blue-300 transition" aria-label="LinkedIn">…</a>
+              <a href="#" class="text-gray-300 hover:text-blue-300 transition" aria-label="GitHub">…</a>
+              <a href="mailto:abishrant@gmail.com" class="text-gray-300 hover:text-blue-300 transition" aria-label="Email">…</a>
             </div>
           </div>
         </div>
@@ -358,11 +141,10 @@
     </div>
   </footer>
 
-  <!-- AUTH MODAL -->
+  <!-- AUTH MODAL (Login / Register) -->
   <div id="authModal" class="fixed inset-0 hidden items-center justify-center z-50 p-4">
     <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6 relative">
       <button id="authClose" class="absolute right-3 top-2 text-gray-600">✕</button>
-
       <div id="authTabs" class="flex gap-2 mb-4">
         <button id="showLogin" class="px-3 py-1 rounded-md tab-active">Login</button>
         <button id="showRegister" class="px-3 py-1 rounded-md">Register</button>
@@ -377,7 +159,7 @@
 
       <div id="registerForm" class="hidden">
         <input id="regName" type="text" placeholder="Full name" class="w-full border px-3 py-2 rounded mb-3" />
-        <input id='regEmail' type="email" placeholder="Email" class="w-full border px-3 py-2 rounded mb-3" />
+        <input id="regEmail" type="email" placeholder="Email" class="w-full border px-3 py-2 rounded mb-3" />
         <input id="regPassword" type="password" placeholder="Password (6+ chars)" class="w-full border px-3 py-2 rounded mb-3" />
         <div id="regError" class="text-sm text-red-500 mb-2 hidden"></div>
         <button id="registerBtn" class="w-full bg-emerald-600 text-white px-4 py-2 rounded">Register</button>
@@ -391,217 +173,197 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
   <script>
-    // your firebaseConfig
-    const firebaseConfig = {
-      apiKey: "AIzaSyAcIHLJdYe_tUA7t4fuapxmyeXXESo4Ze4",
-      authDomain: "nk-classes.firebaseapp.com",
-      projectId: "nk-classes",
-      storageBucket: "nk-classes.firebasestorage.app",
-      messagingSenderId: "999944440818",
-      appId: "1:999944440818:web:326234d2623f53fa25396b",
-      measurementId: "G-56128412GG"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+  // ========== FIREBASE CONFIG ==========
+  const firebaseConfig = {
+    apiKey: "AIzaSyAcIHLJdYe_tUA7t4fuapxmyeXXESo4Ze4",
+    authDomain: "nk-classes.firebaseapp.com",
+    projectId: "nk-classes",
+    storageBucket: "nk-classes.firebasestorage.app",
+    messagingSenderId: "999944440818",
+    appId: "1:999944440818:web:326234d2623f53fa25396b",
+    measurementId: "G-56128412GG"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
   </script>
 
-  <!-- LECTURES DATA + RENDER -->
-  <script>
-    const lectures = [
-      { id: "l1", title: "Electrochemistry – Full Playlist", subject: "Chemistry", topic: "Electrochemistry", difficulty: "Medium", playlist: "https://www.youtube.com/embed/videoseries?list=PLFAKEPLAYLIST1", notes: "notes/electrochemistry.pdf", thumb: "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg", tags: ["Boards", "JEE", "MCQ"] },
-      { id: "l2", title: "Kinematics Crash Course", subject: "Physics", topic: "Kinematics", difficulty: "Easy", playlist: "https://www.youtube.com/embed/videoseries?list=PLFAKEPLAYLIST2", notes: "notes/kinematics.pdf", thumb: "https://img.youtube.com/vi/oHg5SJYRHA0/hqdefault.jpg", tags: ["Concepts", "PYQ"] },
-      { id: "l3", title: "Integral Calculus – Important Playlist", subject: "Maths", topic: "Calculus", difficulty: "Hard", playlist: "https://www.youtube.com/embed/videoseries?list=PLFAKEPLAYLIST3", notes: "notes/integral_calculus.pdf", thumb: "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg", tags: ["Advanced", "JEE Mains"] }
-    ];
-
-    const grid = document.getElementById("lectureGrid");
-    const searchBox = document.getElementById("lectureSearch");
-    const filterSubject = document.getElementById("filterSubject");
-    const filterDifficulty = document.getElementById("filterDifficulty");
-
-    function renderLectures() {
-      const q = (searchBox ? searchBox.value.toLowerCase() : "");
-      const s = (filterSubject ? filterSubject.value : "All");
-      const d = (filterDifficulty ? filterDifficulty.value : "All");
-      if (!grid) return;
-      grid.innerHTML = "";
-      lectures.filter(l => ((l.title + ' ' + l.topic + ' ' + l.tags.join(' ')).toLowerCase().includes(q)) && (s === "All" || l.subject === s) && (d === "All" || l.difficulty === d)).forEach(l => {
-        grid.innerHTML += `
-          <div class="card cursor-pointer hover:shadow-xl transition border rounded-xl overflow-hidden" onclick="openLectureModal('${l.id}')">
-            <img src="${l.thumb}" class="w-full h-40 object-cover" />
-            <div class="p-4">
-              <h3 class="text-lg font-bold mb-1">${l.title}</h3>
-              <p class="text-sm text-gray-600">${l.subject} • ${l.topic}</p>
-              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded mt-2 inline-block">${l.difficulty}</span>
-            </div>
-          </div>`;
-      });
-    }
-
-    function openLectureModal(id) {
-      const lecture = lectures.find(l => l.id === id);
-      if (!lecture) return;
-      document.getElementById("modalTitle").innerText = lecture.title;
-      document.getElementById("modalVideo").src = lecture.playlist;
-      document.getElementById("modalPDF").href = lecture.notes;
-      document.getElementById("lectureModal").classList.remove("hidden");
-    }
-    function closeLectureModal() {
-      document.getElementById("lectureModal").classList.add("hidden");
-      document.getElementById("modalVideo").src = "";
-    }
-
-    if (searchBox) searchBox.addEventListener("input", renderLectures);
-    if (filterSubject) filterSubject.addEventListener("change", renderLectures);
-    if (filterDifficulty) filterDifficulty.addEventListener("change", renderLectures);
-    renderLectures();
-  </script>
-
-  <!-- Tab switcher -->
+  <!-- ========== HASH ROUTER (loads /components/<route>.html) ========== -->
   <script>
     (function () {
-      const tabs = document.querySelectorAll('[data-tab]');
-      const pages = {
-        home: document.getElementById('home-page'),
-        about: document.getElementById('about-page'),
-        materials: document.getElementById('materials-page'),
-        lectures: document.getElementById('lectures-page'),
-        cutoffs: document.getElementById('cutoffs-page'),
-        placements: document.getElementById('placements-page'),
-        contact: document.getElementById('contact-page')
+      const app = document.getElementById('app');
+
+      // route -> component file mapping. If route not found, fallback to home.
+      const routeToFile = {
+        home: '/components/home.html',
+        about: '/components/about.html',
+        materials: '/components/materials.html',
+        lectures: '/components/lectures.html',
+        cutoffs: '/components/cutoffs.html',
+        placements: '/components/placements.html',
+        contact: '/components/contact.html'
       };
 
-      function show(tab) {
-        Object.values(pages).forEach(p => p && p.classList.add('hidden'));
-        const el = pages[tab];
-        if (el) el.classList.remove('hidden');
+      async function loadRoute(route) {
+        const file = routeToFile[route] || routeToFile['home'];
+        try {
+          const res = await fetch(file, { cache: "no-store" });
+          if (!res.ok) throw new Error('fetch failed: ' + res.status);
+          const html = await res.text();
+          app.innerHTML = html;
+          // run a small init in case the loaded component expects common helpers
+          initLoadedComponent(route);
+        } catch (err) {
+          console.warn('Failed to load', file, err);
+          // fallback: try home
+          if (file !== routeToFile['home']) {
+            try {
+              const fallback = await fetch(routeToFile['home']);
+              app.innerHTML = await fallback.text();
+              initLoadedComponent('home');
+            } catch (e) {
+              // last resort: show minimal error UI
+              app.innerHTML = `<div class="p-6 card"><h2 class="text-xl font-bold">Content unavailable</h2><p class="text-gray-600">Could not load the page. Check /components/${route}.html exists.</p></div>`;
+            }
+          } else {
+            app.innerHTML = `<div class="p-6 card"><h2 class="text-xl font-bold">Home unavailable</h2><p class="text-gray-600">Home component missing.</p></div>`;
+          }
+        }
+      }
 
+      // called after injecting component HTML: useful to wire component-specific JS
+      function initLoadedComponent(route) {
+        // if component contains script tags they will run automatically.
+        // optionally you can call some route-specific init here.
+        // Example: if lectures page needs to attach handlers when loaded, you can detect route === 'lectures' and init.
+        if (route === 'lectures') {
+          // If your lectures component uses global helpers (like openLectureModal), make sure they exist.
+          // No-op here; components should include their own scripts.
+        }
+        // update active nav link
         document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('tab-active'));
-        document.querySelectorAll(`[data-tab="${tab}"]`).forEach(btn => {
+        document.querySelectorAll(`[data-route="${route}"]`).forEach(btn => {
           if (btn.classList.contains('nav-link')) btn.classList.add('tab-active');
         });
       }
 
-      tabs.forEach(btn => btn.addEventListener('click', () => show(btn.getAttribute('data-tab'))));
-      show('home');
+      // parse location.hash -> route name (e.g., '#/home' -> 'home')
+      function currentRouteFromHash() {
+        const h = location.hash || '#/home';
+        const m = h.match(/^#\/?([^/?#]+)/);
+        return m ? m[1] : 'home';
+      }
+
+      // navigate programmatically
+      function navigateTo(route) {
+        if (!route) route = 'home';
+        location.hash = '#/' + route;
+      }
+
+      // wire navbar buttons (desktop + mobile)
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-route]');
+        if (!btn) return;
+        const route = btn.getAttribute('data-route');
+        navigateTo(route);
+        // prevent default if it's a link
+        e.preventDefault();
+      });
+
+      // load initial route and on hash change
+      window.addEventListener('hashchange', () => loadRoute(currentRouteFromHash()));
+      // on first load
+      loadRoute(currentRouteFromHash());
     })();
   </script>
 
-  <!-- AUTH LOGIC (includes ensureAuthUI patch) -->
+  <!-- ========== AUTH UI & Logic (Firebase + legacy fallback) ========== -->
   <script>
-    // ensure authArea visible
+    // ensure auth area visible & inject default buttons if empty
     (function ensureAuthUI() {
-      const authArea = document.getElementById('authArea');
+      let authArea = document.getElementById('authArea');
       if (!authArea) {
-        console.warn('authArea missing — creating one.');
         const nav = document.querySelector('nav .max-w-6xl') || document.querySelector('nav');
-        const created = document.createElement('div');
-        created.id = 'authArea';
-        created.className = 'ml-2 flex items-center gap-3';
-        if (nav) nav.appendChild(created); else document.body.prepend(created);
+        authArea = document.createElement('div');
+        authArea.id = 'authArea';
+        authArea.className = 'ml-2 flex items-center gap-3';
+        if (nav) nav.appendChild(authArea); else document.body.prepend(authArea);
       }
-      const area = document.getElementById('authArea');
-      area.classList.remove('hidden');
-      area.style.display = 'flex';
-
-      // If already populated, attach handlers; otherwise inject default
-      if (area.innerHTML && area.innerHTML.trim().length > 0) {
-        attachNavHandlers();
-        return;
+      authArea.classList.remove('hidden');
+      authArea.style.display = 'flex';
+      if (!authArea.innerHTML.trim()) {
+        authArea.innerHTML = `<button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button><button id="navRegister" class="px-3 py-1 rounded-md border">Register</button>`;
       }
-
-      area.innerHTML = `
-        <button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button>
-        <button id="navRegister" class="px-3 py-1 rounded-md border">Register</button>
-      `;
       attachNavHandlers();
-
-      // debug
-      setTimeout(() => {
-        console.log('DEBUG: firebase present?', !!window.firebase, 'auth object?', !!(window.firebase && firebase.auth));
-      }, 200);
+      setTimeout(()=>console.log('DEBUG: firebase present?', !!window.firebase, 'auth?', !!(window.firebase && firebase.auth)),200);
     })();
 
     function attachNavHandlers() {
-      const loginBtn = document.getElementById('navLogin');
-      const regBtn = document.getElementById('navRegister');
-      if (loginBtn) loginBtn.onclick = () => { if (typeof showModal === 'function') showModal('login'); else document.getElementById('authModal')?.classList.remove('hidden'); };
-      if (regBtn) regBtn.onclick = () => { if (typeof showModal === 'function') showModal('register'); else document.getElementById('authModal')?.classList.remove('hidden'); };
+      document.getElementById('navLogin')?.addEventListener('click', () => showModal('login'));
+      document.getElementById('navRegister')?.addEventListener('click', () => showModal('register'));
     }
 
     // modal helpers
     const authModal = document.getElementById('authModal');
-    function showModal(view = 'login') {
-      document.getElementById('loginError').classList.add('hidden');
-      document.getElementById('regError').classList.add('hidden');
-      if (view === 'login') {
-        document.getElementById('loginForm').classList.remove('hidden');
-        document.getElementById('registerForm').classList.add('hidden');
-        document.getElementById('showLogin').classList.add('tab-active');
-        document.getElementById('showRegister').classList.remove('tab-active');
-      } else {
-        document.getElementById('loginForm').classList.add('hidden');
-        document.getElementById('registerForm').classList.remove('hidden');
-        document.getElementById('showLogin').classList.remove('tab-active');
-        document.getElementById('showRegister').classList.add('tab-active');
-      }
-      authModal.classList.remove('hidden');
-      authModal.classList.add('flex');
-    }
-    function closeModal() { authModal.classList.add('hidden'); authModal.classList.remove('flex'); }
-    document.getElementById('authClose').addEventListener('click', closeModal);
+    document.getElementById('authClose').addEventListener('click', () => { authModal.classList.add('hidden'); authModal.classList.remove('flex'); });
     document.getElementById('showLogin').addEventListener('click', () => showModal('login'));
     document.getElementById('showRegister').addEventListener('click', () => showModal('register'));
+    function showModal(view='login') {
+      document.getElementById('loginError').classList.add('hidden'); document.getElementById('regError').classList.add('hidden');
+      if (view === 'login') { document.getElementById('loginForm').classList.remove('hidden'); document.getElementById('registerForm').classList.add('hidden'); document.getElementById('showLogin').classList.add('tab-active'); document.getElementById('showRegister').classList.remove('tab-active'); }
+      else { document.getElementById('loginForm').classList.add('hidden'); document.getElementById('registerForm').classList.remove('hidden'); document.getElementById('showLogin').classList.remove('tab-active'); document.getElementById('showRegister').classList.add('tab-active'); }
+      authModal.classList.remove('hidden'); authModal.classList.add('flex');
+    }
 
-    // helpers to read/write user docs
+    // helpers to read/write Firestore user docs
     async function getUserDocByUid(uid) {
       try { const doc = await db.collection('users').doc(uid).get(); if (!doc.exists) return null; return { id: doc.id, data: doc.data() }; } catch (e) { console.error(e); return null; }
     }
     async function findUserDocByIdentifier(identifier) {
-      const usersRef = db.collection('users');
-      let q = await usersRef.where('username', '==', identifier).limit(1).get();
-      if (!q.empty) return { id: q.docs[0].id, data: q.docs[0].data() };
-      q = await usersRef.where('email', '==', identifier).limit(1).get();
-      if (!q.empty) return { id: q.docs[0].id, data: q.docs[0].data() };
+      try {
+        const usersRef = db.collection('users');
+        let q = await usersRef.where('username', '==', identifier).limit(1).get();
+        if (!q.empty) return { id: q.docs[0].id, data: q.docs[0].data() };
+        q = await usersRef.where('email', '==', identifier).limit(1).get();
+        if (!q.empty) return { id: q.docs[0].id, data: q.docs[0].data() };
+      } catch (e) { console.error('findUserDocByIdentifier error', e); }
       return null;
     }
 
-    // Register
+    // Register: create Firebase Auth user & Firestore doc (no plaintext password stored)
     document.getElementById('registerBtn').addEventListener('click', async () => {
       const name = document.getElementById('regName').value.trim();
       const email = document.getElementById('regEmail').value.trim();
       const password = document.getElementById('regPassword').value;
-      const errEl = document.getElementById('regError');
-      errEl.classList.add('hidden');
+      const errEl = document.getElementById('regError'); errEl.classList.add('hidden');
       if (!name || !email || password.length < 6) { errEl.innerText = 'Please provide name, valid email and password (6+ chars).'; errEl.classList.remove('hidden'); return; }
       try {
         const userCred = await auth.createUserWithEmailAndPassword(email, password);
         const uid = userCred.user.uid;
         await db.collection('users').doc(uid).set({ email, name, paid: "no", phone: "", regn: new Date().toISOString(), username: email.split('@')[0] });
         await userCred.user.updateProfile({ displayName: name });
-        closeModal();
+        authModal.classList.add('hidden'); authModal.classList.remove('flex');
       } catch (err) { console.error('Register error', err); errEl.innerText = err.message || 'Registration failed'; errEl.classList.remove('hidden'); }
     });
 
-    // Login (firebase auth preferred, then legacy fallback)
+    // Login: prefer Firebase Auth; fallback to legacy Firestore password (temporary)
     document.getElementById('loginBtn').addEventListener('click', async () => {
       const identifier = document.getElementById('loginEmail').value.trim();
       const password = document.getElementById('loginPassword').value;
-      const errEl = document.getElementById('loginError');
-      errEl.classList.add('hidden');
+      const errEl = document.getElementById('loginError'); errEl.classList.add('hidden');
       if (!identifier || !password) { errEl.innerText = 'Enter email/username and password.'; errEl.classList.remove('hidden'); return; }
 
-      try { await auth.signInWithEmailAndPassword(identifier, password); closeModal(); return; } catch (authErr) { console.warn('Firebase signIn error (will try legacy):', authErr && authErr.code); }
+      try { await auth.signInWithEmailAndPassword(identifier, password); authModal.classList.add('hidden'); authModal.classList.remove('flex'); return; } catch (authErr) { console.warn('Firebase signIn error (will try legacy):', authErr && authErr.code); }
 
       // legacy fallback
       try {
         const doc = await findUserDocByIdentifier(identifier);
         if (!doc) { errEl.innerText = 'No user found with that email/username.'; errEl.classList.remove('hidden'); return; }
         if (doc.data && doc.data.password && doc.data.password === password) {
+          // legacy login (insecure) - set local session
           localStorage.setItem('legacyUser', doc.id);
-          closeModal();
-          renderAuthArea(doc);
-          alert('Logged in via legacy fallback. Please update your account to use secure authentication.');
+          authModal.classList.add('hidden'); authModal.classList.remove('flex');
+          renderAuthArea(doc); alert('Logged in via legacy fallback. Please update your account to use secure authentication.');
           return;
         } else { errEl.innerText = 'Invalid credentials.'; errEl.classList.remove('hidden'); return; }
       } catch (e) { console.error('Legacy login error', e); errEl.innerText = 'Login failed. Try again later.'; errEl.classList.remove('hidden'); }
@@ -610,54 +372,53 @@
     // Logout
     async function logout() { try { await auth.signOut(); } catch (e) { console.warn(e); } localStorage.removeItem('legacyUser'); renderAuthArea(null); }
 
-    // render auth area
+    // render auth area depending on user doc
     const authAreaEl = document.getElementById('authArea');
     function renderAuthArea(userDoc) {
       if (!authAreaEl) return;
       if (!userDoc) {
         authAreaEl.innerHTML = `<button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button><button id="navRegister" class="px-3 py-1 rounded-md border">Register</button>`;
-        document.getElementById('navLogin').addEventListener('click', () => showModal('login'));
-        document.getElementById('navRegister').addEventListener('click', () => showModal('register'));
+        attachNavHandlers();
       } else {
         const displayName = (userDoc.data && userDoc.data.name) ? userDoc.data.name : (userDoc.data && userDoc.data.email) ? userDoc.data.email : 'User';
         const short = escapeHtml(shortName(displayName));
         authAreaEl.innerHTML = `<div class="flex items-center gap-3"><span class="text-sm font-semibold text-slate-700">Hi, ${short}</span><button id="navLogout" class="px-3 py-1 rounded-md border text-sm">Logout</button></div>`;
-        document.getElementById('navLogout').addEventListener('click', logout);
+        document.getElementById('navLogout')?.addEventListener('click', logout);
       }
     }
-    function escapeHtml(s) { return String(s).replace(/[&<>"']/g, function(m) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]; }); }
-    function shortName(full) { return full.split(' ')[0]; }
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]); }
+    function shortName(full){ return full.split(' ')[0]; }
 
-    // onAuthStateChanged
+    // onAuthStateChanged: sync Firebase user -> Firestore doc; or use legacy local session
     auth.onAuthStateChanged(async (user) => {
       try {
         if (user) {
           const docData = await getUserDocByUid(user.uid);
           if (!docData) {
-            await db.collection('users').doc(user.uid).set({ name: user.displayName || '', email: user.email || '', paid: "no", phone: "", regn: new Date().toISOString(), username: user.email ? user.email.split('@')[0] : user.uid });
+            await db.collection('users').doc(user.uid).set({ name: user.displayName || '', email: user.email || '', paid: "no", phone: "", regn: new Date().toISOString(), username: user.email ? user.email.split('@')[0] : user.uid});
             renderAuthArea({ id: user.uid, data: { name: user.displayName || user.email } });
-          } else {
-            renderAuthArea(docData);
-          }
+          } else renderAuthArea(docData);
           return;
         }
-
-        // no firebase user -> check legacy session
         const legacyId = localStorage.getItem('legacyUser');
         if (legacyId) {
-          try {
-            const doc = await db.collection('users').doc(legacyId).get();
-            if (doc.exists) { renderAuthArea({ id: doc.id, data: doc.data() }); return; } else { localStorage.removeItem('legacyUser'); }
-          } catch (e) { console.error(e); localStorage.removeItem('legacyUser'); }
+          const doc = await db.collection('users').doc(legacyId).get();
+          if (doc.exists) { renderAuthArea({ id: doc.id, data: doc.data() }); return; } else localStorage.removeItem('legacyUser');
         }
         renderAuthArea(null);
       } catch (e) { console.error('onAuthStateChanged error', e); renderAuthArea(null); }
     });
 
-    // initial attach
-    document.addEventListener('DOMContentLoaded', () => { if (!authAreaEl) { const parent = document.querySelector('.max-w-6xl') || document.body; const wrapper = document.createElement('div'); wrapper.id = 'authArea'; wrapper.className = 'ml-4 flex items-center gap-3'; parent.prepend(wrapper); } });
+    // small helper to ensure authArea exists on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!document.getElementById('authArea')) {
+        const parent = document.querySelector('.max-w-6xl') || document.body;
+        const wrapper = document.createElement('div'); wrapper.id='authArea'; wrapper.className='ml-4 flex items-center gap-3'; parent.prepend(wrapper);
+      }
+    });
+
+    // small error logging
+    window.addEventListener('error', (e) => console.error('Runtime error:', e.message, 'at', e.filename + ':' + e.lineno));
   </script>
-
 </body>
-
 </html>
