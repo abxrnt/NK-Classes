@@ -330,7 +330,6 @@
           localStorage.setItem('legacyUser', doc.id);
           renderAuthArea(doc);
           authModal.classList.add('hidden'); authModal.classList.remove('flex');
-          alert('Logged in via legacy fallback. Please migrate your account to secure authentication.');
           return;
         } else {
           errEl.innerText = 'Invalid credentials.'; errEl.classList.remove('hidden'); return;
@@ -429,3 +428,4 @@
   </script>
 </body>
 </html>
+
