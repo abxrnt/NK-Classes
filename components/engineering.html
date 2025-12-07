@@ -1,110 +1,103 @@
-<!-- components/engineering.html - Engineering page for NK Classes -->
-<section id="engineering-page" class="w-full py-8">
-  <div class="max-w-4xl mx-auto px-4">
-    <div class="bg-white rounded-xl shadow-sm p-6 md:p-10">
+<!-- components/engineering.html - NON-SCROLLABLE FULLSCREEN PAGE -->
+<section id="engineering-page"
+  class="w-full h-screen overflow-hidden flex items-center justify-center bg-white">
 
-      <h1 class="text-2xl md:text-3xl font-bold" style="font-family:'Playfair Display',serif;">Engineering Entrance Prep</h1>
-      <p class="text-sm text-muted mt-2 max-w-prose">Focused courses, topic-wise practice, and past-year question analysis to boost your JEE / state-engineering performance.</p>
+  <div class="max-w-6xl w-full px-4">
+    <div class="rounded-xl shadow-sm bg-white p-5 h-full flex flex-col">
 
-      <div class="mt-6">
-        <h3 class="text-lg font-semibold">Engineering Resources</h3>
-
-        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-
-          <!-- Card 1: JEE Mains Cutoffs -->
-          <article class="card p-4 flex flex-col h-full">
-            <img src="/assets/thumbnails/jeemains.jpg" alt="JEE Mains thumbnail" class="w-full h-32 object-cover rounded-md mb-3" />
-            <div class="flex-1">
-              <div class="font-semibold">JEE Mains Cutoffs</div>
-              <div class="text-xs text-muted mt-2">Branch-wise & college-wise cutoffs based on latest NTA data.</div>
-            </div>
-            <div class="mt-3 text-right">
-              <a class="btn-primary px-3 py-1 text-sm rounded" href="#">Go to</a>
-            </div>
-          </article>
-
-          <!-- Card 2: JEE Advanced Cutoffs -->
-          <article class="card p-4 flex flex-col h-full">
-            <img src="/assets/thumbnails/jeeadv.jpg" alt="JEE Advanced thumbnail" class="w-full h-32 object-cover rounded-md mb-3" />
-            <div class="flex-1">
-              <div class="font-semibold">JEE Advanced Cutoffs</div>
-              <div class="text-xs text-muted mt-2">Updated IIT cutoffs, seat matrix & category-wise closing ranks.</div>
-            </div>
-            <div class="mt-3 text-right">
-              <a class="btn-primary px-3 py-1 text-sm rounded" href="#">Go to</a>
-            </div>
-          </article>
-
-          <!-- Card 3: Institutes & Placements -->
-          <article class="card p-4 flex flex-col h-full">
-            <img src="/assets/thumbnails/placements.jpg" alt="Placements thumbnail" class="w-full h-32 object-cover rounded-md mb-3" />
-            <div class="flex-1">
-              <div class="font-semibold">Institutes & Placements</div>
-              <div class="text-xs text-muted mt-2">Compare NITs, IIITs, GFTIs with real placement data & insights.</div>
-            </div>
-            <div class="mt-3 text-right">
-              <a class="btn-primary px-3 py-1 text-sm rounded" href="#">Go to</a>
-            </div>
-          </article>
-
-          <!-- Card 4: DPPs & Modules -->
-          <article class="card p-4 flex flex-col h-full">
-            <img src="/assets/thumbnails/dpp.jpg" alt="DPP thumbnail" class="w-full h-32 object-cover rounded-md mb-3" />
-            <div class="flex-1">
-              <div class="font-semibold">DPPs & Modules</div>
-              <div class="text-xs text-muted mt-2">Daily Practice Problems & chapter modules for steady improvement.</div>
-            </div>
-            <div class="mt-3 text-right">
-              <a class="btn-primary px-3 py-1 text-sm rounded" href="#">Go to</a>
-            </div>
-          </article>
-
-          <!-- Card 5: Notes & Resources -->
-          <article class="card p-4 flex flex-col h-full">
-            <img src="/assets/thumbnails/notes.jpg" alt="Notes thumbnail" class="w-full h-32 object-cover rounded-md mb-3" />
-            <div class="flex-1">
-              <div class="font-semibold">Notes & Resources</div>
-              <div class="text-xs text-muted mt-2">Compact chapter notes, formula sheets & revision boosters.</div>
-            </div>
-            <div class="mt-3 text-right">
-              <a class="btn-primary px-3 py-1 text-sm rounded" href="#">Go to</a>
-            </div>
-          </article>
-
-          <!-- Card 6: PYQs & Analysis -->
-          <article class="card p-4 flex flex-col h-full">
-            <img src="/assets/thumbnails/pyq.jpg" alt="PYQ thumbnail" class="w-full h-32 object-cover rounded-md mb-3" />
-            <div class="flex-1">
-              <div class="font-semibold">PYQs & Analysis</div>
-              <div class="text-xs text-muted mt-2">Topic-wise previous year questions with detailed solutions.</div>
-            </div>
-            <div class="mt-3 text-right">
-              <a class="btn-primary px-3 py-1 text-sm rounded" href="#">Go to</a>
-            </div>
-          </article>
-
-        </div>
+      <!-- HEADER -->
+      <div>
+        <h1 class="text-2xl md:text-3xl font-bold"
+            style="font-family:'Playfair Display',serif;">
+          Engineering Entrance Prep
+        </h1>
+        <p class="text-sm text-muted mt-1">
+          Compact & high-yield resources for JEE Mains & Advanced.
+        </p>
       </div>
 
-      <!-- CTA / contact -->
-      <div class="mt-8 p-4 rounded-md bg-gradient-to-r from-blue-50 to-white border border-blue-50">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-          <div>
-            <div class="font-semibold">Want a tailored plan?</div>
-            <div class="text-sm text-muted">Share your target (JEE/State) and current stage — we'll recommend a study track.</div>
-          </div>
-          <div class="flex gap-3">
-            <button class="btn-primary">Request Plan</button>
-            <button class="btn-ghost" id="engContact">Contact Mentor</button>
-          </div>
+      <!-- GRID (auto-fit inside screen) -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4 flex-1 overflow-hidden">
+
+        <!-- CARD TEMPLATE STYLE ADJUSTED TO FIT -->
+        <style>
+          .eng-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            font-size: 12px; /* smaller to fit */
+          }
+          .eng-card img {
+            height: 70px;
+            border-radius: 6px;
+            object-fit: cover;
+          }
+          .eng-title { font-weight: 600; font-size: 13px; }
+          .eng-desc { font-size: 10px; color: #667; margin-top: 4px; }
+          .eng-btn {
+            margin-top: auto;
+            padding: 4px 10px;
+            background: #1976F2;
+            color: white;
+            border-radius: 6px;
+            font-size: 11px;
+            text-align: right;
+          }
+        </style>
+
+        <!-- CARD 1 -->
+        <div class="eng-card">
+          <img src="/assets/thumbnails/jeemains.jpg">
+          <div class="eng-title mt-2">JEE Mains Cutoffs</div>
+          <div class="eng-desc">NTA-based updated cutoffs.</div>
+          <a href="#" class="eng-btn">Go →</a>
         </div>
+
+        <!-- CARD 2 -->
+        <div class="eng-card">
+          <img src="/assets/thumbnails/jeeadv.jpg">
+          <div class="eng-title mt-2">JEE Advanced Cutoffs</div>
+          <div class="eng-desc">Updated IIT closing ranks.</div>
+          <a href="#" class="eng-btn">Go →</a>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="eng-card">
+          <img src="/assets/thumbnails/placements.jpg">
+          <div class="eng-title mt-2">Institutes & Placements</div>
+          <div class="eng-desc">Compare NITs / IIITs with data.</div>
+          <a href="#" class="eng-btn">Go →</a>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="eng-card">
+          <img src="/assets/thumbnails/dpp.jpg">
+          <div class="eng-title mt-2">DPPs & Modules</div>
+          <div class="eng-desc">Daily practice sheets.</div>
+          <a href="#" class="eng-btn">Go →</a>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="eng-card">
+          <img src="/assets/thumbnails/notes.jpg">
+          <div class="eng-title mt-2">Notes & Resources</div>
+          <div class="eng-desc">Formula sheets + notes.</div>
+          <a href="#" class="eng-btn">Go →</a>
+        </div>
+
+        <!-- CARD 6 -->
+        <div class="eng-card">
+          <img src="/assets/thumbnails/pyq.jpg">
+          <div class="eng-title mt-2">PYQs & Analysis</div>
+          <div class="eng-desc">Topic-wise previous questions.</div>
+          <a href="#" class="eng-btn">Go →</a>
+        </div>
+
       </div>
 
     </div>
   </div>
 </section>
-
-<script>
-  // lightweight interactions specific to engineering page
-  document.getElementById('engContact')?.addEventListener('click', ()=> alert('Contact form will open (to be implemented).'));
-</script>
