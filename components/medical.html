@@ -1,114 +1,156 @@
-<!-- components/medical.html - Medical Entrance (NEET) Page -->
-<section id="medical-page" class="w-full py-8">
-  <div class="max-w-4xl mx-auto px-4">
-    <div class="bg-white rounded-xl shadow-sm p-6 md:p-10">
+<!-- components/medical.html - Medical page with 16 cards arranged in invisible groups (4 groups x 4 cards) -->
+<section id="medical-page" class="w-full bg-transparent py-6 px-4 md:px-8">
 
-      <h1 class="text-2xl md:text-3xl font-bold" style="font-family:'Playfair Display',serif;">Medical Entrance Prep (NEET)</h1>
-      <p class="text-sm text-muted mt-2 max-w-prose">
-        High-quality Biology, Physics, and Chemistry preparation designed for NEET aspirants with concept clarity and PYQ-focused learning.
-      </p>
+  <style>
+    /* Keep layout consistent with engineering: invisible groups, 4-in-row grid */
+    #medical-page { background: transparent; }
+    .big-group { background: transparent; padding: 8px 0; margin-bottom: 18px; }
+    .big-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0b3650; }
 
-      <!-- 6 Cards Grid -->
-      <div class="mt-6">
-        <h3 class="text-lg font-semibold">Top Medical Resources</h3>
+    .small-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: start; }
+    @media (max-width: 900px) { .small-grid { grid-template-columns: repeat(2, 1fr); } }
 
-        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    .small-card { background: #ffffff; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; box-shadow: 0 6px 18px rgba(7,36,58,0.04); font-size: 12px; min-height: 124px; }
+    .small-card img { height: 64px; width: 100%; object-fit: cover; border-radius: 6px; }
+    .small-title { margin-top: 8px; font-weight: 600; font-size: 13px; color: #07365a; }
+    .small-desc { color: #5b6b78; font-size: 11px; margin-top: 6px; flex: 0; }
+    .small-card a { margin-top: auto; background: #0EA5E9; color: white; padding: 6px 8px; border-radius: 6px; font-size: 12px; text-decoration: none; text-align: center; display:inline-block; }
+  </style>
 
-          <!-- Card 1 -->
-          <article class="card p-4 flex flex-col h-full">
-            <img src="/assets/thumbnails/biology_basics.jpg" class="w-full h-32 object-cover rounded-md mb-3" />
-            <div class="flex-1">
-              <div class="font-semibold">Biology NCERT Booster</div>
-              <p class="text-xs text-muted mt-2">Complete NCERT line-by-line explanation with highlighted NEET points.</p>
-            </div>
-            <div class="mt-3 text-right">
-              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
-            </div>
-          </article>
-
-          <!-- Card 2 -->
-          <article class="card p-4 flex flex-col h-full">
-            <img src="/assets/thumbnails/human_physiology.jpg" class="w-full h-32 object-cover rounded-md mb-3" />
-            <div class="flex-1">
-              <div class="font-semibold">Human Physiology Mastery</div>
-              <p class="text-xs text-muted mt-2">Highly scoring unit with diagrams, flowcharts, and practice sets.</p>
-            </div>
-            <div class="mt-3 text-right">
-              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
-            </div>
-          </article>
-
-          <!-- Card 3 -->
-          <article class="card p-4 flex flex-col h-full">
-            <img src="/assets/thumbnails/neet_chemistry.jpg" class="w-full h-32 object-cover rounded-md mb-3" />
-            <div class="flex-1">
-              <div class="font-semibold">NEET Chemistry Capsule</div>
-              <p class="text-muted text-xs mt-2">Fast revision for Physical, Organic, and Inorganic Chemistry with formulas.</p>
-            </div>
-            <div class="mt-3 text-right">
-              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
-            </div>
-          </article>
-
-          <!-- Card 4 -->
-          <article class="card p-4 flex flex-col h-full">
-            <img src="/assets/thumbnails/neet_physics.jpg" class="w-full h-32 object-cover rounded-md mb-3" />
-            <div class="flex-1">
-              <div class="font-semibold">NEET Physics Problem Sets</div>
-              <p class="text-xs text-muted mt-2">Carefully curated problems to improve accuracy and speed.</p>
-            </div>
-            <div class="mt-3 text-right">
-              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
-            </div>
-          </article>
-
-          <!-- Card 5 -->
-          <article class="card p-4 flex flex-col h-full">
-            <img src="/assets/thumbnails/genetics.jpg" class="w-full h-32 object-cover rounded-md mb-3" />
-            <div class="flex-1">
-              <div class="font-semibold">Genetics & Evolution Pack</div>
-              <p class="text-xs text-muted mt-2">One of the most important NEET units explained with clarity.</p>
-            </div>
-            <div class="mt-3 text-right">
-              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
-            </div>
-          </article>
-
-          <!-- Card 6 -->
-          <article class="card p-4 flex flex-col h-full">
-            <img src="/assets/thumbnails/ecology.jpg" class="w-full h-32 object-cover rounded-md mb-3" />
-            <div class="flex-1">
-              <div class="font-semibold">Ecology Final Sprint</div>
-              <p class="text-xs text-muted mt-2">Most repeated questions & last-month revision strategies.</p>
-            </div>
-            <div class="mt-3 text-right">
-              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
-            </div>
-          </article>
-
-        </div>
+  <!-- GROUP 1: Biology Core -->
+  <div class="big-group">
+    <div class="big-title">Biology Core</div>
+    <div class="small-grid">
+      <div class="small-card">
+        <img src="/assets/thumbnails/biology_basics.jpg" alt="NCERT Booster">
+        <div class="small-title">NCERT Booster</div>
+        <div class="small-desc">Line-by-line NCERT explanation focused for NEET.</div>
+        <a href="#">Go →</a>
       </div>
 
-      <!-- CTA Section -->
-      <div class="mt-8 p-4 rounded-md bg-gradient-to-r from-green-50 to-white border border-green-100">
-        <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
-          <div>
-            <div class="font-semibold">Need a personalised NEET plan?</div>
-            <p class="text-sm text-muted">Share your preparation stage and target score — we will guide you.</p>
-          </div>
-          <div class="flex gap-3">
-            <button class="btn-primary">Request Plan</button>
-            <button class="btn-ghost" id="medContact">Contact Mentor</button>
-          </div>
-        </div>
+      <div class="small-card">
+        <img src="/assets/thumbnails/genetics.jpg" alt="Genetics">
+        <div class="small-title">Genetics & Evolution</div>
+        <div class="small-desc">High-yield genetics with MCQs & diagrams.</div>
+        <a href="#">Go →</a>
       </div>
 
+      <div class="small-card">
+        <img src="/assets/thumbnails/ecology.jpg" alt="Ecology">
+        <div class="small-title">Ecology</div>
+        <div class="small-desc">Repeated questions & quick strategies.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/human_physiology.jpg" alt="Physiology">
+        <div class="small-title">Human Physiology</div>
+        <div class="small-desc">Diagrams, flowcharts & scoring tips.</div>
+        <a href="#">Go →</a>
+      </div>
     </div>
   </div>
-</section>
 
-<script>
-  document.getElementById('medContact')?.addEventListener('click', () => {
-    alert('Contact form will open soon.');
-  });
-</script>
+  <!-- GROUP 2: Chemistry Essentials -->
+  <div class="big-group">
+    <div class="big-title">Chemistry Essentials</div>
+    <div class="small-grid">
+      <div class="small-card">
+        <img src="/assets/thumbnails/neet_chemistry.jpg" alt="Chemistry Capsule">
+        <div class="small-title">Chemistry Capsule</div>
+        <div class="small-desc">Physical, Organic & Inorganic short revision.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/organic.jpg" alt="Organic">
+        <div class="small-title">Organic Reactions</div>
+        <div class="small-desc">Mechanisms & named reactions simplified.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/thermo.jpg" alt="Physical Chemistry">
+        <div class="small-title">Physical Chemistry</div>
+        <div class="small-desc">Numerical tricks & formula sheet.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/inorganic.jpg" alt="Inorganic">
+        <div class="small-title">Inorganic Chemistry</div>
+        <div class="small-desc">Facts, periodic trends & quick tables.</div>
+        <a href="#">Go →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUP 3: Physics Focus -->
+  <div class="big-group">
+    <div class="big-title">Physics Focus</div>
+    <div class="small-grid">
+      <div class="small-card">
+        <img src="/assets/thumbnails/neet_physics.jpg" alt="Physics Problems">
+        <div class="small-title">Problem Sets</div>
+        <div class="small-desc">Challenging NEET physics questions.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/mechanics.jpg" alt="Mechanics">
+        <div class="small-title">Mechanics</div>
+        <div class="small-desc">Kinematics to rotational dynamics.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/optics.jpg" alt="Optics">
+        <div class="small-title">Optics</div>
+        <div class="small-desc">Ray diagrams & formulae quick guide.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/electrostatics.jpg" alt="Electrostatics">
+        <div class="small-title">Electrostatics</div>
+        <div class="small-desc">Field problems & conceptual clarity.</div>
+        <a href="#">Go →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUP 4: Practice & Revision -->
+  <div class="big-group">
+    <div class="big-title">Practice & Revision</div>
+    <div class="small-grid">
+      <div class="small-card">
+        <img src="/assets/thumbnails/pyq.jpg" alt="PYQ">
+        <div class="small-title">Previous Year Questions</div>
+        <div class="small-desc">Topic-wise PYQs with solutions.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/test.jpg" alt="Mock Tests">
+        <div class="small-title">Mock Tests</div>
+        <div class="small-desc">Timed full-length tests.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/analysis.jpg" alt="Analysis">
+        <div class="small-title">Performance Analysis</div>
+        <div class="small-desc">Reports to target weak areas.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/revision.jpg" alt="Revision">
+        <div class="small-title">Last Month Revision</div>
+        <div class="small-desc">High-yield checklist & strategy.</div>
+        <a href="#">Go →</a>
+      </div>
+    </div>
+  </div>
+
+</section>
