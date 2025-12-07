@@ -1,6 +1,6 @@
-<!-- ====== HERO CAROUSEL COMPONENT (drop-in) ====== -->
+<!-- ====== HERO CAROUSEL COMPONENT (no horizontal scrollbar) ====== -->
 <section id="hero-carousel-component" class="w-full m-0 p-0 block">
-  <div id="hero-wrap-c" style="position:relative; width:100vw; left:50%; transform:translateX(-50%); overflow:hidden;">
+  <div id="hero-wrap-c" style="position:relative; left:50%; margin-left:-50vw; right:50%; margin-right:-50vw; width:100vw; overflow:hidden; box-sizing:border-box;">
     <!-- VIEWPORT -->
     <div id="carousel-viewport-c" class="overflow-hidden w-full">
       <div id="carousel-track-c" class="flex transition-transform duration-700 ease-out will-change-transform">
@@ -28,6 +28,12 @@
   <!-- Inline script for the component (self-contained) -->
   <script>
     (function () {
+      // Prevent tiny horizontal overflow across the page (removes scrollbar)
+      try {
+        document.documentElement.style.overflowX = 'hidden';
+        document.body.style.overflowX = 'hidden';
+      } catch (e) { /* ignore in very old browsers */ }
+
       // Element refs (scoped to component)
       const track = document.getElementById('carousel-track-c');
       const dotsWrap = document.getElementById('carousel-dots-c');
