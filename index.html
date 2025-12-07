@@ -156,84 +156,111 @@
 <body class="text-slate-900">
 
   <!-- NAVBAR -->
-  <nav class="sticky top-0 z-50 bg-white border-b shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 md:px-8">
+<nav class="sticky top-0 z-50 bg-white border-b shadow-sm">
+  <div class="max-w-6xl mx-auto px-4 md:px-8">
 
-      <!-- TOP ROW: LOGO + TITLE -->
-      <div class="flex items-center justify-between py-2">
+    <!-- TOP ROW: LOGO + TITLE -->
+    <div class="flex items-center justify-between py-2">
 
-        <!-- Logo + Name -->
-        <div class="flex items-center gap-3">
-          <img src="favicon.png" class="w-10 h-10 rounded-full shadow-sm object-cover logo-glow" />
+      <!-- Logo + Name -->
+      <div class="flex items-center gap-3">
+        <img src="favicon.png" class="w-10 h-10 rounded-full shadow-sm object-cover logo-glow" />
 
-          <div class="leading-tight">
-            <a class="text-xl font-extrabold"
-              style="font-family:'Playfair Display',serif; background:var(--blue-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
-              NK Classes
-            </a>
-            <div class="text-[10px] text-muted">
-              Where Chemistry Becomes Crystal Clear
-            </div>
+        <div class="leading-tight">
+          <a class="text-xl font-extrabold"
+            style="font-family:'Playfair Display',serif; background:var(--blue-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
+            NK Classes
+          </a>
+          <div class="text-[10px] text-muted">
+            Where Chemistry Becomes Crystal Clear
           </div>
         </div>
-
-        <!-- Desktop Tabs (text menu) -->
-        <ul id="desktopTabs" class="hidden md:flex gap-3 items-center text-sm">
-          <li><button data-tab="home" class="nav-link px-2 py-1 rounded-md">Home</button></li>
-          <li><button data-tab="about" class="nav-link px-2 py-1 rounded-md">About Us</button></li>
-          <li><button data-tab="materials" class="nav-link px-2 py-1 rounded-md">Study Materials</button></li>
-          <li><button data-tab="contact" class="nav-link px-2 py-1 rounded-md">Contact Us</button></li>
-        </ul>
       </div>
 
-      <!-- MOBILE ICON BAR (Always visible on mobile) -->
-      <div class="md:hidden pb-3">
-        <div class="grid grid-cols-4 gap-2 text-center">
-
-          <!-- Home -->
-          <button data-tab="home" class="flex flex-col items-center text-[10px] mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24"
-              stroke-width="1.7" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z" />
-            </svg>
-            Home
-          </button>
-
-          <!-- About Us -->
-          <button data-tab="about" class="flex flex-col items-center text-[10px] mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24"
-              stroke-width="1.7" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 4.5c2.485 0 4.5 2.015 4.5 4.5s-2.015 4.5-4.5 4.5-4.5-2.015-4.5-4.5S9.515 4.5 12 4.5zm0 12c4.142 0 7.5 2.015 7.5 4.5V21H4.5v-.75c0-2.485 3.358-4.5 7.5-4.5z"/>
-            </svg>
-            About
-          </button>
-
-          <!-- Study Materials -->
-          <button data-tab="materials" class="flex flex-col items-center text-[10px] mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24"
-              stroke-width="1.7" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M3 6.75V19.5A1.5 1.5 0 004.5 21h12A1.5 1.5 0 0018 19.5V6.75m-15 0L12 3l9 3.75m-15 0l9 3.75 9-3.75" />
-            </svg>
-            Materials
-          </button>
-
-          <!-- Contact Us -->
-          <button data-tab="contact" class="flex flex-col items-center text-[10px] mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24"
-              stroke-width="1.7" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25v13.5A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18.75V5.25zM7.5 9h9m-9 3h9m-9 3h6"/>
-            </svg>
-            Contact
-          </button>
-        </div>
-      </div>
-
+      <!-- Desktop Tabs -->
+      <ul id="desktopTabs" class="hidden md:flex gap-3 items-center text-sm">
+        <li><button data-tab="home" class="nav-link px-2 py-1 rounded-md">Home</button></li>
+        <li><button data-tab="about" class="nav-link px-2 py-1 rounded-md">About Us</button></li>
+        <li><button data-tab="materials" class="nav-link px-2 py-1 rounded-md">Study Materials</button></li>
+        <li><button data-tab="lectures" class="nav-link px-2 py-1 rounded-md">Lectures</button></li>
+        <li><button data-tab="cutoffs" class="nav-link px-2 py-1 rounded-md">Cutoffs</button></li>
+        <li><button data-tab="placements" class="nav-link px-2 py-1 rounded-md">Placements & Campus</button></li>
+        <li><button data-tab="contact" class="nav-link px-2 py-1 rounded-md">Contact Us</button></li>
+      </ul>
     </div>
-  </nav>
+
+    <!-- MOBILE ICON BAR -->
+    <div class="md:hidden pb-3">
+      <div class="grid grid-cols-3 gap-2 text-center">
+
+        <!-- Home -->
+        <button data-tab="home" class="flex flex-col items-center text-[10px] mobile-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z" />
+          </svg>
+          Home
+        </button>
+
+        <!-- About Us -->
+        <button data-tab="about" class="flex flex-col items-center text-[10px] mobile-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 4.5c2.485 0 4.5 2.015 4.5 4.5s-2.015 4.5-4.5 4.5-4.5-2.015-4.5-4.5S9.515 4.5 12 4.5zm0 12c4.142 0 7.5 2.015 7.5 4.5V21H4.5v-.75c0-2.485 3.358-4.5 7.5-4.5z" />
+          </svg>
+          About
+        </button>
+
+        <!-- Materials -->
+        <button data-tab="materials" class="flex flex-col items-center text-[10px] mobile-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 6.75V19.5A1.5 1.5 0 004.5 21h12A1.5 1.5 0 0018 19.5V6.75m-15 0L12 3l9 3.75m-15 0l9 3.75 9-3.75" />
+          </svg>
+          Materials
+        </button>
+
+        <!-- Lectures -->
+        <button data-tab="lectures" class="flex flex-col items-center text-[10px] mobile-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15 10.5l6-3-6-3v6zm-12 9V6a1.5 1.5 0 011.5-1.5H12A1.5 1.5 0 0113.5 6v13.5A1.5 1.5 0 0112 21H4.5A1.5 1.5 0 013 19.5z" />
+          </svg>
+          Lectures
+        </button>
+
+        <!-- Cutoffs -->
+        <button data-tab="cutoffs" class="flex flex-col items-center text-[10px] mobile-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 3h18M9 3v18m6-18v18M3 12h18" />
+          </svg>
+          Cutoffs
+        </button>
+
+        <!-- Placements & Campus -->
+        <button data-tab="placements" class="flex flex-col items-center text-[10px] mobile-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 6a9 9 0 100 18 9 9 0 000-18zm0 3v9m4.5-4.5h-9" />
+          </svg>
+          Campus
+        </button>
+
+        <!-- Contact -->
+        <button data-tab="contact" class="flex flex-col items-center text-[10px] mobile-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25v13.5A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18.75V5.25zM7.5 9h9m-9 3h9m-9 3h6" />
+          </svg>
+          Contact
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</nav>
 
 
   <!-- MAIN CONTENT -->
@@ -336,8 +363,11 @@
       const pages = {
         home: document.getElementById('home-page'),
         about: document.getElementById('about-page'),
-        materials: document.getElementById('materials-page'),
-        contact: document.getElementById('contact-page')
+          materials: document.getElementById('materials-page'),
+  lectures: document.getElementById('lectures-page'),
+  cutoffs: document.getElementById('cutoffs-page'),
+  placements: document.getElementById('placements-page'),
+  contact: document.getElementById('contact-page')
       };
 
       function show(tab) {
@@ -367,11 +397,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
