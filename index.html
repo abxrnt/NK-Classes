@@ -30,9 +30,9 @@
     .logo-glow{box-shadow:0 0 18px rgba(25,118,242,.35)} button:hover{background:var(--blue-gradient) !important;color:white !important;transition:.25s;border-radius:8px}
     footer h2{background:var(--blue-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
     nav{border-bottom-color:rgba(7,32,50,.06)} .text-muted{color:#5b6b78} .mobile-icon{color:#0b3b66} .no-tap-highlight{-webkit-tap-highlight-color:rgba(0,0,0,0)}
-    /* removed the rule that hid #authArea on small screens */
-    /* small circle avatar */
     .avatar-circle { width:32px; height:32px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:#e6eef9; color:#0b3b66; font-weight:700; font-size:13px; text-transform:uppercase; }
+    /* small disabled style */
+    .btn-disabled { opacity: .65; pointer-events: none; }
   </style>
 </head>
 <body class="text-slate-900">
@@ -61,7 +61,6 @@
           </ul>
 
           <!-- auth area (profile icon + logout OR login/register buttons) -->
-          <!-- Make authArea visible at all sizes (removed hidden md:flex) -->
           <div id="authArea" class="ml-2 flex items-center gap-3"></div>
         </div>
       </div>
@@ -181,12 +180,10 @@
           const res = await fetch(file,{cache:'no-store'});
           if (!res.ok) throw new Error('fetch '+res.status);
           app.innerHTML = await res.text();
-          // allow components to run their own scripts if present
         } catch(e){
           console.warn('failed loading',file,e);
           try { const fb = await fetch(mapping['home']); app.innerHTML = await fb.text(); } catch { app.innerHTML = '<div class="p-6 card"><h2 class="text-xl font-bold">Content unavailable</h2><p class="text-gray-600">Check /components folder.</p></div>'; }
         }
-        // mark active nav
         document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('tab-active'));
         document.querySelectorAll(`[data-route="${route}"]`).forEach(btn=> btn.classList.add('tab-active'));
       }
@@ -209,6 +206,30 @@
       try{ const q = await db.collection('users').where('username','==',username).limit(1).get(); if(!q.empty) return {id:q.docs[0].id, data:q.docs[0].data()}; } catch(e){ console.error(e); } return null;
     }
 
+    // UI loading helpers
+    function setLoading(type, on){
+      // type: 'login' or 'register'
+      const loginBtn = document.getElementById('loginBtn');
+      const registerBtn = document.getElementById('registerBtn');
+      const inputs = Array.from(document.querySelectorAll('#loginForm input, #registerForm input, #loginForm button, #registerForm button, #authTabs button'));
+      if(type === 'login'){
+        if(loginBtn){
+          loginBtn.dataset.orig = loginBtn.innerHTML;
+          loginBtn.innerHTML = on ? 'Logging in...' : (loginBtn.dataset.orig || 'Login');
+        }
+      } else if(type === 'register'){
+        if(registerBtn){
+          registerBtn.dataset.orig = registerBtn.innerHTML;
+          registerBtn.innerHTML = on ? 'Registering...' : (registerBtn.dataset.orig || 'Register');
+        }
+      }
+      // disable both forms while any loading
+      inputs.forEach(i => {
+        if(on) { i.classList.add('btn-disabled'); i.setAttribute('disabled','disabled'); }
+        else { i.classList.remove('btn-disabled'); i.removeAttribute('disabled'); }
+      });
+    }
+
     // Ensure auth area present and visible, inject default if empty
     (function ensureAuthArea(){
       let area = document.getElementById('authArea');
@@ -225,11 +246,13 @@
     })();
 
     function attachNavHandlers(){
-      // attach handlers safely (buttons may be recreated)
-      document.getElementById('navLogin')?.removeEventListener?.('click', ()=>{}); // noop safe remove
-      document.getElementById('navRegister')?.removeEventListener?.('click', ()=>{});
-      document.getElementById('navLogin')?.addEventListener('click', ()=> showModal('login'));
-      document.getElementById('navRegister')?.addEventListener('click', ()=> showModal('register'));
+      // reattach safely
+      const navLogin = document.getElementById('navLogin');
+      const navRegister = document.getElementById('navRegister');
+      navLogin?.removeEventListener?.('click', ()=>{});
+      navRegister?.removeEventListener?.('click', ()=>{});
+      navLogin?.addEventListener('click', ()=> showModal('login'));
+      navRegister?.addEventListener('click', ()=> showModal('register'));
     }
 
     // modal helpers
@@ -238,34 +261,32 @@
     document.getElementById('showLogin')?.addEventListener('click', ()=> showModal('login'));
     document.getElementById('showRegister')?.addEventListener('click', ()=> showModal('register'));
     function showModal(view='login'){
-      document.getElementById('loginError').classList.add('hidden'); document.getElementById('regError').classList.add('hidden');
+      document.getElementById('loginError')?.classList.add('hidden'); document.getElementById('regError')?.classList.add('hidden');
       if(view==='login'){
-        document.getElementById('loginForm').classList.remove('hidden');
-        document.getElementById('registerForm').classList.add('hidden');
-        document.getElementById('showLogin').classList.add('tab-active');
-        document.getElementById('showRegister').classList.remove('tab-active');
+        document.getElementById('loginForm')?.classList.remove('hidden');
+        document.getElementById('registerForm')?.classList.add('hidden');
+        document.getElementById('showLogin')?.classList.add('tab-active');
+        document.getElementById('showRegister')?.classList.remove('tab-active');
       } else {
-        document.getElementById('loginForm').classList.add('hidden');
-        document.getElementById('registerForm').classList.remove('hidden');
-        document.getElementById('showLogin').classList.remove('tab-active');
-        document.getElementById('showRegister').classList.add('tab-active');
+        document.getElementById('loginForm')?.classList.add('hidden');
+        document.getElementById('registerForm')?.classList.remove('hidden');
+        document.getElementById('showLogin')?.classList.remove('tab-active');
+        document.getElementById('showRegister')?.classList.add('tab-active');
       }
-      // prefill regn with current ISO timestamp
       const regnEl = document.getElementById('regn');
       if(regnEl) regnEl.value = new Date().toISOString();
       authModal.classList.remove('hidden'); authModal.classList.add('flex');
-      // scroll to top for mobile
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // ===== REGISTER =====
     document.getElementById('registerBtn')?.addEventListener('click', async () => {
-      const username = document.getElementById('regUsername').value.trim();
-      const name = document.getElementById('regName').value.trim();
-      const password = document.getElementById('regPassword').value;
-      const phone = document.getElementById('regPhone').value.trim();
-      const email = document.getElementById('regEmail').value.trim();
-      const regn = document.getElementById('regn').value || new Date().toISOString();
+      const username = document.getElementById('regUsername')?.value.trim() || '';
+      const name = document.getElementById('regName')?.value.trim() || '';
+      const password = document.getElementById('regPassword')?.value || '';
+      const phone = document.getElementById('regPhone')?.value.trim() || '';
+      const email = document.getElementById('regEmail')?.value.trim() || '';
+      const regn = document.getElementById('regn')?.value || new Date().toISOString();
       const errEl = document.getElementById('regError'); if(errEl) errEl.classList.add('hidden');
 
       if(!username || !name || password.length < 3){
@@ -273,88 +294,102 @@
         return;
       }
 
+      setLoading('register', true);
       try{
         // check username uniqueness
         const existing = await findUserDocByUsername(username);
-        if(existing){ if(errEl){ errEl.innerText = 'Username already taken.'; errEl.classList.remove('hidden'); } return; }
+        if(existing){ if(errEl){ errEl.innerText = 'Username already taken.'; errEl.classList.remove('hidden'); } setLoading('register', false); return; }
 
-        // Create Firebase Auth account using email if provided (preferred).
-        // If email not provided, we'll skip Firebase Auth creation and still create Firestore doc (legacy).
+        // Attempt to create Firebase Auth user if email provided
         let uid = null;
+        let firebaseCreated = false;
         if(email){
           try{
             const userCred = await auth.createUserWithEmailAndPassword(email, password);
             uid = userCred.user.uid;
-            await userCred.user.updateProfile({ displayName: name });
+            firebaseCreated = true;
+            // update display name
+            await userCred.user.updateProfile({ displayName: name }).catch(()=>{});
           } catch(firebaseErr){
-            // If Firebase account creation fails (e.g., email in use), continue to create Firestore doc as fallback.
-            console.warn('Firebase account creation failed — creating Firestore-only user. Error:', firebaseErr);
+            // Firebase failed (maybe email in use). We'll continue to create Firestore-only user as fallback.
+            console.warn('Firebase account creation failed — will create Firestore-only user. Error:', firebaseErr);
           }
         }
 
-        // IMPORTANT SECURITY NOTE:
-        // You asked to store plaintext password to match your schema. This is insecure.
-        // Keep this only if you understand the risk. Ideally migrate to Firebase Auth and remove plaintext passwords later.
+        // create Firestore doc (use uid if we have)
         const docRefId = uid || db.collection('users').doc().id;
         await db.collection('users').doc(docRefId).set({
           username,
           name,
-          password,      // <-- stored plaintext to match your existing documents (INSECURE)
+          password,      // insecure but kept for legacy compatibility
           phone: phone || "",
           email: email || "",
           paid: "no",
           regn: regn
         });
 
-        // close modal, UI will update via onAuthStateChanged or legacy session
+        // If firebase account not created (no email or firebase failed), sign-in legacy session automatically
+        if(!firebaseCreated){
+          // set legacy session so UI shows logged-in state immediately
+          localStorage.setItem('legacyUser', docRefId);
+          // fetch the doc we just wrote and render
+          const docSnap = await db.collection('users').doc(docRefId).get();
+          if(docSnap.exists){
+            renderAuthArea({ id: docSnap.id, data: docSnap.data() });
+          }
+        }
+
+        // close modal (if firebaseCreated, onAuthStateChanged will update too)
         authModal.classList.add('hidden'); authModal.classList.remove('flex');
       } catch(e){
         console.error('Registration error', e);
         if(errEl){ errEl.innerText = e.message || 'Registration failed'; errEl.classList.remove('hidden'); }
+      } finally {
+        setLoading('register', false);
       }
     });
 
     // ===== LOGIN =====
     document.getElementById('loginBtn')?.addEventListener('click', async () => {
-      const username = document.getElementById('loginUsername').value.trim();
-      const password = document.getElementById('loginPassword').value;
+      const username = document.getElementById('loginUsername')?.value.trim() || '';
+      const password = document.getElementById('loginPassword')?.value || '';
       const errEl = document.getElementById('loginError'); if(errEl) errEl.classList.add('hidden');
 
       if(!username || !password){ if(errEl){ errEl.innerText = 'Enter username and password.'; errEl.classList.remove('hidden'); } return; }
 
+      setLoading('login', true);
       try{
-        // find user doc by username
         const doc = await findUserDocByUsername(username);
-        if(!doc){ if(errEl){ errEl.innerText = 'User not found.'; errEl.classList.remove('hidden'); } return; }
+        if(!doc){ if(errEl){ errEl.innerText = 'User not found.'; errEl.classList.remove('hidden'); } setLoading('login', false); return; }
 
-        // If Firestore doc has email and corresponding Firebase Auth user exists, try Firebase Auth
         const email = doc.data.email;
         if(email){
           try{
             await auth.signInWithEmailAndPassword(email, password);
-            // success
             authModal.classList.add('hidden'); authModal.classList.remove('flex');
+            setLoading('login', false);
             return;
           } catch(firebaseErr){
-            // Firebase sign-in failed (wrong pwd or no firebase account). Fall back to plaintext match.
             console.warn('Firebase signIn failed for email', email, firebaseErr);
+            // fallthrough to plaintext fallback
           }
         }
 
-        // Legacy fallback: check stored plaintext password (only for migration/backwards compatibility)
+        // fallback plaintext
         if(doc.data && doc.data.password && doc.data.password === password){
-          // mark legacy session (insecure)
           localStorage.setItem('legacyUser', doc.id);
           renderAuthArea(doc);
           authModal.classList.add('hidden'); authModal.classList.remove('flex');
+          setLoading('login', false);
           return;
         } else {
           if(errEl){ errEl.innerText = 'Invalid credentials.'; errEl.classList.remove('hidden'); }
-          return;
         }
       } catch(e){
         console.error('Login error', e);
         if(errEl){ errEl.innerText = 'Login failed. Try again later.'; errEl.classList.remove('hidden'); }
+      } finally {
+        setLoading('login', false);
       }
     });
 
@@ -373,11 +408,9 @@
         authAreaEl.innerHTML = `<button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button><button id="navRegister" class="px-3 py-1 rounded-md border">Register</button>`;
         attachNavHandlers();
       } else {
-        // create initials for avatar (prefer username else name)
         const username = userDoc.data && userDoc.data.username ? userDoc.data.username : '';
         const name = userDoc.data && userDoc.data.name ? userDoc.data.name : '';
         const initials = (username || name || 'U').charAt(0).toUpperCase();
-        // show avatar circle + logout button
         authAreaEl.innerHTML = `
           <div class="flex items-center gap-3">
             <div class="avatar-circle" title="${escapeHtml(name || username)}">${escapeHtml(initials)}</div>
@@ -392,10 +425,8 @@
     auth.onAuthStateChanged(async (user) => {
       try{
         if(user){
-          // find user's Firestore doc by uid (docs may be under uid previously created)
           const docData = await getUserDocByUid(user.uid);
           if(!docData){
-            // If doc missing, create basic doc from firebase user
             await db.collection('users').doc(user.uid).set({
               username: user.email ? user.email.split('@')[0] : user.uid,
               name: user.displayName || '',
@@ -411,7 +442,6 @@
           return;
         }
 
-        // no firebase user: check legacy local session
         const legacyId = localStorage.getItem('legacyUser');
         if(legacyId){
           try{
@@ -426,14 +456,13 @@
       }
     });
 
-    // Ensure authArea exists on DOM ready (safety)
+    // Ensure authArea exists on DOM ready (safety) and attach tab handlers
     document.addEventListener('DOMContentLoaded', () => {
       if(!document.getElementById('authArea')){
         const parent = document.querySelector('.max-w-6xl') || document.body;
         const wrapper = document.createElement('div'); wrapper.id='authArea'; wrapper.className='ml-4 flex items-center gap-3';
         parent.prepend(wrapper);
       }
-      // attach handlers to tab buttons (if they are present)
       document.getElementById('showLogin')?.addEventListener('click', ()=> showModal('login'));
       document.getElementById('showRegister')?.addEventListener('click', ()=> showModal('register'));
       document.getElementById('authClose')?.addEventListener('click', ()=> { authModal.classList.add('hidden'); authModal.classList.remove('flex'); });
