@@ -161,98 +161,105 @@
   </footer>
 
   <!-- AUTH MODAL (FULLSCREEN BACKDROP, centered non-scroll card) -->
-  <div id="authModal" class="fixed inset-0 hidden z-50 flex items-center justify-center auth-backdrop">
-    <div class="auth-card mx-4">
-      <!-- LEFT: branding -->
-      <div class="auth-left">
-        <div class="flex items-center gap-3">
-          <img src="favicon.png" class="w-12 h-12 rounded-full shadow-sm object-cover" />
-          <div>
-            <div style="font-family:'Playfair Display',serif" class="text-xl font-bold">NK Classes</div>
-            <div class="text-xs text-muted">Where Chemistry Becomes Crystal Clear</div>
-          </div>
+<!-- AUTH MODAL (FIXED & COMPACT REGISTER FORM) -->
+<div id="authModal" class="fixed inset-0 hidden z-50 flex items-center justify-center auth-backdrop">
+  <div class="auth-card mx-4" style="max-width:800px;">
+
+    <!-- LEFT SIDE -->
+    <div class="auth-left">
+      <div class="flex items-center gap-3 mb-2">
+        <img src="favicon.png" class="w-10 h-10 rounded-full shadow-sm object-cover" />
+        <div>
+          <div style="font-family:'Playfair Display',serif" class="text-lg font-bold">NK Classes</div>
+          <div class="text-xs text-muted">Where Chemistry Becomes Crystal Clear</div>
         </div>
-
-        <h3>Learn. Practice. Conquer.</h3>
-        <p>Clear conceptual lessons, concise notes, and specially designed study materials to help you ace your exams & entrance tests.</p>
-
-        <ul class="mt-2 text-sm text-muted space-y-2">
-          <li>• Fast revision notes</li>
-          <li>• PYQ-based practice</li>
-          <li>• Campus & placements data</li>
-        </ul>
       </div>
 
-      <!-- RIGHT: forms -->
-      <div class="auth-right">
-        <div class="form-inner">
-          <div class="flex justify-between items-center mb-4">
-            <div class="flex gap-2">
-              <button id="showLogin" class="px-4 py-2 rounded-md tab-active text-sm">Login</button>
-              <button id="showRegister" class="px-4 py-2 rounded-md text-sm">Register</button>
-            </div>
-            <button id="authClose" class="text-gray-600">✕</button>
+      <h3 style="font-size:22px">Learn. Practice. Conquer.</h3>
+      <p class="text-sm">Conceptual lessons, concise notes & PYQ-based practice for high-quality preparation.</p>
+
+      <ul class="mt-2 text-xs text-muted space-y-1">
+        <li>• Fast revision notes</li>
+        <li>• PYQ practice sets</li>
+        <li>• Campus & placements data</li>
+      </ul>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="auth-right">
+      <div class="form-inner" style="max-width:360px;">
+
+        <!-- Top Tabs -->
+        <div class="flex justify-between items-center mb-3">
+          <div class="flex gap-2">
+            <button id="showLogin" class="px-3 py-1 rounded-md tab-active text-sm">Login</button>
+            <button id="showRegister" class="px-3 py-1 rounded-md text-sm">Register</button>
           </div>
-
-          <!-- LOGIN FORM -->
-          <div id="loginForm">
-            <div class="mb-3">
-              <label class="block text-sm font-medium mb-1">Username</label>
-              <input id="loginUsername" class="input-lg" placeholder="your username" />
-            </div>
-            <div class="mb-3">
-              <label class="block text-sm font-medium mb-1">Password</label>
-              <input id="loginPassword" type="password" class="input-lg" placeholder="••••••••" />
-            </div>
-
-            <div id="loginError" class="text-sm text-red-500 mb-3 hidden"></div>
-
-            <div class="flex gap-3 mb-4">
-              <button id="loginBtn" class="btn-primary flex-1 text-center">Login</button>
-              <button id="loginHelp" class="btn-ghost">Need help?</button>
-            </div>
-
-            <div class="text-xs text-muted">By logging in you agree to our terms and privacy.</div>
-          </div>
-
-          <!-- REGISTER FORM -->
-          <div id="registerForm" class="hidden">
-            <div class="mb-3">
-              <label class="block text-sm font-medium mb-1">Username</label>
-              <input id="regUsername" class="input-lg" placeholder="choose a username" />
-            </div>
-            <div class="mb-3">
-              <label class="block text-sm font-medium mb-1">Full name</label>
-              <input id="regName" class="input-lg" placeholder="Your full name" />
-            </div>
-            <div class="mb-3">
-              <label class="block text-sm font-medium mb-1">Password</label>
-              <input id="regPassword" type="password" class="input-lg" placeholder="Minimum 6 characters" />
-            </div>
-            <div class="mb-3">
-              <label class="block text-sm font-medium mb-1">Phone (optional)</label>
-              <input id="regPhone" class="input-lg" placeholder="+91 98765 43210" />
-            </div>
-            <div class="mb-3">
-              <label class="block text-sm font-medium mb-1">Email (recommended)</label>
-              <input id="regEmail" type="email" class="input-lg" placeholder="name@example.com" />
-            </div>
-
-            <input id="regn" type="text" readonly class="w-full mt-2 mb-3 px-3 py-2 rounded bg-gray-50 text-sm" />
-
-            <div id="regError" class="text-sm text-red-500 mb-3 hidden"></div>
-
-            <div class="flex gap-3 mb-4">
-              <button id="registerBtn" class="btn-primary flex-1">Register</button>
-              <button id="cancelRegister" class="btn-ghost">Cancel</button>
-            </div>
-
-            <div class="text-xs text-muted">We recommend using email so you can recover your account later.</div>
-          </div>
+          <button id="authClose" class="text-gray-600">✕</button>
         </div>
+
+        <!-- LOGIN FORM -->
+        <div id="loginForm">
+          <div class="mb-2">
+            <label class="block text-sm mb-1">Username</label>
+            <input id="loginUsername" class="input-lg" style="padding:10px" placeholder="Your username" />
+          </div>
+
+          <div class="mb-2">
+            <label class="block text-sm mb-1">Password</label>
+            <input id="loginPassword" type="password" class="input-lg" style="padding:10px" placeholder="••••••••" />
+          </div>
+
+          <div id="loginError" class="text-sm text-red-500 mb-2 hidden"></div>
+
+          <button id="loginBtn" class="btn-primary w-full py-2 text-sm">Login</button>
+        </div>
+
+        <!-- REGISTER FORM -->
+        <div id="registerForm" class="hidden">
+
+          <div class="mb-2">
+            <label class="block text-sm mb-1">Username</label>
+            <input id="regUsername" class="input-lg" style="padding:10px" placeholder="choose username" />
+          </div>
+
+          <div class="mb-2">
+            <label class="block text-sm mb-1">Full name</label>
+            <input id="regName" class="input-lg" style="padding:10px" placeholder="Your full name" />
+          </div>
+
+          <div class="mb-2">
+            <label class="block text-sm mb-1">Password</label>
+            <input id="regPassword" type="password" class="input-lg" style="padding:10px" placeholder="minimum 6 characters" />
+          </div>
+
+          <div class="mb-2">
+            <label class="block text-sm mb-1">Phone (optional)</label>
+            <input id="regPhone" class="input-lg" style="padding:10px" placeholder="98765 43210" />
+          </div>
+
+          <div class="mb-2">
+            <label class="block text-sm mb-1">Email (recommended)</label>
+            <input id="regEmail" type="email" class="input-lg" style="padding:10px" placeholder="example@gmail.com" />
+          </div>
+
+          <!-- HIDDEN TIMESTAMP -->
+          <input id="regn" type="hidden" />
+
+          <div id="regError" class="text-sm text-red-500 mb-2 hidden"></div>
+
+          <div class="flex gap-2 mt-3">
+            <button id="registerBtn" class="btn-primary flex-1 py-2 text-sm">Register</button>
+            <button id="cancelRegister" class="btn-ghost py-2 text-sm">Cancel</button>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </div>
+</div>
+
 
   <!-- Firebase (compat) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -515,3 +522,4 @@
   </script>
 </body>
 </html>
+
