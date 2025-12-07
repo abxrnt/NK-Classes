@@ -1,103 +1,97 @@
-<!-- components/engineering.html - NON-SCROLLABLE FULLSCREEN PAGE -->
-<section id="engineering-page"
-  class="w-full h-screen overflow-hidden flex items-center justify-center bg-white">
+<!-- components/engineering.html - Compact NON-SCROLLABLE engineering page -->
+<section id="engineering-page" class="w-full bg-white">
+  <style>
+    /* keep this component compact and non-scrolling */
+    :root{--gap:12px}
+    .eng-page-wrap{height:calc(100vh - 72px); /* adjust if your navbar height differs */ overflow:hidden; padding:12px 20px}
+    .eng-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:8px}
+    .eng-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;margin:0}
+    .eng-sub{color:#5b6b78;font-size:13px;margin:4px 0 0}
 
-  <div class="max-w-6xl w-full px-4">
-    <div class="rounded-xl shadow-sm bg-white p-5 h-full flex flex-col">
+    /* grid fits inside the remaining area */
+    .eng-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;height:calc(100% - 64px); /* leave room for header and CTA */}
+    @media(min-width:900px){ .eng-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
 
-      <!-- HEADER -->
+    /* compact card tiles (not big outer card) */
+    .tile{background:white;border-radius:10px;padding:10px;display:flex;flex-direction:column;box-shadow:0 6px 18px rgba(7,36,58,0.04);height:100%;box-sizing:border-box}
+    .tile img{width:100%;height:84px;object-fit:cover;border-radius:6px}
+    .tile-title{font-weight:600;margin-top:10px;font-size:15px}
+    .tile-desc{color:#6b7a86;font-size:12px;margin-top:6px;flex:0}
+    .tile-footer{margin-top:auto;display:flex;justify-content:flex-end}
+    .tile a{background:linear-gradient(90deg,#0ea5e9,#1976f2);color:white;padding:6px 10px;border-radius:8px;font-size:13px;text-decoration:none}
+
+    /* CTA row (small) */
+    .eng-cta{margin-top:8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .eng-cta .left{font-weight:600}
+    .eng-cta .right{display:flex;gap:8px}
+
+    /* ensure no body scroll while viewing component if desired, but keep page integration flexible */
+  </style>
+
+  <div class="eng-page-wrap">
+    <header class="eng-header">
       <div>
-        <h1 class="text-2xl md:text-3xl font-bold"
-            style="font-family:'Playfair Display',serif;">
-          Engineering Entrance Prep
-        </h1>
-        <p class="text-sm text-muted mt-1">
-          Compact & high-yield resources for JEE Mains & Advanced.
-        </p>
+        <h2 class="eng-title">Engineering Entrance Prep</h2>
+        <div class="eng-sub">Compact & high-yield resources for JEE Mains & Advanced.</div>
+      </div>
+    </header>
+
+    <div class="eng-grid">
+      <!-- Card 1: JEE Mains Cutoffs -->
+      <div class="tile">
+        <img src="/assets/thumbnails/jeemains.jpg" alt="JEE Mains" />
+        <div class="tile-title">JEE Mains Cutoffs</div>
+        <div class="tile-desc">Branch-wise & college-wise cutoffs based on latest NTA data.</div>
+        <div class="tile-footer"><a href="#">Go</a></div>
       </div>
 
-      <!-- GRID (auto-fit inside screen) -->
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4 flex-1 overflow-hidden">
-
-        <!-- CARD TEMPLATE STYLE ADJUSTED TO FIT -->
-        <style>
-          .eng-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            font-size: 12px; /* smaller to fit */
-          }
-          .eng-card img {
-            height: 70px;
-            border-radius: 6px;
-            object-fit: cover;
-          }
-          .eng-title { font-weight: 600; font-size: 13px; }
-          .eng-desc { font-size: 10px; color: #667; margin-top: 4px; }
-          .eng-btn {
-            margin-top: auto;
-            padding: 4px 10px;
-            background: #1976F2;
-            color: white;
-            border-radius: 6px;
-            font-size: 11px;
-            text-align: right;
-          }
-        </style>
-
-        <!-- CARD 1 -->
-        <div class="eng-card">
-          <img src="/assets/thumbnails/jeemains.jpg">
-          <div class="eng-title mt-2">JEE Mains Cutoffs</div>
-          <div class="eng-desc">NTA-based updated cutoffs.</div>
-          <a href="#" class="eng-btn">Go →</a>
-        </div>
-
-        <!-- CARD 2 -->
-        <div class="eng-card">
-          <img src="/assets/thumbnails/jeeadv.jpg">
-          <div class="eng-title mt-2">JEE Advanced Cutoffs</div>
-          <div class="eng-desc">Updated IIT closing ranks.</div>
-          <a href="#" class="eng-btn">Go →</a>
-        </div>
-
-        <!-- CARD 3 -->
-        <div class="eng-card">
-          <img src="/assets/thumbnails/placements.jpg">
-          <div class="eng-title mt-2">Institutes & Placements</div>
-          <div class="eng-desc">Compare NITs / IIITs with data.</div>
-          <a href="#" class="eng-btn">Go →</a>
-        </div>
-
-        <!-- CARD 4 -->
-        <div class="eng-card">
-          <img src="/assets/thumbnails/dpp.jpg">
-          <div class="eng-title mt-2">DPPs & Modules</div>
-          <div class="eng-desc">Daily practice sheets.</div>
-          <a href="#" class="eng-btn">Go →</a>
-        </div>
-
-        <!-- CARD 5 -->
-        <div class="eng-card">
-          <img src="/assets/thumbnails/notes.jpg">
-          <div class="eng-title mt-2">Notes & Resources</div>
-          <div class="eng-desc">Formula sheets + notes.</div>
-          <a href="#" class="eng-btn">Go →</a>
-        </div>
-
-        <!-- CARD 6 -->
-        <div class="eng-card">
-          <img src="/assets/thumbnails/pyq.jpg">
-          <div class="eng-title mt-2">PYQs & Analysis</div>
-          <div class="eng-desc">Topic-wise previous questions.</div>
-          <a href="#" class="eng-btn">Go →</a>
-        </div>
-
+      <!-- Card 2: JEE Advanced Cutoffs -->
+      <div class="tile">
+        <img src="/assets/thumbnails/jeeadv.jpg" alt="JEE Advanced" />
+        <div class="tile-title">JEE Advanced Cutoffs</div>
+        <div class="tile-desc">Updated IIT cutoffs, seat matrix & category-wise closing ranks.</div>
+        <div class="tile-footer"><a href="#">Go</a></div>
       </div>
 
+      <!-- Card 3: Institutes & Placements -->
+      <div class="tile">
+        <img src="/assets/thumbnails/placements.jpg" alt="Placements" />
+        <div class="tile-title">Institutes & Placements</div>
+        <div class="tile-desc">Compare NITs, IIITs, GFTIs with real placement data & insights.</div>
+        <div class="tile-footer"><a href="#">Go</a></div>
+      </div>
+
+      <!-- Card 4: DPPs & Modules -->
+      <div class="tile">
+        <img src="/assets/thumbnails/dpp.jpg" alt="DPPs" />
+        <div class="tile-title">DPPs & Modules</div>
+        <div class="tile-desc">Daily Practice Problems & chapter modules for steady improvement.</div>
+        <div class="tile-footer"><a href="#">Go</a></div>
+      </div>
+
+      <!-- Card 5: Notes & Resources -->
+      <div class="tile">
+        <img src="/assets/thumbnails/notes.jpg" alt="Notes" />
+        <div class="tile-title">Notes & Resources</div>
+        <div class="tile-desc">Compact chapter notes, formula sheets & revision boosters.</div>
+        <div class="tile-footer"><a href="#">Go</a></div>
+      </div>
+
+      <!-- Card 6: PYQs & Analysis -->
+      <div class="tile">
+        <img src="/assets/thumbnails/pyq.jpg" alt="PYQs" />
+        <div class="tile-title">PYQs & Analysis</div>
+        <div class="tile-desc">Topic-wise previous year questions with detailed solutions.</div>
+        <div class="tile-footer"><a href="#">Go</a></div>
+      </div>
+    </div>
+
+    <div class="eng-cta">
+      <div class="left">Want a tailored plan? We can recommend a study track.</div>
+      <div class="right">
+        <button class="btn-primary">Request Plan</button>
+        <button class="btn-ghost">Contact</button>
+      </div>
     </div>
   </div>
 </section>
