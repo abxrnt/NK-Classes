@@ -1,0 +1,108 @@
+<!-- components/engineering.html - Engineering page for NK Classes -->
+<section id="engineering-page" class="w-full py-8">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="bg-white rounded-xl shadow-sm p-6 md:p-10">
+      <div class="flex flex-col md:flex-row md:items-start gap-6">
+        <!-- Left: headline -->
+        <div class="flex-1">
+          <h1 class="text-2xl md:text-3xl font-bold" style="font-family:'Playfair Display',serif;">Engineering Entrance Prep</h1>
+          <p class="text-sm text-muted mt-2 max-w-prose">Focused courses, topic-wise practice, and past-year question analysis to boost your JEE / state-engineering performance.</p>
+
+          <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="card p-4">
+              <h3 class="font-semibold">Crash Courses</h3>
+              <p class="text-xs text-muted mt-2">Short, high-yield courses for focused revision (2–6 weeks).</p>
+            </div>
+            <div class="card p-4">
+              <h3 class="font-semibold">Full Syllabus</h3>
+              <p class="text-xs text-muted mt-2">Comprehensive coverage with concept + application + PYQ practice.</p>
+            </div>
+            <div class="card p-4">
+              <h3 class="font-semibold">Test Series</h3>
+              <p class="text-xs text-muted mt-2">Adaptive mocks with analytics and personalised improvement plan.</p>
+            </div>
+            <div class="card p-4">
+              <h3 class="font-semibold">Doubt Solving</h3>
+              <p class="text-xs text-muted mt-2">Live doubt sessions and one-to-one help for tricky problems.</p>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <h4 class="font-semibold">Why NK Classes for Engineering?</h4>
+            <ul class="text-sm text-muted list-disc list-inside mt-2 space-y-1">
+              <li>Topic-wise PYQ analysis to understand recurring patterns.</li>
+              <li>Concise notes tuned for revision before exams.</li>
+              <li>Speed & accuracy drills for competitive environment.</li>
+            </ul>
+          </div>
+
+          <div class="mt-6 flex gap-3">
+            <button class="btn-primary">View Course Plans</button>
+            <button class="btn-ghost" id="engAsk">Ask a Question</button>
+          </div>
+        </div>
+
+        <!-- Right: quick syllabus & popular topics -->
+        <aside class="w-full md:w-80">
+          <div class="card p-4 mb-4">
+            <h4 class="font-semibold">Quick Syllabus</h4>
+            <ul class="text-sm text-muted mt-3 space-y-1">
+              <li>Physics — Mechanics, Electrostatics, Optics</li>
+              <li>Chemistry — Physical, Inorganic, Organic basics</li>
+              <li>Mathematics — Algebra, Calculus, Coordinate Geometry</li>
+            </ul>
+          </div>
+
+          <div class="card p-4">
+            <h4 class="font-semibold">Popular Topics</h4>
+            <ol class="text-sm text-muted mt-3 list-decimal list-inside space-y-1">
+              <li>Rotational Motion & Work-Energy</li>
+              <li>Chemical Equilibrium & Thermodynamics</li>
+              <li>Differential Equations & Integrals</li>
+            </ol>
+          </div>
+        </aside>
+      </div>
+
+      <!-- sample lessons / resources -->
+      <div class="mt-8">
+        <h3 class="text-lg font-semibold">Resources & Lessons</h3>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <a class="card p-4 hover:shadow-md transition" href="#">
+            <div class="font-semibold">Mechanics — Concept Pack</div>
+            <div class="text-xs text-muted mt-2">Short conceptual videos + notes.</div>
+          </a>
+          <a class="card p-4 hover:shadow-md transition" href="#">
+            <div class="font-semibold">Organic Chemistry Starter</div>
+            <div class="text-xs text-muted mt-2">Beginner-friendly approach to reactions & mechanisms.</div>
+          </a>
+          <a class="card p-4 hover:shadow-md transition" href="#">
+            <div class="font-semibold">Calculus Practice Set</div>
+            <div class="text-xs text-muted mt-2">40 mixed-difficulty problems with solutions.</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- CTA / contact -->
+      <div class="mt-8 p-4 rounded-md bg-gradient-to-r from-blue-50 to-white border border-blue-50">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <div>
+            <div class="font-semibold">Want a tailored plan?</div>
+            <div class="text-sm text-muted">Share your target (JEE/State) and current stage — we'll recommend a study track.</div>
+          </div>
+          <div class="flex gap-3">
+            <button class="btn-primary">Request Plan</button>
+            <button class="btn-ghost" id="engContact">Contact Mentor</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // lightweight interactions specific to engineering page
+  document.getElementById('engAsk')?.addEventListener('click', ()=> alert('Ask your engineering query in the discussion group or contact us.'));
+  document.getElementById('engContact')?.addEventListener('click', ()=> alert('Contact form will open (to be implemented).'));
+</script>
