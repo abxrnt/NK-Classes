@@ -1,0 +1,114 @@
+<!-- components/medical.html - Medical Entrance (NEET) Page -->
+<section id="medical-page" class="w-full py-8">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="bg-white rounded-xl shadow-sm p-6 md:p-10">
+
+      <h1 class="text-2xl md:text-3xl font-bold" style="font-family:'Playfair Display',serif;">Medical Entrance Prep (NEET)</h1>
+      <p class="text-sm text-muted mt-2 max-w-prose">
+        High-quality Biology, Physics, and Chemistry preparation designed for NEET aspirants with concept clarity and PYQ-focused learning.
+      </p>
+
+      <!-- 6 Cards Grid -->
+      <div class="mt-6">
+        <h3 class="text-lg font-semibold">Top Medical Resources</h3>
+
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+          <!-- Card 1 -->
+          <article class="card p-4 flex flex-col h-full">
+            <img src="/assets/thumbnails/biology_basics.jpg" class="w-full h-32 object-cover rounded-md mb-3" />
+            <div class="flex-1">
+              <div class="font-semibold">Biology NCERT Booster</div>
+              <p class="text-xs text-muted mt-2">Complete NCERT line-by-line explanation with highlighted NEET points.</p>
+            </div>
+            <div class="mt-3 text-right">
+              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card p-4 flex flex-col h-full">
+            <img src="/assets/thumbnails/human_physiology.jpg" class="w-full h-32 object-cover rounded-md mb-3" />
+            <div class="flex-1">
+              <div class="font-semibold">Human Physiology Mastery</div>
+              <p class="text-xs text-muted mt-2">Highly scoring unit with diagrams, flowcharts, and practice sets.</p>
+            </div>
+            <div class="mt-3 text-right">
+              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="card p-4 flex flex-col h-full">
+            <img src="/assets/thumbnails/neet_chemistry.jpg" class="w-full h-32 object-cover rounded-md mb-3" />
+            <div class="flex-1">
+              <div class="font-semibold">NEET Chemistry Capsule</div>
+              <p class="text-muted text-xs mt-2">Fast revision for Physical, Organic, and Inorganic Chemistry with formulas.</p>
+            </div>
+            <div class="mt-3 text-right">
+              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="card p-4 flex flex-col h-full">
+            <img src="/assets/thumbnails/neet_physics.jpg" class="w-full h-32 object-cover rounded-md mb-3" />
+            <div class="flex-1">
+              <div class="font-semibold">NEET Physics Problem Sets</div>
+              <p class="text-xs text-muted mt-2">Carefully curated problems to improve accuracy and speed.</p>
+            </div>
+            <div class="mt-3 text-right">
+              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="card p-4 flex flex-col h-full">
+            <img src="/assets/thumbnails/genetics.jpg" class="w-full h-32 object-cover rounded-md mb-3" />
+            <div class="flex-1">
+              <div class="font-semibold">Genetics & Evolution Pack</div>
+              <p class="text-xs text-muted mt-2">One of the most important NEET units explained with clarity.</p>
+            </div>
+            <div class="mt-3 text-right">
+              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
+            </div>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="card p-4 flex flex-col h-full">
+            <img src="/assets/thumbnails/ecology.jpg" class="w-full h-32 object-cover rounded-md mb-3" />
+            <div class="flex-1">
+              <div class="font-semibold">Ecology Final Sprint</div>
+              <p class="text-xs text-muted mt-2">Most repeated questions & last-month revision strategies.</p>
+            </div>
+            <div class="mt-3 text-right">
+              <a class="btn-primary inline-block px-3 py-1 text-sm rounded" href="#">Go to</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="mt-8 p-4 rounded-md bg-gradient-to-r from-green-50 to-white border border-green-100">
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+          <div>
+            <div class="font-semibold">Need a personalised NEET plan?</div>
+            <p class="text-sm text-muted">Share your preparation stage and target score — we will guide you.</p>
+          </div>
+          <div class="flex gap-3">
+            <button class="btn-primary">Request Plan</button>
+            <button class="btn-ghost" id="medContact">Contact Mentor</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  document.getElementById('medContact')?.addEventListener('click', () => {
+    alert('Contact form will open soon.');
+  });
+</script>
