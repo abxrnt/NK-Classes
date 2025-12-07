@@ -1,39 +1,265 @@
 <!-- components/materials.html -->
-<div class="page-materials max-w-6xl mx-auto p-6" style="box-sizing:border-box;">
-  <div class="card p-6">
-    <h1 class="text-2xl md:text-3xl font-extrabold mb-3">Study Materials</h1>
-    <p class="text-gray-700 mb-4">Download notes, previous-year question PDFs, chapter-wise DPPs and sample papers.</p>
+<div class="materials-page max-w-6xl mx-auto px-4 md:px-8 py-8">
 
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="bg-white p-4 rounded-lg border shadow-sm">
-        <h3 class="font-semibold mb-2">Physics</h3>
-        <ul class="list-disc pl-5 text-gray-700 space-y-1">
-          <li><a href="/materials/physics/chapter1.pdf" class="text-blue-600 underline">Chapter 1 Notes (PDF)</a></li>
-          <li><a href="/materials/physics/pyq.zip" class="text-blue-600 underline">Previous Year Questions (zipped)</a></li>
-        </ul>
-      </div>
+  <style>
+    /* Scoped styles for the materials component */
+    .materials-page { font-family:Inter,system-ui,sans-serif; }
+    .materials-section { background:linear-gradient(180deg,#fff,#fbfdff); border-radius:12px; padding:18px; margin-bottom:22px; box-shadow:0 8px 28px rgba(6,30,47,0.04); }
+    .materials-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px }
+    .materials-title { display:flex; gap:10px; align-items:center }
+    .materials-title h3 { margin:0; font-size:18px; font-weight:800 }
+    .materials-meta { color:#64748b; font-size:13px }
+    .view-all { color:#6d28d9; font-weight:700; text-decoration:none }
 
-      <div class="bg-white p-4 rounded-lg border shadow-sm">
-        <h3 class="font-semibold mb-2">Chemistry</h3>
-        <ul class="list-disc pl-5 text-gray-700 space-y-1">
-          <li><a href="/materials/chemistry/notes.pdf" class="text-blue-600 underline">Concise Notes (PDF)</a></li>
-          <li><a href="/materials/chemistry/dpps.zip" class="text-blue-600 underline">DPPs (zipped)</a></li>
-        </ul>
-      </div>
+    /* horizontal scroller - hides native scrollbar */
+    .h-scroll-wrap { position:relative }
+    .h-scroll { display:flex; gap:14px; overflow-x:auto; scroll-behavior:smooth; padding:12px 6px; }
+    .h-scroll::-webkit-scrollbar { height:0; }
+    .h-scroll { -ms-overflow-style:none; scrollbar-width:none; }
 
-      <div class="bg-white p-4 rounded-lg border shadow-sm">
-        <h3 class="font-semibold mb-2">Maths</h3>
-        <ul class="list-disc pl-5 text-gray-700 space-y-1">
-          <li><a href="/materials/math/important.pdf" class="text-blue-600 underline">Important Formula Sheet</a></li>
-          <li><a href="/materials/math/pyq_math.pdf" class="text-blue-600 underline">Math PYQs (PDF)</a></li>
-        </ul>
-      </div>
+    /* item card */
+    .mat-item { min-width:320px; max-width:320px; flex:0 0 320px; border-radius:10px; background:#fff; border:1px solid #eef3f7; padding:12px; display:flex; gap:12px; align-items:flex-start }
+    .mat-thumb { width:96px; height:140px; border-radius:6px; object-fit:cover; flex-shrink:0; box-shadow:0 8px 18px rgba(3,22,44,0.06) }
+    .mat-meta h4 { font-size:15px; margin:0 0 6px 0; font-weight:700 }
+    .mat-meta p { margin:0; color:#6b7b85; font-size:13px }
+    .mat-actions { display:flex; gap:8px; align-items:center; margin-top:10px }
+    .badge-pdf { display:inline-flex; align-items:center; gap:8px; background:#fff6f6; color:#c42b2b; font-weight:700; padding:6px 8px; border-radius:8px; font-size:12px; border:1px solid rgba(196,43,43,0.06) }
+    .btn-view { border:1px solid #e6eef6; padding:8px 14px; border-radius:10px; background:transparent; font-weight:700 }
+    .btn-download { background:#f3f0ff; border-radius:8px; padding:8px; display:inline-flex; align-items:center; justify-content:center }
 
-      <div class="bg-white p-4 rounded-lg border shadow-sm">
-        <h3 class="font-semibold mb-2">Mock Tests</h3>
-        <p class="text-gray-700 mb-2">Take timed mock tests and view analytics in the Mock Test section (coming soon).</p>
-        <a href="#" class="inline-block mt-2 px-4 py-2 bg-[#1976F2] text-white rounded-lg">Try a demo mock</a>
+    /* pager buttons */
+    .pager-btn { position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:999px; background:white; box-shadow:0 8px 24px rgba(6,30,47,0.08); display:flex; align-items:center; justify-content:center; cursor:pointer; border:1px solid rgba(12,40,66,0.04) }
+    .pager-btn.left { left:8px } .pager-btn.right { right:8px }
+    .pager-btn svg { opacity:0.95 }
+
+    @media (max-width:640px){ .pager-btn.left{ left:6px } .pager-btn.right{ right:6px } .mat-item{ min-width:260px; max-width:260px; flex:0 0 260px } .mat-thumb{ width:86px; height:126px } }
+  </style>
+
+  <!-- SECTION 1: Short Notes JEE -->
+  <section class="materials-section" aria-labelledby="sec-notes">
+    <div class="materials-head">
+      <div class="materials-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 21V7a2 2 0 0 1 2-2h8l6 6v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" stroke="#0f172a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>
+          <h3 id="sec-notes">Short Notes JEE</h3>
+          <div class="materials-meta">Concise chapter-wise notes for fast revision</div>
+        </div>
       </div>
+      <a href="#" class="view-all">View All</a>
     </div>
-  </div>
+
+    <div class="h-scroll-wrap">
+      <button class="pager-btn left" data-action="prev" data-target="notes-scroll" aria-label="Previous">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#0f172a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div id="notes-scroll" class="h-scroll">
+        <!-- ITEM 1 -->
+        <article class="mat-item">
+          <img class="mat-thumb" src="/assets/jee-short.jpg" alt="Electric Charges and Fields" />
+          <div class="mat-meta">
+            <h4>Electric Charges and Fields</h4>
+            <p>Short Notes JEE</p>
+            <div class="mat-actions">
+              <span class="badge-pdf">PDF</span>
+              <button class="btn-view">View Now</button>
+              <button class="btn-download" aria-label="Download"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3v12" stroke="#553C9A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11l4 4 4-4" stroke="#553C9A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 21h16" stroke="#553C9A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 2 -->
+        <article class="mat-item">
+          <img class="mat-thumb" src="/assets/jee-short.jpg" alt="Electrostatic Potential" />
+          <div class="mat-meta">
+            <h4>Electrostatic Potential & Capacitance</h4>
+            <p>Short Notes JEE</p>
+            <div class="mat-actions">
+              <span class="badge-pdf">PDF</span>
+              <button class="btn-view">View Now</button>
+              <button class="btn-download" aria-label="Download">⤓</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 3 -->
+        <article class="mat-item">
+          <img class="mat-thumb" src="/assets/jee-short.jpg" alt="Current Electricity" />
+          <div class="mat-meta">
+            <h4>Current Electricity</h4>
+            <p>Short Notes JEE</p>
+            <div class="mat-actions">
+              <span class="badge-pdf">PDF</span>
+              <button class="btn-view">View Now</button>
+              <button class="btn-download" aria-label="Download">⤓</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 4 -->
+        <article class="mat-item">
+          <img class="mat-thumb" src="/assets/jee-short.jpg" alt="Magnetism" />
+          <div class="mat-meta">
+            <h4>Magnetism</h4>
+            <p>Short Notes JEE</p>
+            <div class="mat-actions">
+              <span class="badge-pdf">PDF</span>
+              <button class="btn-view">View Now</button>
+              <button class="btn-download" aria-label="Download">⤓</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <button class="pager-btn right" data-action="next" data-target="notes-scroll" aria-label="Next">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#0f172a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PYQ Practice -->
+  <section class="materials-section" aria-labelledby="sec-pyq">
+    <div class="materials-head">
+      <div class="materials-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2v20" stroke="#0f172a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>
+          <h3 id="sec-pyq">PYQ Practice</h3>
+          <div class="materials-meta">Previous year questions & chapter-wise tests</div>
+        </div>
+      </div>
+      <a href="#" class="view-all">View All</a>
+    </div>
+
+    <div class="h-scroll-wrap">
+      <button class="pager-btn left" data-action="prev" data-target="pyq-scroll" aria-label="Previous">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#0f172a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div id="pyq-scroll" class="h-scroll">
+        <article class="mat-item">
+          <img class="mat-thumb" src="/assets/pyq.jpg" alt="Mechanics PYQ" />
+          <div class="mat-meta">
+            <h4>Mechanics — PYQ</h4>
+            <p>Topic wise PYQ (2015–2024)</p>
+            <div class="mat-actions">
+              <span class="badge-pdf">PDF</span>
+              <button class="btn-view">View Now</button>
+              <button class="btn-download" aria-label="Download">⤓</button>
+            </div>
+          </div>
+        </article>
+        <article class="mat-item">
+          <img class="mat-thumb" src="/assets/pyq.jpg" alt="Thermodynamics PYQ" />
+          <div class="mat-meta">
+            <h4>Thermodynamics — PYQ</h4>
+            <p>Topic wise PYQ (2015–2024)</p>
+            <div class="mat-actions">
+              <span class="badge-pdf">PDF</span>
+              <button class="btn-view">View Now</button>
+              <button class="btn-download" aria-label="Download">⤓</button>
+            </div>
+          </div>
+        </article>
+        <article class="mat-item">
+          <img class="mat-thumb" src="/assets/pyq.jpg" alt="Optics PYQ" />
+          <div class="mat-meta">
+            <h4>Optics — PYQ</h4>
+            <p>Topic wise PYQ (2015–2024)</p>
+            <div class="mat-actions">
+              <span class="badge-pdf">PDF</span>
+              <button class="btn-view">View Now</button>
+              <button class="btn-download" aria-label="Download">⤓</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <button class="pager-btn right" data-action="next" data-target="pyq-scroll" aria-label="Next">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#0f172a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- SECTION 3: Reference Books -->
+  <section class="materials-section" aria-labelledby="sec-ref">
+    <div class="materials-head">
+      <div class="materials-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6.75V19.5A1.5 1.5 0 004.5 21h12A1.5 1.5 0 0018 19.5V6.75" stroke="#0f172a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>
+          <h3 id="sec-ref">Reference Books</h3>
+          <div class="materials-meta">Standard textbooks & reference PDFs</div>
+        </div>
+      </div>
+      <a href="#" class="view-all">View All</a>
+    </div>
+
+    <div class="h-scroll-wrap">
+      <button class="pager-btn left" data-action="prev" data-target="ref-scroll" aria-label="Previous">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#0f172a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div id="ref-scroll" class="h-scroll">
+        <article class="mat-item">
+          <img class="mat-thumb" src="/assets/ref.jpg" alt="Irodov" />
+          <div class="mat-meta">
+            <h4>I.E. Irodov — Problems in General Physics</h4>
+            <p>Reference Book</p>
+            <div class="mat-actions">
+              <button class="btn-view">View Now</button>
+              <button class="btn-download" aria-label="Download">⤓</button>
+            </div>
+          </div>
+        </article>
+        <article class="mat-item">
+          <img class="mat-thumb" src="/assets/ref.jpg" alt="H. C. Verma" />
+          <div class="mat-meta">
+            <h4>Concepts of Physics — H.C. Verma</h4>
+            <p>Reference Book</p>
+            <div class="mat-actions">
+              <button class="btn-view">View Now</button>
+              <button class="btn-download" aria-label="Download">⤓</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <button class="pager-btn right" data-action="next" data-target="ref-scroll" aria-label="Next">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#0f172a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- small script to handle prev/next scrolling and keyboard support -->
+  <script>
+    (function(){
+      function scrollByAmount(el, amount){ el.scrollBy({ left: amount, behavior: 'smooth' }); }
+
+      document.querySelectorAll('.pager-btn').forEach(btn=>{
+        btn.addEventListener('click', (e)=>{
+          const action = btn.dataset.action;
+          const targetId = btn.dataset.target;
+          const container = document.getElementById(targetId);
+          if(!container) return;
+          // amount = width of one item + gap (gap = 14)
+          const item = container.querySelector('.mat-item');
+          if(!item) return;
+          const gap = 14;
+          const amount = item.offsetWidth + gap;
+          if(action === 'prev') scrollByAmount(container, -amount);
+          else scrollByAmount(container, amount);
+        });
+      });
+
+      // provide keyboard navigation for accessibility
+      document.querySelectorAll('.h-scroll').forEach(sc=>{
+        sc.setAttribute('tabindex', '0');
+        sc.addEventListener('keydown', (e)=>{
+          if(e.key === 'ArrowRight') { e.preventDefault(); sc.scrollBy({ left: 240, behavior:'smooth' }); }
+          if(e.key === 'ArrowLeft') { e.preventDefault(); sc.scrollBy({ left: -240, behavior:'smooth' }); }
+        });
+      });
+    })();
+  </script>
+
 </div>
