@@ -1,372 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
+<section id="home">
+  <div class="grid md:grid-cols-12 gap-8 items-center">
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>NK Classes — Home</title>
+    <!-- LEFT SIDE HERO -->
+    <div class="md:col-span-7">
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- GOOGLE FONTS -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
-
-  <link rel="icon" type="image/png" href="/favicon.png" />
-
-  <!-- BLUE THEME -->
-  <style>
-    :root {
-      /* BLUE THEME COLORS */
-      --blue-light: #9EE9FF;   /* very light sky */
-      --blue-main:  #1976F2;   /* vivid blue */
-      --blue-accent:#0EA5E9;   /* electric cyan */
-      --blue-dark:  #07203A;   /* deep navy */
-
-      /* BLUE GRADIENT */
-      --blue-gradient: linear-gradient(45deg,
-          var(--blue-light),
-          var(--blue-accent),
-          var(--blue-main),
-          var(--blue-dark));
-
-      /* semantic colors for NK classes */
-      --bg: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
-      --muted: #5b6b78;
-      --card-shadow: 0 6px 20px rgba(7, 36, 58, 0.06);
-    }
-
-    body {
-      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      background: var(--bg);
-      color: #062433;
-    }
-
-    /* Utility styles carried from original file */
-    .fade-in { animation: fadeIn 250ms ease-out both; }
-    .fade-out { animation: fadeOut 200ms ease-in both; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
-    @keyframes fadeOut { from{opacity:1; transform:translateY(0);} to{opacity:0; transform:translateY(-6px);} }
-
-    .nav-link { position: relative; font-weight: 600; color: #07365a; }
-    .nav-link::after { content: ""; position: absolute; left:0; bottom:-6px; width:0; height:2px; background: var(--blue-main); transition: width 0.22s ease; }
-    .nav-link:hover::after { width:100%; }
-
-    .tab-active { color: white !important; background: var(--blue-gradient); border-radius: 10px; padding: 6px 12px; }
-
-    .card { background: white; border-radius: 14px; box-shadow: var(--card-shadow); padding: 18px; }
-
-    .logo-glow { box-shadow: 0 0 18px rgba(25, 118, 242, 0.18); }
-
-    button:hover { background: var(--blue-gradient) !important; color: white !important; transition: 0.25s; border-radius: 8px; }
-
-    footer h2 { background: var(--blue-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    footer svg:hover { color: var(--blue-accent) !important; }
-
-    nav { border-bottom-color: rgba(7,32,50,0.06); }
-    .text-muted { color: var(--muted); }
-    .mobile-icon { color: #0b3b66; }
-
-    /* flame gradient replacement for headings (subtle) */
-    .brand-gradient { background: var(--blue-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-
-    /* Bright CTA */
-    .cta-primary { background: var(--blue-main); color: white; }
-    .cta-outline { border: 1px solid rgba(25,118,242,0.12); color: var(--blue-dark); }
-
-    /* Responsive tweaks */
-    @media (prefers-color-scheme:dark) {
-      body { background: #031826; color: #e6f6ff; }
-      .card { background: rgba(3,24,38,0.6); box-shadow: none; border: 1px solid rgba(255,255,255,0.03); }
-    }
-  </style>
-</head>
-
-<body class="text-slate-900">
-
-  <!-- NAVBAR -->
-  <nav class="sticky top-0 z-50 bg-white border-b shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 md:px-8">
-
-      <!-- TOP ROW: LOGO + TITLE -->
-      <div class="flex items-center justify-between py-2">
-
-        <!-- Logo + Name -->
-        <div class="flex items-center gap-3">
-          <img src="/favicon.png" class="w-10 h-10 rounded-full shadow-sm object-cover logo-glow" />
-
-          <div class="leading-tight">
-            <a class="text-xl font-extrabold brand-gradient" style="font-family:'Playfair Display',serif;">NK Classes</a>
-            <div class="text-[10px] text-muted">Where Chemistry Becomes Crystal Clear</div>
-          </div>
-        </div>
-
-        <!-- Desktop Tabs (text menu) -->
-        <ul id="desktopTabs" class="hidden md:flex gap-3 items-center text-sm">
-          <li><button data-tab="home" class="nav-link px-2 py-1 rounded-md">Home</button></li>
-          <li><button data-tab="about" class="nav-link px-2 py-1 rounded-md">About Us</button></li>
-          <li><button data-tab="materials" class="nav-link px-2 py-1 rounded-md">Study Materials</button></li>
-          <li><button data-tab="contact" class="nav-link px-2 py-1 rounded-md">Contact Us</button></li>
-        </ul>
+      <!-- Badge -->
+      <div
+        class="inline-flex items-center gap-3 bg-gradient-to-r from-[var(--blue-light)] via-[var(--blue-accent)] to-[var(--blue-main)] text-[var(--blue-dark)] rounded-full px-4 py-2 text-sm font-semibold shadow-sm mb-4">
+        <span class="w-2.5 h-2.5 rounded-full bg-[var(--blue-accent)] animate-pulse inline-block"></span>
+        V4.1 — Updated & Improved
       </div>
 
-      <!-- MOBILE ICON BAR (Always visible on mobile) -->
-      <div class="md:hidden pb-3">
-        <div class="grid grid-cols-4 gap-2 text-center">
+      <!-- Hero Title -->
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 brand-gradient"
+        style="font-family:'Playfair Display',serif;">
+        NK Classes — Trusted guidance for engineering aspirants
+      </h1>
 
-          <!-- Home -->
-          <button data-tab="home" class="flex flex-col items-center text-[10px] mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z" />
-            </svg>
-            Home
-          </button>
+      <p class="text-gray-700 text-lg max-w-2xl mb-6">
+        We provide focused coaching, structured study materials, and chapter-wise practice to help students
+        excel in engineering entrance exams with confidence.
+      </p>
 
-          <!-- About Us -->
-          <button data-tab="about" class="flex flex-col items-center text-[10px] mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5c2.485 0 4.5 2.015 4.5 4.5s-2.015 4.5-4.5 4.5-4.5-2.015-4.5-4.5S9.515 4.5 12 4.5zm0 12c4.142 0 7.5 2.015 7.5 4.5V21H4.5v-.75c0-2.485 3.358-4.5 7.5-4.5z"/>
-            </svg>
-            About
-          </button>
+      <!-- Buttons -->
+      <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
 
-          <!-- Study Materials -->
-          <button data-tab="materials" class="flex flex-col items-center text-[10px] mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 6.75V19.5A1.5 1.5 0 004.5 21h12A1.5 1.5 0 0018 19.5V6.75m-15 0L12 3l9 3.75m-15 0l9 3.75 9-3.75" />
-            </svg>
-            Materials
-          </button>
+        <button
+          class="font-bold text-base rounded-xl px-6 py-3 shadow-xl bg-[var(--blue-main)] text-white hover:opacity-95 transform hover:-translate-y-1 transition-all">
+          About Us
+        </button>
 
-          <!-- Contact Us -->
-          <button data-tab="contact" class="flex flex-col items-center text-[10px] mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25v13.5A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18.75V5.25zM7.5 9h9m-9 3h9m-9 3h6" />
-            </svg>
-            Contact
+        <a href="#" target="_blank">
+          <button
+            class="border-2 border-[var(--blue-main)] text-[var(--blue-main)] font-bold text-base rounded-xl px-6 py-3 shadow-xl hover:bg-[var(--blue-main)] hover:text-white hover:shadow-inner transform hover:-translate-y-1 transition-all flex items-center gap-2">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-5 h-5" />
+            Join Us on Whatsapp
           </button>
-        </div>
+        </a>
+
       </div>
-
     </div>
-  </nav>
 
+    <!-- RIGHT SIDE CARD -->
+    <div class="md:col-span-5">
+      <div class="rounded-3xl p-6 md:p-8 relative overflow-hidden bg-white border border-[rgba(25,118,242,0.12)] shadow">
 
-  <!-- HOME HERO -->
-  <section id="home" class="mt-8">
-    <div class="grid md:grid-cols-12 gap-8 items-center max-w-6xl mx-auto px-4 py-8">
-
-      <!-- LEFT HERO -->
-      <div class="md:col-span-7">
-
-        <div class="inline-flex items-center gap-3 bg-gradient-to-r from-[var(--blue-light)] via-[var(--blue-accent)] to-[var(--blue-main)] text-[var(--blue-dark)] rounded-full px-4 py-2 text-sm font-semibold shadow-sm mb-4">
-          <span class="w-2.5 h-2.5 rounded-full bg-[var(--blue-accent)] animate-pulse inline-block"></span>
-          V4.1 — Updated & Improved
+        <div
+          class="absolute -right-16 -top-16 w-44 h-44 bg-gradient-to-tr from-[var(--blue-light)] via-[var(--blue-accent)] to-[var(--blue-main)] opacity-30 rounded-full blur-2xl">
         </div>
 
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 brand-gradient" style="font-family:'Playfair Display',serif;">
-          NK Classes — Trusted guidance for engineering aspirants
-        </h1>
+        <img src="favicon.png"
+          class="w-24 h-24 mx-auto object-contain bg-white rounded-xl border border-[rgba(25,118,242,0.2)] shadow mb-4" />
 
-        <p class="text-gray-700 text-lg max-w-2xl mb-6">
-          NK Classes provides focused coaching, curated study materials, chapter-wise practice, and practical counselling
-          to help you ace engineering entrance exams. Clear concepts, targeted mocks, and proven strategies — all in one place.
+        <h3 class="text-xl font-bold brand-gradient">Practice Smarter with Mocks & PYQs</h3>
+
+        <p class="text-sm text-gray-600 mt-2">
+          Improve exam performance with realistic mock tests and chapter-wise previous year questions.
         </p>
 
-        <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
+        <ul class="text-sm text-gray-700 mt-4 space-y-2">
+          <li class="flex items-start gap-2"><span class="text-[var(--blue-accent)] mt-1">•</span> Full syllabus mock tests</li>
+          <li class="flex items-start gap-2"><span class="text-[var(--blue-accent)] mt-1">•</span> Auto-scoring & analytics</li>
+          <li class="flex items-start gap-2"><span class="text-[var(--blue-accent)] mt-1">•</span> Chapter-wise PYQ filtering</li>
+        </ul>
 
-          <button class="font-bold text-base rounded-xl px-6 py-3 shadow-2xl cta-primary hover:opacity-95 transform hover:-translate-y-1 transition-all">
-            About Us
+        <!-- Action Buttons -->
+        <div class="mt-4 grid grid-cols-2 gap-4">
+
+          <!-- PYQs -->
+          <button onclick="navigate('/pyqs')"
+            class="w-full py-3 rounded-xl text-white text-base font-semibold flex items-center justify-center gap-2 hover:-translate-y-1 transition-all"
+            style="background:var(--blue-gradient); box-shadow:0 0 10px rgba(25,118,242,0.28);">
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19h16M4 11h16M4 5h16" />
+            </svg>
+
+            PYQs
           </button>
 
-          <a href="https://chat.whatsapp.com/L6RRF1a8l4cCzeuVEl7xLN" target="_blank">
-            <button class="border-2 border-[var(--blue-main)] text-[var(--blue-main)] font-bold text-base rounded-xl px-6 py-3 shadow-2xl hover:bg-[var(--blue-main)] hover:text-white transform hover:-translate-y-1 transition-all flex items-center gap-2">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-5 h-5" />
-              Join Us on Whatsapp
-            </button>
-          </a>
+          <!-- Mock Test -->
+          <button onclick="navigate('/mocktest')"
+            class="w-full py-3 rounded-xl font-semibold text-[var(--blue-dark)] border border-[rgba(25,118,242,0.3)] text-base flex items-center justify-center gap-2 hover:-translate-y-1 hover:bg-[var(--blue-light)] transition-all">
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M10 8l4 4-4 4" />
+            </svg>
+
+            Mock Test
+          </button>
 
         </div>
 
       </div>
-
-      <!-- RIGHT CARD -->
-      <div class="md:col-span-5">
-        <div class="rounded-3xl p-6 md:p-8 relative overflow-hidden card" style="border:1px solid rgba(25,118,242,0.06);">
-
-          <div class="absolute -right-16 -top-16 w-44 h-44 bg-gradient-to-tr from-[var(--blue-light)] via-[var(--blue-accent)] to-[var(--blue-main)] opacity-30 rounded-full blur-2xl"></div>
-
-          <img src="/favicon.png" class="w-24 h-24 mx-auto object-contain bg-white rounded-xl border border-[rgba(25,118,242,0.08)] shadow-sm mb-4" />
-
-          <h3 class="text-xl font-bold brand-gradient">Practice Smarter with Mocks & PYQs</h3>
-
-          <p class="text-sm text-muted mt-2">Improve exam readiness with realistic mock tests, chapter-wise practice, and instant analytics.</p>
-
-          <ul class="text-sm text-gray-700 mt-4 space-y-2">
-            <li class="flex items-start gap-2"><span class="text-[var(--blue-accent)] mt-1">•</span> Full-syllabus mock tests</li>
-            <li class="flex items-start gap-2"><span class="text-[var(--blue-accent)] mt-1">•</span> Timed tests with auto-scoring</li>
-            <li class="flex items-start gap-2"><span class="text-[var(--blue-accent)] mt-1">•</span> Chapter-wise PYQ filtering</li>
-          </ul>
-
-          <div class="mt-4 grid grid-cols-2 gap-4">
-
-            <button onclick="navigate('/pyqs')" class="w-full py-3 rounded-xl text-white text-base font-semibold flex items-center justify-center gap-2 transition-all duration-150 hover:-translate-y-1" style="background:var(--blue-gradient); box-shadow:0 0 14px rgba(25,118,242,0.18);">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16M4 11h16M4 5h16"/></svg>
-              PYQs
-            </button>
-
-            <button onclick="navigate('/mocktest')" class="w-full py-3 rounded-xl font-semibold text-[var(--blue-dark)] border border-[rgba(25,118,242,0.12)] text-base flex items-center justify-center gap-2 transition-all duration-150 hover:-translate-y-1 hover:bg-[var(--blue-light)] hover:shadow-md">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 8l4 4-4 4"/></svg>
-              Mock Test
-            </button>
-
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- NK CLASSES AIM -->
-  <section class="mt-12 max-w-5xl mx-auto px-4">
-
-    <div class="p-8 rounded-3xl shadow-md bg-white border border-[rgba(25,118,242,0.06)] card">
-      <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-left brand-gradient" style="font-family:'Playfair Display',serif;">
-        Our Aim
-      </h2>
-
-      <p class="text-lg italic text-gray-800">
-        NK Classes was founded to provide student-first coaching and reliable resources for engineering aspirants.
-        We focus on clear concept-building, data-backed strategies, and honest counselling so every student can make
-        confident decisions. From curated study notes to mock tests, chapter-wise PYQs, and personalised feedback —
-        NK Classes helps you plan, prepare, and perform at your best.
-      </p>
     </div>
 
-  </section>
+  </div>
+</section>
 
+<section class="mt-20 max-w-5xl mx-auto px-4">
 
-  <!-- FEATURES SECTION -->
-  <section class="mt-12 max-w-6xl mx-auto px-4">
-
-    <h2 class="text-3xl md:text-4xl font-extrabold mb-10 text-left brand-gradient" style="font-family:'Playfair Display',serif;">
-      Key Features
+  <div class="p-8 rounded-3xl shadow bg-white border border-[rgba(25,118,242,0.2)]">
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-4 brand-gradient"
+      style="font-family:'Playfair Display',serif;">
+      Our Aim
     </h2>
 
-    <div class="grid md:grid-cols-3 gap-8">
+    <p class="text-lg italic text-gray-800">
+      NK Classes aims to provide student-centric, reliable, and accessible guidance for engineering
+      aspirants. We simplify preparation through structured notes, PYQs, mock tests, and data-driven insights.
+    </p>
+  </div>
 
-      <div class="p-6 rounded-2xl bg-white shadow-md border border-[rgba(25,118,242,0.06)] transition-all duration-150 hover:-translate-y-2 hover:shadow-xl card">
-        <h3 class="font-bold text-xl mb-2 text-left brand-gradient">Cutoff Analyzer</h3>
-        <p class="italic text-gray-800">Analyze year-wise cutoff trends and compare ranks across colleges and branches.</p>
-      </div>
+</section>
 
-      <div class="p-6 rounded-2xl bg-white shadow-md border border-[rgba(25,118,242,0.06)] transition-all duration-150 hover:-translate-y-2 hover:shadow-xl card">
-        <h3 class="font-bold text-xl mb-2 text-left brand-gradient">College Predictor</h3>
-        <p class="italic text-gray-800">Get accurate college and branch predictions based on your rank.</p>
-      </div>
+<section class="mt-20 max-w-6xl mx-auto px-4">
 
-      <div class="p-6 rounded-2xl bg-white shadow-md border border-[rgba(25,118,242,0.06)] transition-all duration-150 hover:-translate-y-2 hover:shadow-xl card">
-        <h3 class="font-bold text-xl mb-2 text-left brand-gradient">Mock Test</h3>
-        <p class="italic text-gray-800">Practice exam-level mock tests with instant analytics and scoring.</p>
-      </div>
+  <h2 class="text-3xl md:text-4xl font-extrabold mb-10 brand-gradient"
+    style="font-family:'Playfair Display',serif;">
+    Key Features
+  </h2>
 
-      <div class="p-6 rounded-2xl bg-white shadow-md border border-[rgba(25,118,242,0.06)] transition-all duration-150 hover:-translate-y-2 hover:shadow-xl card">
-        <h3 class="font-bold text-xl mb-2 text-left brand-gradient">PYQ Library</h3>
-        <p class="italic text-gray-800">Access organized previous-year questions with filters and chapter sorting.</p>
-      </div>
+  <div class="grid md:grid-cols-3 gap-8">
 
-      <div class="p-6 rounded-2xl bg-white shadow-md border border-[rgba(25,118,242,0.06)] transition-all duration-150 hover:-translate-y-2 hover:shadow-xl card">
-        <h3 class="font-bold text-xl mb-2 text-left brand-gradient">Personal Canvas</h3>
-        <p class="italic text-gray-800">Your personal workspace for notes, mock attempts, and problem-solving.</p>
-      </div>
-
-      <div class="p-6 rounded-2xl bg-white shadow-md border border-[rgba(25,118,242,0.06)] transition-all duration-150 hover:-translate-y-2 hover:shadow-xl card">
-        <h3 class="font-bold text-xl mb-2 text-left brand-gradient">Placement Insights</h3>
-        <p class="italic text-gray-800">Explore placement stats, salary trends, and top recruiters for every college.</p>
-      </div>
-
+    <div class="p-6 rounded-2xl bg-white shadow border border-[rgba(25,118,242,0.2)] hover:-translate-y-2 transition">
+      <h3 class="font-bold text-xl brand-gradient mb-2">Cutoff Analyzer</h3>
+      <p class="italic text-gray-800">Compare and study historical cutoff trends.</p>
     </div>
 
-  </section>
-
-
-  <!-- FOOTER -->
-  <footer class="bg-[#042235] text-gray-300 py-10 mt-16">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-        <!-- Left: Branding & Description -->
-        <div>
-          <h2 class="text-2xl font-bold brand-gradient">NK Classes</h2>
-          <p class="text-sm mt-2 text-gray-300 max-w-md">
-            Empowering engineering aspirants with focused coaching, verified resources, and data-driven guidance.
-          </p>
-        </div>
-
-        <!-- Right: Team Credits -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 text-sm">
-          <div class="group">
-            <p class="text-white font-semibold flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400 group-hover:text-emerald-300 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              Abishrant Shandilya
-            </p>
-            <p class="text-gray-300 group-hover:text-gray-200 transition">Website Manager</p>
-            <div class="flex items-center gap-3 mt-2">
-              <a href="#" class="text-gray-300 hover:text-blue-300 transition" aria-label="LinkedIn"> <!-- icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.027-3.058-1.862-3.058-1.865 0-2.152 1.456-2.152 2.961v5.701h-3v-10h2.885v1.367h.041c.402-.761 1.385-1.562 2.85-1.562 3.048 0 3.611 2.007 3.611 4.617v5.578z"/></svg>
-              </a>
-              <a href="#" class="text-gray-300 hover:text-blue-300 transition" aria-label="GitHub"> <!-- icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.648.5.5 5.648.5 12c0 5.086 3.292 9.392 7.862 10.91.574.102.784-.249.784-.554 0-.273-.01-1.002-.015-1.967-3.197.695-3.873-1.541-3.873-1.541-.523-1.328-1.277-1.682-1.277-1.682-1.044-.714.08-.699.08-.699 1.155.082 1.764 1.188 1.764 1.188 1.027 1.76 2.693 1.252 3.35.958.104-.745.403-1.252.732-1.54-2.55-.29-5.231-1.275-5.231-5.675 0-1.253.448-2.277 1.183-3.078-.119-.29-.513-1.456.112-3.036 0 0 .965-.309 3.166 1.175a10.96 10.96 0 0 1 2.884-.388c.978.005 1.964.132 2.884.388 2.2-1.484 3.165-1.175 3.165-1.175.625 1.58.231 2.746.113 3.036.736.801 1.183 1.825 1.183 3.078 0 4.412-2.686 5.382-5.246 5.667.414.357.78 1.06.78 2.138 0 1.544-.014 2.787-.014 3.167 0 .308.208.66.79.548C20.71 21.39 24 17.083 24 12c0-6.352-5.148-11.5-12-11.5z"/></svg>
-              </a>
-              <a href="mailto:abishrant@gmail.com" class="text-gray-300 hover:text-blue-300 transition" aria-label="Email"> <!-- icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.065 0 6.5v11A2.5 2.5 0 0 0 2.5 20h19a2.5 2.5 0 0 0 2.5-2.5v-11l-12 6.565zM12 11 24 4.5V4a2.5 2.5 0 0 0-2.5-2.5h-19A2.5 2.5 0 0 0 0 4v.5L12 11z"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Divider -->
-      <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-400">© 2025 NK Classes. All rights reserved.</div>
+    <div class="p-6 rounded-2xl bg-white shadow border border-[rgba(25,118,242,0.2)] hover:-translate-y-2 transition">
+      <h3 class="font-bold text-xl brand-gradient mb-2">College Predictor</h3>
+      <p class="italic text-gray-800">Predict colleges based on your rank.</p>
     </div>
-  </footer>
 
-  <script>
-    function navigate(path){ window.location.href = path; }
-  </script>
+    <div class="p-6 rounded-2xl bg-white shadow border border-[rgba(25,118,242,0.2)] hover:-translate-y-2 transition">
+      <h3 class="font-bold text-xl brand-gradient mb-2">Mock Test</h3>
+      <p class="italic text-gray-800">Real exam-level mock tests with analytics.</p>
+    </div>
 
-  <!-- SPA Scripts (optional) -->
-  <script type="module" src="js/router.js"></script>
-  <script type="module" src="js/cutoffs.js"></script>
-  <script type="module" src="js/pyqs.js"></script>
+    <div class="p-6 rounded-2xl bg-white shadow border border-[rgba(25,118,242,0.2)] hover:-translate-y-2 transition">
+      <h3 class="font-bold text-xl brand-gradient mb-2">PYQ Library</h3>
+      <p class="italic text-gray-800">Filtered previous year questions.</p>
+    </div>
 
-  <script>
-    // small client-side tab switcher (keeps previous behavior)
-    (function () {
-      const tabs = document.querySelectorAll('[data-tab]');
-      const pages = {
-        home: document.getElementById('home-page'),
-        about: document.getElementById('about-page'),
-        materials: document.getElementById('materials-page'),
-        contact: document.getElementById('contact-page')
-      };
+    <div class="p-6 rounded-2xl bg-white shadow border border-[rgba(25,118,242,0.2)] hover:-translate-y-2 transition">
+      <h3 class="font-bold text-xl brand-gradient mb-2">Canvas</h3>
+      <p class="italic text-gray-800">Workspace for solving & note-taking.</p>
+    </div>
 
-      function show(tab) {
-        Object.values(pages).forEach(p => p && p.classList.add('hidden'));
-        const el = pages[tab]; if (el) el.classList.remove('hidden');
-        document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('tab-active'));
-        document.querySelectorAll(`[data-tab="${tab}"]`).forEach(btn => { if (btn.classList.contains('nav-link')) btn.classList.add('tab-active'); });
-      }
+    <div class="p-6 rounded-2xl bg-white shadow border border-[rgba(25,118,242,0.2)] hover:-translate-y-2 transition">
+      <h3 class="font-bold text-xl brand-gradient mb-2">Placement Insights</h3>
+      <p class="italic text-gray-800">Compare placement stats & trends.</p>
+    </div>
 
-      tabs.forEach(btn => { btn.addEventListener('click', () => { const tab = btn.getAttribute('data-tab'); show(tab); }); });
-      show('home');
-    })();
-  </script>
+  </div>
 
-</body>
-
-</html>
+</section>
