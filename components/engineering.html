@@ -1,52 +1,46 @@
-<!-- components/engineering.html - Clean FULLSCREEN 4x2 GRID (NO BIG CARD) -->
+<!-- components/engineering.html - clean layout with NO WRAP -->
 <section id="engineering-page" class="w-full bg-white">
 
   <style>
-    /* Compact fullscreen area (remove scroll) */
-    .eng-wrap {
-      height: calc(100vh - 72px); /* adjust if your navbar height differs */
-      overflow: hidden;
-      padding: 12px 16px;
-    }
-
     .eng-title {
       font-family: 'Playfair Display', serif;
       font-size: 24px;
       font-weight: 700;
-      margin: 0;
+      margin-top: 16px;
+      margin-left: 16px;
     }
 
     .eng-sub {
       font-size: 12px;
       color: #5c6b78;
+      margin-left: 16px;
       margin-top: 2px;
     }
 
-    /* GRID: 4 columns desktop, 2 columns mobile */
+    /* Grid layout */
     .eng-grid {
-      margin-top: 14px;
-      height: calc(100% - 55px);
+      margin-top: 16px;
+      padding: 0 16px 20px;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      gap: 12px;
     }
 
     @media (min-width: 768px) {
       .eng-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, 1fr); /* 4×2 */
       }
     }
 
-    /* SMALL TILES */
+    /* small tiles */
     .tile {
-      background: #ffffff;
+      background: white;
       border-radius: 10px;
       padding: 10px;
       display: flex;
       flex-direction: column;
       box-shadow: 0 4px 12px rgba(0,0,0,0.06);
       font-size: 11px;
-      height: 100%;
     }
 
     .tile img {
@@ -58,14 +52,14 @@
 
     .tile-title {
       margin-top: 6px;
-      font-weight: 600;
       font-size: 13px;
+      font-weight: 600;
     }
 
     .tile-desc {
-      margin-top: 4px;
-      color: #6b7a86;
       font-size: 10px;
+      color: #6b7a86;
+      margin-top: 4px;
     }
 
     .tile a {
@@ -80,74 +74,69 @@
     }
   </style>
 
-  <div class="eng-wrap">
+  <!-- Heading -->
+  <h2 class="eng-title">Engineering Entrance Prep</h2>
+  <div class="eng-sub">Compact & high-yield JEE resources.</div>
 
-    <!-- Heading -->
-    <h2 class="eng-title">Engineering Entrance Prep</h2>
-    <div class="eng-sub">Compact & high-yield JEE resources.</div>
+  <!-- GRID (NO WRAPPER AROUND IT) -->
+  <div class="eng-grid">
 
-    <!-- GRID (NO BIG CARD AROUND IT) -->
-    <div class="eng-grid">
+    <div class="tile">
+      <img src="/assets/thumbnails/jeemains.jpg">
+      <div class="tile-title">JEE Mains Cutoffs</div>
+      <div class="tile-desc">Latest branch ranks.</div>
+      <a href="#">Go →</a>
+    </div>
 
-      <!-- 8 CARDS (4×2) -->
-      <div class="tile">
-        <img src="/assets/thumbnails/jeemains.jpg">
-        <div class="tile-title">JEE Mains Cutoffs</div>
-        <div class="tile-desc">Latest branch ranks.</div>
-        <a href="#">Go →</a>
-      </div>
+    <div class="tile">
+      <img src="/assets/thumbnails/jeeadv.jpg">
+      <div class="tile-title">JEE Advanced Cutoffs</div>
+      <div class="tile-desc">IIT closing ranks.</div>
+      <a href="#">Go →</a>
+    </div>
 
-      <div class="tile">
-        <img src="/assets/thumbnails/jeeadv.jpg">
-        <div class="tile-title">JEE Advanced Cutoffs</div>
-        <div class="tile-desc">IIT closing ranks.</div>
-        <a href="#">Go →</a>
-      </div>
+    <div class="tile">
+      <img src="/assets/thumbnails/placements.jpg">
+      <div class="tile-title">Institutes & Placements</div>
+      <div class="tile-desc">NIT / IIIT insights.</div>
+      <a href="#">Go →</a>
+    </div>
 
-      <div class="tile">
-        <img src="/assets/thumbnails/placements.jpg">
-        <div class="tile-title">Institutes & Placements</div>
-        <div class="tile-desc">NIT / IIIT placement data.</div>
-        <a href="#">Go →</a>
-      </div>
+    <div class="tile">
+      <img src="/assets/thumbnails/dpp.jpg">
+      <div class="tile-title">DPPs & Modules</div>
+      <div class="tile-desc">Daily practice sheets.</div>
+      <a href="#">Go →</a>
+    </div>
 
-      <div class="tile">
-        <img src="/assets/thumbnails/dpp.jpg">
-        <div class="tile-title">DPPs & Modules</div>
-        <div class="tile-desc">Daily practice material.</div>
-        <a href="#">Go →</a>
-      </div>
+    <div class="tile">
+      <img src="/assets/thumbnails/notes.jpg">
+      <div class="tile-title">Notes & Resources</div>
+      <div class="tile-desc">Quick revision.</div>
+      <a href="#">Go →</a>
+    </div>
 
-      <div class="tile">
-        <img src="/assets/thumbnails/notes.jpg">
-        <div class="tile-title">Notes & Resources</div>
-        <div class="tile-desc">Quick revision sets.</div>
-        <a href="#">Go →</a>
-      </div>
+    <div class="tile">
+      <img src="/assets/thumbnails/pyq.jpg">
+      <div class="tile-title">PYQs & Analysis</div>
+      <div class="tile-desc">Repeated topics.</div>
+      <a href="#">Go →</a>
+    </div>
 
-      <div class="tile">
-        <img src="/assets/thumbnails/pyq.jpg">
-        <div class="tile-title">PYQs & Analysis</div>
-        <div class="tile-desc">Repeated questions.</div>
-        <a href="#">Go →</a>
-      </div>
+    <div class="tile">
+      <img src="/assets/thumbnails/math.jpg">
+      <div class="tile-title">Math Boosters</div>
+      <div class="tile-desc">Formulas + drills.</div>
+      <a href="#">Go →</a>
+    </div>
 
-      <div class="tile">
-        <img src="/assets/thumbnails/math.jpg">
-        <div class="tile-title">Math Boosters</div>
-        <div class="tile-desc">Formulas + drills.</div>
-        <a href="#">Go →</a>
-      </div>
+    <div class="tile">
+      <img src="/assets/thumbnails/physics.jpg">
+      <div class="tile-title">Physics Concepts</div>
+      <div class="tile-desc">Core fundamentals.</div>
+      <a href="#">Go →</a>
+    </div>
 
-      <div class="tile">
-        <img src="/assets/thumbnails/physics.jpg">
-        <div class="tile-title">Physics Concepts</div>
-        <div class="tile-desc">Concept clarity sets.</div>
-        <a href="#">Go →</a>
-      </div>
-
-    </div><!-- grid end -->
-
-  </div><!-- wrap end -->
+  </div>
 
 </section>
