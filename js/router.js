@@ -1,8 +1,12 @@
 /* ============================
-   ADVANCED SPA ROUTER (Final)
+   ADVANCED SPA ROUTER (Updated)
+   - shows loading.gif while fetching / switching
+   - protects against race conditions for fast navigations
    ============================ */
 
 const app = document.getElementById("app");
+// loader element (optional: ensure an element with id="routerLoader" exists)
+const loader = document.getElementById("routerLoader") || null;
 
 // HTML cache
 const componentCache = {};
@@ -43,37 +47,100 @@ async function loadComponentJS(name) {
     const autoFn = module[`${name}Init`];
     if (autoFn) autoFn();
 
-    // 3) If multiple exported functions
+    // 3) If multiple exported functions marked with .autoRun
     Object.values(module).forEach((fn) => {
       if (typeof fn === "function" && fn.autoRun) fn();
     });
 
   } catch (err) {
-    console.warn(`⚠️ No JS file found: ${jsPath}`);
+    // not an error to be noisy about — optional file not found
+    console.warn(`⚠️ No JS file found or failed to import: ${jsPath}`, err);
   }
 }
 
+// Loader helpers
+let loaderTimer = null;
+function showLoader(immediate = false) {
+  if (!loader) return;
+  // avoid flicker for very fast loads by default; if immediate === true then show right away
+  if (!immediate) {
+    // schedule showing after a short delay
+    if (loaderTimer) clearTimeout(loaderTimer);
+    loaderTimer = setTimeout(() => loader.classList.add("show"), 140);
+  } else {
+    if (loaderTimer) clearTimeout(loaderTimer);
+    loader.classList.add("show");
+  }
+}
+function hideLoader() {
+  if (!loader) return;
+  if (loaderTimer) { clearTimeout(loaderTimer); loaderTimer = null; }
+  // small delay to allow smooth transition
+  setTimeout(() => loader.classList.remove("show"), 120);
+}
+
+// Fade helpers (optional CSS classes expected: fade-out, fade-in)
+function fadeOut(el, ms = 140) {
+  el.classList.add("fade-out");
+  return new Promise((res) => setTimeout(res, ms));
+}
+function fadeIn(el) {
+  el.classList.remove("fade-out");
+  el.classList.add("fade-in");
+  // remove the fade-in class after short time to avoid accumulation
+  setTimeout(() => el.classList.remove("fade-in"), 300);
+}
+
+// Track the latest requested page to prevent race display
+let latestRequestId = 0;
+
 // Render page
 async function showPage(page) {
-  const html = await loadComponentHTML(page);
+  const requestId = ++latestRequestId;
 
-  // Fade out previous page
-  app.classList.add("fade-out");
-  await new Promise((res) => setTimeout(res, 150));
+  // show loader (not immediate by default; prevents tiny flickers)
+  showLoader();
 
-  // Insert new page
-  app.innerHTML = html;
+  // begin loading HTML + JS in parallel (HTML must be inserted before JS init)
+  // note: we await HTML to insert DOM before running JS
+  let html;
+  try {
+    html = await loadComponentHTML(page);
+  } catch (e) {
+    console.error("Error loading HTML:", e);
+    html = `<div class="p-6 card"><h2 class="text-xl font-bold">Content unavailable</h2><p class="text-gray-600">Check /components folder.</p></div>`;
+  }
 
-  // Fade in new page
-  app.classList.remove("fade-out");
-  app.classList.add("fade-in");
+  // if another newer request happened, abandon updating DOM for this one
+  if (requestId !== latestRequestId) {
+    // still allow JS to load in background if desired, but do nothing visible
+    loadComponentJS(page).catch(()=>{});
+    return;
+  }
 
-  updateActiveTab(page);
-  closeMobileMenu();
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  try {
+    // Fade out previous page quickly
+    await fadeOut(app, 120);
 
-  // Load JS for page
-  await loadComponentJS(page);
+    // Insert new page
+    app.innerHTML = html;
+
+    // Fade in new page
+    fadeIn(app);
+
+    updateActiveTab(page);
+    closeMobileMenu();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // Load associated JS module (optional)
+    await loadComponentJS(page);
+
+  } catch (err) {
+    console.error("Error while showing page:", err);
+  } finally {
+    // Only hide loader if this is still the latest request
+    if (requestId === latestRequestId) hideLoader();
+  }
 }
 
 // Highlight active tab
@@ -97,8 +164,14 @@ function closeMobileMenu() {
 // Nav click events
 function initTabEvents() {
   document.querySelectorAll("[data-tab]").forEach((btn) => {
-    btn.onclick = () => {
-      location.hash = btn.dataset.tab;
+    btn.onclick = (e) => {
+      // show loader immediately so user sees instant feedback on click
+      showLoader(true);
+      // small timeout to let loader render before changing hash (improves perceived speed)
+      setTimeout(() => {
+        location.hash = btn.dataset.tab;
+      }, 60);
+      e.preventDefault?.();
     };
   });
 }
@@ -119,13 +192,15 @@ function initMobileMenu() {
 
 // URL hash router
 window.addEventListener("hashchange", () => {
-  const pg = location.hash.replace("#", "") || "home";
+  const pg = (location.hash.replace("#", "") || "home");
   showPage(pg);
 });
 
 // Initial page load
 window.addEventListener("load", () => {
-  const initial = location.hash.replace("#", "") || "home";
+  const initial = (location.hash.replace("#", "") || "home");
+  // show loader immediately on first load for clear feedback
+  showLoader(true);
   showPage(initial);
 
   initTabEvents();
