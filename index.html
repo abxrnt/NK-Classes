@@ -19,20 +19,73 @@
   <style>
     :root{
       --blue-light:#9EE9FF;--blue-main:#1976F2;--blue-accent:#0EA5E9;--blue-dark:#07203A;
-      --blue-gradient:linear-gradient(45deg,var(--blue-light),var(--blue-accent),var(--blue-main),var(--blue-dark));
+      --blue-gradient:linear-gradient(135deg,var(--blue-accent),var(--blue-main));
     }
-    body{font-family:Inter,system-ui,sans-serif;background:linear-gradient(180deg,#f7fbff 0%,#fff 100%);color:#062433}
-    .fade-in{animation:fadeIn .25s ease-out both} .fade-out{animation:fadeOut .2s ease-in both}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}} @keyframes fadeOut{from{opacity:1}to{opacity:0;transform:translateY(-6px)}}
-    .nav-link{position:relative;font-weight:600;color:#07365a} .nav-link::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--blue-main);transition:width .22s} .nav-link:hover::after{width:100%}
+    body{font-family:Inter,system-ui,sans-serif;background:linear-gradient(180deg,#f7fbff 0%,#fff 100%);color:#062433;min-height:100vh}
+    .nav-link{position:relative;font-weight:600;color:#07365a}
+    .nav-link::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--blue-main);transition:width .22s}
+    .nav-link:hover::after{width:100%}
     .tab-active{color:#fff !important;background:var(--blue-gradient);border-radius:10px;padding:6px 12px}
-    .card{background:white;border-radius:14px;box-shadow:0 6px 20px rgba(7,36,58,.06);padding:18px}
-    .logo-glow{box-shadow:0 0 18px rgba(25,118,242,.35)} button:hover{background:var(--blue-gradient) !important;color:white !important;transition:.25s;border-radius:8px}
+    .logo-glow{box-shadow:0 0 18px rgba(25,118,242,.18)}
     footer h2{background:var(--blue-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    nav{border-bottom-color:rgba(7,32,50,.06)} .text-muted{color:#5b6b78} .mobile-icon{color:#0b3b66} .no-tap-highlight{-webkit-tap-highlight-color:rgba(0,0,0,0)}
-    .avatar-circle { width:32px; height:32px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:#e6eef9; color:#0b3b66; font-weight:700; font-size:13px; text-transform:uppercase; }
-    /* small disabled style */
-    .btn-disabled { opacity: .65; pointer-events: none; }
+    nav{border-bottom-color:rgba(7,32,50,.06)}
+    .text-muted{color:#5b6b78}
+    .mobile-icon{color:#0b3b66}
+    .no-tap-highlight{-webkit-tap-highlight-color:rgba(0,0,0,0)}
+    .avatar-circle { width:36px; height:36px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:#e6eef9; color:#0b3b66; font-weight:700; font-size:14px; text-transform:uppercase; }
+
+    /* Modal visuals */
+    .auth-backdrop {
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(14,165,233,0.06), transparent 10%),
+                  radial-gradient(900px 500px at 90% 90%, rgba(25,118,242,0.06), transparent 10%),
+                  rgba(2,6,23,0.45);
+      backdrop-filter: blur(6px);
+    }
+    .auth-card {
+      border-radius: 16px;
+      box-shadow: 0 18px 60px rgba(7,36,58,0.16);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,252,255,0.96));
+      max-width: 920px;
+      width: calc(100% - 48px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    /* left branding panel */
+    .auth-left {
+      padding: 36px;
+      background: linear-gradient(180deg, rgba(10,102,194,0.06), rgba(10,102,194,0.02));
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      align-items:flex-start;
+      justify-content:center;
+    }
+    .auth-left h3 { font-family: 'Playfair Display', serif; font-size:28px; letter-spacing: -0.6px; color:var(--blue-dark); }
+    .auth-left p { color:#274659; font-size:14px; line-height:1.45; }
+
+    /* right form panel */
+    .auth-right { padding: 28px; display:flex; align-items:center; justify-content:center; }
+    .form-inner { width:100%; max-width:420px; }
+
+    .input-lg { width:100%; padding:14px 14px; border:1px solid #e6eef6; border-radius:10px; box-shadow:inset 0 1px 0 rgba(255,255,255,0.6); font-size:16px }
+    .btn-primary { background: linear-gradient(90deg,#0ea5e9,#1976f2); color:white; padding:12px 16px; border-radius:10px; font-weight:700; }
+    .btn-ghost { border:1px solid #e6eef6; padding:10px 12px; border-radius:10px; background:white; }
+
+    /* small screens: stack */
+    @media (max-width:900px){
+      .auth-card { grid-template-columns: 1fr; width: calc(100% - 32px); }
+      .auth-left { padding: 22px; text-align:center; align-items:center }
+      .auth-left h3 { font-size:22px }
+      .auth-right { padding: 18px 20px }
+    }
+
+    /* disabled style */
+    .btn-disabled { opacity:.6; pointer-events:none; }
+
+    /* subtle icon size */
+    .icon-sm { width:18px; height:18px; display:inline-block; vertical-align:middle }
   </style>
 </head>
 <body class="text-slate-900">
@@ -40,57 +93,58 @@
   <!-- NAVBAR -->
   <nav class="sticky top-0 z-50 bg-white border-b shadow-sm">
     <div class="max-w-6xl mx-auto px-4 md:px-8">
-      <div class="flex items-center justify-between py-2">
+      <div class="flex items-center justify-between py-3">
         <div class="flex items-center gap-3">
           <img src="favicon.png" class="w-10 h-10 rounded-full shadow-sm object-cover logo-glow" />
           <div class="leading-tight">
             <a class="text-xl font-extrabold" style="font-family:'Playfair Display',serif;background:var(--blue-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">NK Classes</a>
-            <div class="text-[10px] text-muted">Where Chemistry Becomes Crystal Clear</div>
+            <div class="text-[11px] text-muted">Where Chemistry Becomes Crystal Clear</div>
           </div>
         </div>
 
         <div class="flex items-center gap-4">
-          <!-- desktop tabs (LECTURES REMOVED) -->
-          <ul id="desktopTabs" class="hidden md:flex gap-3 items-center text-sm">
+          <!-- desktop tabs -->
+          <ul id="desktopTabs" class="hidden md:flex gap-4 items-center text-sm">
             <li><button data-route="home" class="nav-link px-2 py-1 rounded-md">Home</button></li>
             <li><button data-route="about" class="nav-link px-2 py-1 rounded-md">About Us</button></li>
             <li><button data-route="materials" class="nav-link px-2 py-1 rounded-md">Study Materials</button></li>
-            <li><button data-route="cutoffs" class="nav-link px-2 py-1 rounded-md">Cutoffs</button></li>
-            <li><button data-route="placements" class="nav-link px-2 py-1 rounded-md">Placements & Campus</button></li>
-            <li><button data-route="contact" class="nav-link px-2 py-1 rounded-md">Contact Us</button></li>
+            <li><button data-route="contact" class="nav-link px-2 py-1 rounded-md">Contact</button></li>
           </ul>
 
-          <!-- auth area (profile icon + logout OR login/register buttons) -->
+          <!-- auth area - show ONLY Login when logged out -->
           <div id="authArea" class="ml-2 flex items-center gap-3"></div>
         </div>
       </div>
 
-      <!-- MOBILE ICON BAR (6 items without lectures) -->
+      <!-- MOBILE ICON BAR -->
       <div class="md:hidden pb-1">
         <div class="grid grid-cols-6 gap-1 items-center text-center px-1 no-tap-highlight">
           <button data-route="home" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z"/></svg><span class="text-[9px] leading-[10px]">Home</span></button>
-
           <button data-route="about" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5c2.485 0 4.5 2.015 4.5 4.5s-2.015 4.5-4.5 4.5-4.5-2.015-4.5-4.5S9.515 4.5 12 4.5zm0 12c4.142 0 7.5 2.015 7.5 4.5V21H4.5v-.75c0-2.485 3.358-4.5 7.5-4.5z"/></svg><span class="text-[9px] leading-[10px]">About</span></button>
-
           <button data-route="materials" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6.75V19.5A1.5 1.5 0 004.5 21h12A1.5 1.5 0 0018 19.5V6.75m-15 0L12 3l9 3.75m-15 0l9 3.75 9-3.75"/></svg><span class="text-[9px] leading-[10px]">Materials</span></button>
-
-          <button data-route="cutoffs" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18M9 3v18m6-18v18M3 12h18"/></svg><span class="text-[9px] leading-[10px]">Cutoffs</span></button>
-
-          <button data-route="placements" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6a9 9 0 100 18 9 9 0 000-18zm0 3v9m4.5-4.5h-9"/></svg><span class="text-[9px] leading-[10px]">Placements</span></button>
-
           <button data-route="contact" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25v13.5A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18.75V5.25zM7.5 9h9m-9 3h9m-9 3h6"/></svg><span class="text-[9px] leading-[10px]">Contact</span></button>
+
+          <!-- mobile Login icon (keeps navbar clean) -->
+          <button id="mobileLoginBtn" class="flex flex-col items-center w-full py-1 mobile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15"/></svg>
+            <span class="text-[9px] leading-[10px]">Login</span>
+          </button>
         </div>
       </div>
     </div>
   </nav>
 
   <!-- MAIN APP -->
-  <main id="app" class="max-w-6xl mx-auto px-4 md:px-8 py-6">
-    <!-- components will be dynamically loaded via router -->
+  <main id="app" class="max-w-6xl mx-auto px-4 md:px-8 py-8">
+    <!-- dynamic components loaded here -->
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold mb-2">Welcome to NK Classes</h2>
+      <p class="text-sm text-muted">Select a section from the navbar to continue.</p>
+    </div>
   </main>
 
-  <!-- FOOTER (unchanged) -->
-  <footer class="bg-[#042235] text-gray-300 py-10 mt-16">
+  <!-- FOOTER -->
+  <footer class="bg-[#042235] text-gray-300 py-10 mt-12">
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
         <div>
@@ -108,34 +162,96 @@
     </div>
   </footer>
 
-  <!-- AUTH MODAL (FULL-SCREEN) -->
-  <div id="authModal" class="fixed inset-0 hidden z-50 flex bg-white">
-    <div class="w-full h-full p-6 overflow-auto relative">
-      <button id="authClose" class="absolute right-3 top-3 text-gray-600 text-xl">✕</button>
+  <!-- AUTH MODAL (FULLSCREEN BACKDROP, centered non-scroll card) -->
+  <div id="authModal" class="fixed inset-0 hidden z-50 flex items-center justify-center auth-backdrop">
+    <div class="auth-card mx-4">
+      <!-- LEFT: branding -->
+      <div class="auth-left">
+        <div class="flex items-center gap-3">
+          <img src="favicon.png" class="w-12 h-12 rounded-full shadow-sm object-cover" />
+          <div>
+            <div style="font-family:'Playfair Display',serif" class="text-xl font-bold">NK Classes</div>
+            <div class="text-xs text-muted">Where Chemistry Becomes Crystal Clear</div>
+          </div>
+        </div>
 
-      <div id="authTabs" class="flex gap-2 mb-6 mt-10">
-        <button id="showLogin" class="px-4 py-2 rounded-md tab-active text-lg">Login</button>
-        <button id="showRegister" class="px-4 py-2 rounded-md text-lg">Register</button>
+        <h3>Learn. Practice. Conquer.</h3>
+        <p>Clear conceptual lessons, concise notes, and specially designed study materials to help you ace your exams & entrance tests.</p>
+
+        <ul class="mt-2 text-sm text-muted space-y-2">
+          <li>• Fast revision notes</li>
+          <li>• PYQ-based practice</li>
+          <li>• Campus & placements data</li>
+        </ul>
       </div>
 
-      <!-- LOGIN: only username + password -->
-      <div id="loginForm" class="max-w-xl mx-auto">
-        <input id="loginUsername" type="text" placeholder="Username" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
-        <input id="loginPassword" type="password" placeholder="Password" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
-        <div id="loginError" class="text-sm text-red-500 mb-4 hidden"></div>
-        <button id="loginBtn" class="w-full bg-blue-600 text-white px-4 py-3 rounded text-lg">Login</button>
-      </div>
+      <!-- RIGHT: forms -->
+      <div class="auth-right">
+        <div class="form-inner">
+          <div class="flex justify-between items-center mb-4">
+            <div class="flex gap-2">
+              <button id="showLogin" class="px-4 py-2 rounded-md tab-active text-sm">Login</button>
+              <button id="showRegister" class="px-4 py-2 rounded-md text-sm">Register</button>
+            </div>
+            <button id="authClose" class="text-gray-600">✕</button>
+          </div>
 
-      <!-- REGISTER: username, full name, password, phone, email, regn -->
-      <div id="registerForm" class="hidden max-w-xl mx-auto mt-6">
-        <input id="regUsername" type="text" placeholder="Username" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
-        <input id="regName" type="text" placeholder="Full name" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
-        <input id="regPassword" type="password" placeholder="Password (6+ chars)" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
-        <input id="regPhone" type="text" placeholder="Phone" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
-        <input id="regEmail" type="email" placeholder="Email" class="w-full border px-4 py-3 rounded mb-4 text-lg" />
-        <input id="regn" type="text" readonly class="w-full border px-4 py-3 rounded mb-4 bg-gray-50 text-lg" />
-        <div id="regError" class="text-sm text-red-500 mb-4 hidden"></div>
-        <button id="registerBtn" class="w-full bg-emerald-600 text-white px-4 py-3 rounded text-lg">Register</button>
+          <!-- LOGIN FORM -->
+          <div id="loginForm">
+            <div class="mb-3">
+              <label class="block text-sm font-medium mb-1">Username</label>
+              <input id="loginUsername" class="input-lg" placeholder="your username" />
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium mb-1">Password</label>
+              <input id="loginPassword" type="password" class="input-lg" placeholder="••••••••" />
+            </div>
+
+            <div id="loginError" class="text-sm text-red-500 mb-3 hidden"></div>
+
+            <div class="flex gap-3 mb-4">
+              <button id="loginBtn" class="btn-primary flex-1 text-center">Login</button>
+              <button id="loginHelp" class="btn-ghost">Need help?</button>
+            </div>
+
+            <div class="text-xs text-muted">By logging in you agree to our terms and privacy.</div>
+          </div>
+
+          <!-- REGISTER FORM -->
+          <div id="registerForm" class="hidden">
+            <div class="mb-3">
+              <label class="block text-sm font-medium mb-1">Username</label>
+              <input id="regUsername" class="input-lg" placeholder="choose a username" />
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium mb-1">Full name</label>
+              <input id="regName" class="input-lg" placeholder="Your full name" />
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium mb-1">Password</label>
+              <input id="regPassword" type="password" class="input-lg" placeholder="Minimum 6 characters" />
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium mb-1">Phone (optional)</label>
+              <input id="regPhone" class="input-lg" placeholder="+91 98765 43210" />
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium mb-1">Email (recommended)</label>
+              <input id="regEmail" type="email" class="input-lg" placeholder="name@example.com" />
+            </div>
+
+            <input id="regn" type="text" readonly class="w-full mt-2 mb-3 px-3 py-2 rounded bg-gray-50 text-sm" />
+
+            <div id="regError" class="text-sm text-red-500 mb-3 hidden"></div>
+
+            <div class="flex gap-3 mb-4">
+              <button id="registerBtn" class="btn-primary flex-1">Register</button>
+              <button id="cancelRegister" class="btn-ghost">Cancel</button>
+            </div>
+
+            <div class="text-xs text-muted">We recommend using email so you can recover your account later.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -161,7 +277,7 @@
     const db = firebase.firestore();
   </script>
 
-  <!-- HASH ROUTER (loads /components/<route>.html) -->
+  <!-- Router (same as before) -->
   <script>
     (function(){
       const app = document.getElementById('app');
@@ -169,8 +285,6 @@
         home: '/components/home.html',
         about: '/components/about.html',
         materials: '/components/materials.html',
-        cutoffs: '/components/cutoffs.html',
-        placements: '/components/placements.html',
         contact: '/components/contact.html'
       };
       function parseHash(){ const h = location.hash || '#/home'; const m = h.match(/^#\/?([^/?#]+)/); return m?m[1]:'home'; }
@@ -193,22 +307,26 @@
     })();
   </script>
 
-  <!-- AUTH UI + Logic (username login, register stores fields you requested) -->
+  <!-- AUTH UI + Logic -->
   <script>
-    // small helper: escape HTML for safe insertion
+    // small helpers
     function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]); }
+    async function getUserDocByUid(uid){ try{ const doc = await db.collection('users').doc(uid).get(); if(!doc.exists) return null; return {id:doc.id, data: doc.data()}; } catch(e){ console.error(e); return null; } }
+    async function findUserDocByUsername(username){ try{ const q = await db.collection('users').where('username','==',username).limit(1).get(); if(!q.empty) return {id:q.docs[0].id, data:q.docs[0].data()}; } catch(e){ console.error(e); } return null; }
 
-    // helpers: get user doc by uid and find by username
-    async function getUserDocByUid(uid){
-      try{ const doc = await db.collection('users').doc(uid).get(); if(!doc.exists) return null; return {id:doc.id, data: doc.data()}; } catch(e){ console.error(e); return null; }
-    }
-    async function findUserDocByUsername(username){
-      try{ const q = await db.collection('users').where('username','==',username).limit(1).get(); if(!q.empty) return {id:q.docs[0].id, data:q.docs[0].data()}; } catch(e){ console.error(e); } return null;
+    // loading helper (disables page scroll while modal open)
+    function setModalOpen(open){
+      const modal = document.getElementById('authModal');
+      if(open){
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // prevents page scroll
+      } else {
+        modal.classList.add('hidden');
+        document.body.style.overflow = ''; // restore
+      }
     }
 
-    // UI loading helpers
     function setLoading(type, on){
-      // type: 'login' or 'register'
       const loginBtn = document.getElementById('loginBtn');
       const registerBtn = document.getElementById('registerBtn');
       const inputs = Array.from(document.querySelectorAll('#loginForm input, #registerForm input, #loginForm button, #registerForm button, #authTabs button'));
@@ -223,45 +341,46 @@
           registerBtn.innerHTML = on ? 'Registering...' : (registerBtn.dataset.orig || 'Register');
         }
       }
-      // disable both forms while any loading
       inputs.forEach(i => {
-        if(on) { i.classList.add('btn-disabled'); i.setAttribute('disabled','disabled'); }
-        else { i.classList.remove('btn-disabled'); i.removeAttribute('disabled'); }
+        if(on){ i.classList.add('btn-disabled'); i.setAttribute('disabled','disabled'); } else { i.classList.remove('btn-disabled'); i.removeAttribute('disabled'); }
       });
     }
 
-    // Ensure auth area present and visible, inject default if empty
-    (function ensureAuthArea(){
-      let area = document.getElementById('authArea');
-      if(!area){
-        const nav = document.querySelector('nav .max-w-6xl') || document.querySelector('nav');
-        area = document.createElement('div'); area.id='authArea'; area.className='ml-2 flex items-center gap-3';
-        if(nav) nav.appendChild(area); else document.body.prepend(area);
+    // Render auth area (only Login when logged out)
+    const authAreaEl = document.getElementById('authArea');
+    function renderAuthArea(userDoc){
+      if(!authAreaEl) return;
+      if(!userDoc){
+        authAreaEl.innerHTML = `<button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button>`;
+        attachNavHandlers();
+      } else {
+        const username = userDoc.data && userDoc.data.username ? userDoc.data.username : '';
+        const name = userDoc.data && userDoc.data.name ? userDoc.data.name : '';
+        const initials = (username || name || 'U').charAt(0).toUpperCase();
+        authAreaEl.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="avatar-circle" title="${escapeHtml(name || username)}">${escapeHtml(initials)}</div>
+            <button id="navLogout" class="px-3 py-1 rounded-md border text-sm">Logout</button>
+          </div>`;
+        document.getElementById('navLogout')?.addEventListener('click', logout);
       }
-      area.classList.remove('hidden'); area.style.display='flex';
-      if(!area.innerHTML.trim()){
-        area.innerHTML = `<button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button><button id="navRegister" class="px-3 py-1 rounded-md border">Register</button>`;
-      }
-      attachNavHandlers();
-    })();
-
-    function attachNavHandlers(){
-      // reattach safely
-      const navLogin = document.getElementById('navLogin');
-      const navRegister = document.getElementById('navRegister');
-      navLogin?.removeEventListener?.('click', ()=>{});
-      navRegister?.removeEventListener?.('click', ()=>{});
-      navLogin?.addEventListener('click', ()=> showModal('login'));
-      navRegister?.addEventListener('click', ()=> showModal('register'));
     }
 
-    // modal helpers
+    function attachNavHandlers(){
+      const navLogin = document.getElementById('navLogin');
+      navLogin?.removeEventListener?.('click', ()=>{});
+      navLogin?.addEventListener('click', ()=> openAuth('login'));
+      // mobile login icon
+      document.getElementById('mobileLoginBtn')?.addEventListener('click', ()=> openAuth('login'));
+    }
+
+    // open and close modal (controls body scroll)
     const authModal = document.getElementById('authModal');
-    document.getElementById('authClose')?.addEventListener('click', ()=> { authModal.classList.add('hidden'); authModal.classList.remove('flex'); });
-    document.getElementById('showLogin')?.addEventListener('click', ()=> showModal('login'));
-    document.getElementById('showRegister')?.addEventListener('click', ()=> showModal('register'));
-    function showModal(view='login'){
-      document.getElementById('loginError')?.classList.add('hidden'); document.getElementById('regError')?.classList.add('hidden');
+    function openAuth(view='login'){
+      // reset errors
+      document.getElementById('loginError')?.classList.add('hidden');
+      document.getElementById('regError')?.classList.add('hidden');
+      // switch view
       if(view==='login'){
         document.getElementById('loginForm')?.classList.remove('hidden');
         document.getElementById('registerForm')?.classList.add('hidden');
@@ -273,11 +392,27 @@
         document.getElementById('showLogin')?.classList.remove('tab-active');
         document.getElementById('showRegister')?.classList.add('tab-active');
       }
-      const regnEl = document.getElementById('regn');
-      if(regnEl) regnEl.value = new Date().toISOString();
-      authModal.classList.remove('hidden'); authModal.classList.add('flex');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // prefill regn
+      const regnEl = document.getElementById('regn'); if(regnEl) regnEl.value = new Date().toISOString();
+      setModalOpen(true);
     }
+
+    document.getElementById('authClose')?.addEventListener('click', ()=> setModalOpen(false));
+    document.getElementById('showLogin')?.addEventListener('click', ()=> openAuth('login'));
+    document.getElementById('showRegister')?.addEventListener('click', ()=> openAuth('register'));
+    document.getElementById('cancelRegister')?.addEventListener('click', ()=> openAuth('login'));
+
+    // ensure auth area exists
+    (function ensureAuthArea(){
+      if(!document.getElementById('authArea')){
+        const nav = document.querySelector('nav .max-w-6xl') || document.querySelector('nav');
+        const wrapper = document.createElement('div'); wrapper.id='authArea'; wrapper.className='ml-2 flex items-center gap-3';
+        if(nav) nav.appendChild(wrapper); else document.body.prepend(wrapper);
+      }
+      // create default login button
+      if(!document.getElementById('navLogin')) renderAuthArea(null);
+      attachNavHandlers();
+    })();
 
     // ===== REGISTER =====
     document.getElementById('registerBtn')?.addEventListener('click', async () => {
@@ -296,11 +431,9 @@
 
       setLoading('register', true);
       try{
-        // check username uniqueness
         const existing = await findUserDocByUsername(username);
         if(existing){ if(errEl){ errEl.innerText = 'Username already taken.'; errEl.classList.remove('hidden'); } setLoading('register', false); return; }
 
-        // Attempt to create Firebase Auth user if email provided
         let uid = null;
         let firebaseCreated = false;
         if(email){
@@ -308,39 +441,31 @@
             const userCred = await auth.createUserWithEmailAndPassword(email, password);
             uid = userCred.user.uid;
             firebaseCreated = true;
-            // update display name
             await userCred.user.updateProfile({ displayName: name }).catch(()=>{});
           } catch(firebaseErr){
-            // Firebase failed (maybe email in use). We'll continue to create Firestore-only user as fallback.
-            console.warn('Firebase account creation failed — will create Firestore-only user. Error:', firebaseErr);
+            console.warn('Firebase create failed — will fallback to Firestore-only. Error:', firebaseErr);
           }
         }
 
-        // create Firestore doc (use uid if we have)
         const docRefId = uid || db.collection('users').doc().id;
         await db.collection('users').doc(docRefId).set({
           username,
           name,
-          password,      // insecure but kept for legacy compatibility
+          password, // insecure but kept for legacy
           phone: phone || "",
           email: email || "",
           paid: "no",
           regn: regn
         });
 
-        // If firebase account not created (no email or firebase failed), sign-in legacy session automatically
+        // If firebase account not created, immediately log-in legacy session
         if(!firebaseCreated){
-          // set legacy session so UI shows logged-in state immediately
           localStorage.setItem('legacyUser', docRefId);
-          // fetch the doc we just wrote and render
           const docSnap = await db.collection('users').doc(docRefId).get();
-          if(docSnap.exists){
-            renderAuthArea({ id: docSnap.id, data: docSnap.data() });
-          }
+          if(docSnap.exists) renderAuthArea({ id: docSnap.id, data: docSnap.data() });
         }
 
-        // close modal (if firebaseCreated, onAuthStateChanged will update too)
-        authModal.classList.add('hidden'); authModal.classList.remove('flex');
+        setModalOpen(false);
       } catch(e){
         console.error('Registration error', e);
         if(errEl){ errEl.innerText = e.message || 'Registration failed'; errEl.classList.remove('hidden'); }
@@ -366,20 +491,19 @@
         if(email){
           try{
             await auth.signInWithEmailAndPassword(email, password);
-            authModal.classList.add('hidden'); authModal.classList.remove('flex');
+            setModalOpen(false);
             setLoading('login', false);
             return;
           } catch(firebaseErr){
             console.warn('Firebase signIn failed for email', email, firebaseErr);
-            // fallthrough to plaintext fallback
           }
         }
 
-        // fallback plaintext
+        // plaintext fallback
         if(doc.data && doc.data.password && doc.data.password === password){
           localStorage.setItem('legacyUser', doc.id);
           renderAuthArea(doc);
-          authModal.classList.add('hidden'); authModal.classList.remove('flex');
+          setModalOpen(false);
           setLoading('login', false);
           return;
         } else {
@@ -400,28 +524,7 @@
       renderAuthArea(null);
     }
 
-    // ===== renderAuthArea: show circle profile icon + Logout button (no "Hi, name") =====
-    const authAreaEl = document.getElementById('authArea');
-    function renderAuthArea(userDoc){
-      if(!authAreaEl) return;
-      if(!userDoc){
-        authAreaEl.innerHTML = `<button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button><button id="navRegister" class="px-3 py-1 rounded-md border">Register</button>`;
-        attachNavHandlers();
-      } else {
-        const username = userDoc.data && userDoc.data.username ? userDoc.data.username : '';
-        const name = userDoc.data && userDoc.data.name ? userDoc.data.name : '';
-        const initials = (username || name || 'U').charAt(0).toUpperCase();
-        authAreaEl.innerHTML = `
-          <div class="flex items-center gap-3">
-            <div class="avatar-circle" title="${escapeHtml(name || username)}">${escapeHtml(initials)}</div>
-            <button id="navLogout" class="px-3 py-1 rounded-md border text-sm">Logout</button>
-          </div>
-        `;
-        document.getElementById('navLogout')?.addEventListener('click', logout);
-      }
-    }
-
-    // ===== onAuthStateChanged: prefer Firebase user, otherwise legacy local session =====
+    // when firebase state changes
     auth.onAuthStateChanged(async (user) => {
       try{
         if(user){
@@ -442,6 +545,7 @@
           return;
         }
 
+        // no firebase user: check legacy session
         const legacyId = localStorage.getItem('legacyUser');
         if(legacyId){
           try{
@@ -456,19 +560,15 @@
       }
     });
 
-    // Ensure authArea exists on DOM ready (safety) and attach tab handlers
+    // DOM ready safety
     document.addEventListener('DOMContentLoaded', () => {
-      if(!document.getElementById('authArea')){
-        const parent = document.querySelector('.max-w-6xl') || document.body;
-        const wrapper = document.createElement('div'); wrapper.id='authArea'; wrapper.className='ml-4 flex items-center gap-3';
-        parent.prepend(wrapper);
-      }
-      document.getElementById('showLogin')?.addEventListener('click', ()=> showModal('login'));
-      document.getElementById('showRegister')?.addEventListener('click', ()=> showModal('register'));
-      document.getElementById('authClose')?.addEventListener('click', ()=> { authModal.classList.add('hidden'); authModal.classList.remove('flex'); });
+      attachNavHandlers();
+      document.getElementById('showLogin')?.addEventListener('click', ()=> openAuth('login'));
+      document.getElementById('showRegister')?.addEventListener('click', ()=> openAuth('register'));
+      document.getElementById('authClose')?.addEventListener('click', ()=> setModalOpen(false));
     });
 
-    // small runtime error logging
+    // runtime logging
     window.addEventListener('error', (e)=> console.error('Runtime error:', e.message,'at', e.filename+':'+e.lineno));
   </script>
 </body>
