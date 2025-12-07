@@ -1,0 +1,44 @@
+<!-- components/contact.html -->
+<div class="page-contact max-w-3xl mx-auto p-6" style="box-sizing:border-box;">
+  <div class="card p-6">
+    <h1 class="text-2xl md:text-3xl font-extrabold mb-3">Contact Us</h1>
+    <p class="text-gray-700 mb-4">Questions? Want to join a batch? Send us a message and we'll get back to you.</p>
+
+    <!-- simple client-side form (no backend) -->
+    <form id="contact-form" class="space-y-4" onsubmit="event.preventDefault(); handleContactSubmit();">
+      <div>
+        <label class="block text-sm font-medium mb-1" for="name">Name</label>
+        <input id="name" required class="w-full border rounded-md px-3 py-2" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1" for="email">Email</label>
+        <input id="email" type="email" required class="w-full border rounded-md px-3 py-2" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1" for="message">Message</label>
+        <textarea id="message" rows="5" required class="w-full border rounded-md px-3 py-2"></textarea>
+      </div>
+
+      <div>
+        <button type="submit" class="px-4 py-2 bg-[#1976F2] text-white rounded-md">Send Message</button>
+      </div>
+
+      <div id="contact-status" class="text-sm text-green-600 hidden">Message sent (demo only).</div>
+    </form>
+  </div>
+
+  <script>
+    function handleContactSubmit() {
+      // demo-only: show success message and clear fields
+      const status = document.getElementById('contact-status');
+      status.classList.remove('hidden');
+      status.textContent = 'Message sent (demo only). To actually send, wire this form to your backend or Firestore.';
+      document.getElementById('contact-form').reset();
+
+      // Example: wiring to firestore / REST would go here.
+      // e.g., call fetch('/api/contact', { method:'POST', body: JSON.stringify({...}) })
+    }
+  </script>
+</div>
