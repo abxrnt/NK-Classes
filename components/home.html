@@ -1,120 +1,187 @@
-<!-- ====== HERO CAROUSEL COMPONENT (no horizontal scrollbar) ====== -->
-<section id="hero-carousel-component" class="w-full m-0 p-0 block">
-  <div id="hero-wrap-c" style="position:relative; left:50%; margin-left:-50vw; right:50%; margin-right:-50vw; width:100vw; overflow:hidden; box-sizing:border-box;">
-    <!-- VIEWPORT -->
-    <div id="carousel-viewport-c" class="overflow-hidden w-full">
-      <div id="carousel-track-c" class="flex transition-transform duration-700 ease-out will-change-transform">
-        <!-- Slide 1 -->
-        <div class="slide-c flex-shrink-0" style="flex:0 0 100%;">
-          <img src="components/1.jpeg" alt="Slide 1" class="w-full h-auto object-contain object-center block" />
+<!-- components/home.html -->
+<div class="page-home" style="box-sizing:border-box; width:100%;">
+  <!-- HERO CAROUSEL (full-bleed) -->
+  <!-- (Uses images: /components/1.jpeg and /components/1.jpg) -->
+  <section id="hero-carousel-component" class="w-full m-0 p-0 block" role="region" aria-label="Hero carousel">
+    <div id="hero-wrap-c"
+         style="position:relative; width:100vw; left:50%; transform:translateX(-50%); box-sizing:border-box; overflow:hidden; margin:0; padding:0;">
+      <div id="carousel-viewport-c" class="overflow-hidden w-full">
+        <div id="carousel-track-c" class="flex transition-transform duration-700 ease-out will-change-transform">
+          <div class="slide-c flex-shrink-0" style="flex:0 0 100%;">
+            <img src="/components/1.jpeg" alt="Class 9 project banner" class="w-full h-[360px] md:h-[480px] object-cover object-center block" />
+          </div>
+          <div class="slide-c flex-shrink-0" style="flex:0 0 100%;">
+            <img src="/components/1.jpeg" alt="Class 9 project banner (2)" class="w-full h-[360px] md:h-[480px] object-cover object-center block" />
+          </div>
+          <div class="slide-c flex-shrink-0" style="flex:0 0 100%;">
+            <img src="/components/1.jpg" alt="Instructor banner" class="w-full h-[360px] md:h-[480px] object-cover object-center block" />
+          </div>
+        </div>
+      </div>
+
+      <div id="carousel-dots-c" class="absolute bottom-4 left-0 right-0 flex justify-center gap-3 z-40 pointer-events-auto"></div>
+    </div>
+
+    <style>
+      #carousel-track-c { transition: transform 0.65s cubic-bezier(.22,.9,.26,1); will-change: transform; }
+      #carousel-dots-c button { background: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.32); width: 12px; height: 12px; border-radius: 9999px; padding: 0; }
+      @media (max-width: 640px) { #carousel-track-c img { height: 220px !important; } }
+    </style>
+
+    <script>
+      (function () {
+        const track = document.getElementById('carousel-track-c');
+        const dotsWrap = document.getElementById('carousel-dots-c');
+        const viewport = document.getElementById('carousel-viewport-c');
+        if (!track || !dotsWrap || !viewport) return;
+        const slides = Array.from(track.querySelectorAll('.slide-c'));
+        if (!slides.length) return;
+
+        function refreshSlideSizes() {
+          const vw = viewport.clientWidth || document.documentElement.clientWidth;
+          slides.forEach(s => { s.style.width = vw + 'px'; });
+        }
+        refreshSlideSizes();
+        window.addEventListener('resize', () => { setTimeout(refreshSlideSizes, 90); });
+
+        let activeIndex = 0;
+        slides.forEach((_, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'carousel-dot';
+          btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+          btn.style.opacity = i === 0 ? '1' : '0.45';
+          btn.style.transform = i === 0 ? 'scale(1.15)' : 'scale(1)';
+          btn.style.border = 'none'; btn.style.cursor = 'pointer';
+          btn.addEventListener('click', () => { goTo(i); resetTimer(); });
+          dotsWrap.appendChild(btn);
+        });
+        const dots = Array.from(dotsWrap.children);
+        function updateDots() { dots.forEach((d, idx) => { d.style.opacity = idx === activeIndex ? '1' : '0.45'; d.style.transform = idx === activeIndex ? 'scale(1.15)' : 'scale(1)'; }); }
+
+        function goTo(i, instant) {
+          activeIndex = ((i % slides.length) + slides.length) % slides.length;
+          const offset = (viewport.clientWidth || document.documentElement.clientWidth) * activeIndex;
+          if (instant) { track.style.transition = 'none'; track.style.transform = `translateX(-${offset}px)`; void track.offsetWidth; track.style.transition = ''; }
+          else track.style.transform = `translateX(-${offset}px)`;
+          updateDots();
+        }
+
+        let timer = null;
+        function startTimer() { timer = setInterval(() => goTo(activeIndex + 1), 4500); }
+        function resetTimer() { clearInterval(timer); startTimer(); }
+        startTimer();
+        viewport.addEventListener('mouseenter', () => clearInterval(timer));
+        viewport.addEventListener('mouseleave', resetTimer);
+
+        let startX = 0, deltaX = 0, threshold = 50;
+        viewport.addEventListener('touchstart', e => { clearInterval(timer); startX = e.touches[0].clientX; }, { passive: true });
+        viewport.addEventListener('touchmove', e => { deltaX = e.touches[0].clientX - startX; }, { passive: true });
+        viewport.addEventListener('touchend', () => { if (Math.abs(deltaX) > threshold) { if (deltaX < 0) goTo(activeIndex + 1); else goTo(activeIndex - 1); } startX = 0; deltaX = 0; resetTimer(); });
+
+        // image-load safety
+        let loadedImages = 0;
+        slides.forEach(slide => {
+          const img = slide.querySelector('img');
+          if (!img) return;
+          if (img.complete && img.naturalWidth) loadedImages++;
+          else img.addEventListener('load', () => { loadedImages++; if (loadedImages === slides.length) { refreshSlideSizes(); goTo(activeIndex, true); } }, { once: true });
+        });
+        setTimeout(() => { refreshSlideSizes(); goTo(0, true); }, 150);
+      })();
+    </script>
+  </section>
+
+  <!-- MAIN HERO + RIGHT CARD -->
+  <section class="mt-6 px-4 md:px-0">
+    <div class="max-w-6xl mx-auto md:px-4">
+      <div class="grid md:grid-cols-12 gap-8 items-start">
+        <div class="md:col-span-7">
+          <div class="inline-flex items-center gap-3 rounded-full px-4 py-2 text-sm font-semibold shadow-sm mb-4" style="background:linear-gradient(90deg,#9ee9ff,#0ea5e9); color:#07203A;">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#0ea5e9] animate-pulse inline-block"></span>
+            V4.1 — Updated & Improved
+          </div>
+
+          <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-4" style="font-family:'Playfair Display',serif; background:linear-gradient(90deg,#0ea5e9,#1976F2); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
+            NK Classes — Trusted guidance for engineering aspirants
+          </h1>
+
+          <p class="text-gray-700 text-lg max-w-2xl mb-6">
+            Focused coaching, structured study materials, chapter-wise practice, and personalized guidance to help students
+            excel in engineering entrance exams and board exams.
+          </p>
+
+          <div class="mt-6 flex flex-wrap gap-4">
+            <button class="font-bold text-base rounded-xl px-6 py-3 shadow-lg bg-[#1976F2] text-white">About Us</button>
+            <a href="#" target="_blank" class="inline-block">
+              <button class="border-2 border-[#1976F2] text-[#1976F2] font-bold text-base rounded-xl px-6 py-3 shadow-lg hover:bg-[#1976F2] hover:text-white flex items-center gap-2">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-5 h-5" alt="whatsapp"/>
+                Join Us on Whatsapp
+              </button>
+            </a>
+          </div>
         </div>
 
-        <!-- Slide 2 -->
-        <div class="slide-c flex-shrink-0" style="flex:0 0 100%;">
-          <img src="components/1.jpeg" alt="Slide 2" class="w-full h-auto object-contain object-center block" />
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="slide-c flex-shrink-0" style="flex:0 0 100%;">
-          <img src="components/1.jpg" alt="Slide 3" class="w-full h-auto object-contain object-center block" />
+        <div class="md:col-span-5">
+          <div class="rounded-3xl p-6 md:p-8 relative overflow-hidden bg-white border border-[rgba(25,118,242,0.08)] shadow">
+            <div class="absolute -right-16 -top-16 w-44 h-44 rounded-full blur-2xl" style="background:linear-gradient(135deg,#9ee9ff,#1976F2); opacity:0.18;"></div>
+            <img src="/favicon.png" class="w-24 h-24 mx-auto object-contain bg-white rounded-xl border border-[rgba(25,118,242,0.08)] shadow-sm mb-4" alt="logo"/>
+            <h3 class="text-xl font-bold mb-1" style="background:linear-gradient(90deg,#0ea5e9,#1976F2); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
+              Practice Smarter with Mocks & PYQs
+            </h3>
+            <p class="text-sm text-gray-600 mt-2">Realistic mock tests, auto-scoring, analytics and chapter-wise PYQ filtering.</p>
+            <ul class="text-sm text-gray-700 mt-4 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-[#0ea5e9] mt-1">•</span> Full-syllabus mock tests</li>
+              <li class="flex items-start gap-2"><span class="text-[#0ea5e9] mt-1">•</span> Auto-scoring & analytics</li>
+              <li class="flex items-start gap-2"><span class="text-[#0ea5e9] mt-1">•</span> Chapter-wise PYQ filtering</li>
+            </ul>
+            <div class="mt-5 grid grid-cols-2 gap-3">
+              <button onclick="location.hash='materials'" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#0ea5e9] to-[#1976F2] text-white font-semibold">PYQs</button>
+              <button onclick="location.hash='materials'" class="w-full py-3 rounded-xl border font-semibold text-[#07203A] border-[rgba(25,118,242,0.12)]">Mock Test</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Dots -->
-    <div id="carousel-dots-c" class="absolute bottom-4 left-0 right-0 flex justify-center gap-3 z-40 pointer-events-auto"></div>
-  </div>
+  <!-- AIM -->
+  <section class="mt-12 px-4 md:px-0">
+    <div class="max-w-6xl mx-auto md:px-4 p-6 rounded-3xl shadow bg-white border border-[rgba(25,118,242,0.08)]">
+      <h2 class="text-2xl md:text-3xl font-extrabold mb-3" style="background:linear-gradient(90deg,#0ea5e9,#1976F2); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Our Aim</h2>
+      <p class="text-lg italic text-gray-800">We simplify preparation with structured notes, curated PYQs, mock tests, and practical counselling so every student can make informed decisions.</p>
+    </div>
+  </section>
 
-  <!-- Inline script for the component (self-contained) -->
-  <script>
-    (function () {
-      // Prevent tiny horizontal overflow across the page (removes scrollbar)
-      try {
-        document.documentElement.style.overflowX = 'hidden';
-        document.body.style.overflowX = 'hidden';
-      } catch (e) { /* ignore in very old browsers */ }
-
-      // Element refs (scoped to component)
-      const track = document.getElementById('carousel-track-c');
-      const dotsWrap = document.getElementById('carousel-dots-c');
-      const viewport = document.getElementById('carousel-viewport-c');
-      if (!track || !dotsWrap || !viewport) return;
-
-      const slides = Array.from(track.querySelectorAll('.slide-c'));
-      if (!slides.length) return;
-
-      // Make slides exactly viewport width (handles container padding or layout)
-      function refreshSlideSizes() {
-        const vw = viewport.clientWidth || document.documentElement.clientWidth;
-        slides.forEach(s => { s.style.width = vw + 'px'; });
-      }
-
-      // initial & on resize
-      refreshSlideSizes();
-      window.addEventListener('resize', refreshSlideSizes);
-
-      // build dots
-      let activeIndex = 0;
-      slides.forEach((_, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'w-3 h-3 rounded-full bg-white/80 border border-white/30';
-        btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-        btn.style.opacity = i === 0 ? '1' : '0.45';
-        btn.style.transform = i === 0 ? 'scale(1.15)' : 'scale(1)';
-        btn.addEventListener('click', () => { goTo(i); resetTimer(); });
-        dotsWrap.appendChild(btn);
-      });
-      const dots = Array.from(dotsWrap.children);
-
-      function updateDots() {
-        dots.forEach((d, idx) => {
-          d.style.opacity = idx === activeIndex ? '1' : '0.45';
-          d.style.transform = idx === activeIndex ? 'scale(1.15)' : 'scale(1)';
-        });
-      }
-
-      function goTo(i) {
-        activeIndex = ((i % slides.length) + slides.length) % slides.length;
-        const offset = (viewport.clientWidth || document.documentElement.clientWidth) * activeIndex;
-        track.style.transform = `translateX(-${offset}px)`;
-        updateDots();
-      }
-
-      // autoplay
-      let timer = null;
-      function startTimer() { timer = setInterval(() => goTo(activeIndex + 1), 4500); }
-      function resetTimer() { clearInterval(timer); startTimer(); }
-      startTimer();
-
-      // pause on hover (desktop)
-      viewport.addEventListener('mouseenter', () => clearInterval(timer));
-      viewport.addEventListener('mouseleave', resetTimer);
-
-      // swipe
-      let startX = 0, deltaX = 0;
-      const threshold = 50;
-      viewport.addEventListener('touchstart', e => { clearInterval(timer); startX = e.touches[0].clientX; }, { passive: true });
-      viewport.addEventListener('touchmove', e => { deltaX = e.touches[0].clientX - startX; }, { passive: true });
-      viewport.addEventListener('touchend', () => {
-        if (Math.abs(deltaX) > threshold) {
-          if (deltaX < 0) goTo(activeIndex + 1);
-          else goTo(activeIndex - 1);
-        }
-        startX = 0; deltaX = 0;
-        resetTimer();
-      });
-
-      // small timeout to ensure images load and layout stabilizes
-      setTimeout(() => { refreshSlideSizes(); goTo(0); }, 80);
-    })();
-  </script>
-
-  <style>
-    /* Component-level styles (keeps everything scoped visually) */
-    #hero-wrap-c { box-sizing: border-box; margin: 0; padding: 0; }
-    #carousel-viewport-c { margin: 0; padding: 0; }
-    #carousel-track-c { margin: 0; padding: 0; transition: transform 0.65s cubic-bezier(.22,.9,.26,1); will-change: transform; }
-    #carousel-dots-c button { background: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.32); width: 12px; height: 12px; border-radius: 9999px; }
-  </style>
-</section>
-<!-- ====== END HERO CAROUSEL COMPONENT ====== -->
+  <!-- FEATURES -->
+  <section class="mt-10 px-4 md:px-0 mb-8">
+    <div class="max-w-6xl mx-auto md:px-4">
+      <h2 class="text-2xl md:text-3xl font-extrabold mb-6" style="background:linear-gradient(90deg,#0ea5e9,#1976F2); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Key Features</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-white shadow border border-[rgba(25,118,242,0.06)]">
+          <h3 class="font-bold text-xl mb-2">Cutoff Analyzer</h3>
+          <p class="italic text-gray-800">Analyze year-wise cutoff trends and compare ranks across colleges and branches.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white shadow border border-[rgba(25,118,242,0.06)]">
+          <h3 class="font-bold text-xl mb-2">College Predictor</h3>
+          <p class="italic text-gray-800">Get accurate college & branch predictions based on your rank and category.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white shadow border border-[rgba(25,118,242,0.06)]">
+          <h3 class="font-bold text-xl mb-2">Mock Test</h3>
+          <p class="italic text-gray-800">Practice real exam-level mock tests with instant analytics and scoring.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white shadow border border-[rgba(25,118,242,0.06)]">
+          <h3 class="font-bold text-xl mb-2">PYQ Library</h3>
+          <p class="italic text-gray-800">Organized previous-year questions with chapter filters and downloads.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white shadow border border-[rgba(25,118,242,0.06)]">
+          <h3 class="font-bold text-xl mb-2">Canvas</h3>
+          <p class="italic text-gray-800">A personal workspace for notes, mock attempts, and problem solving.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white shadow border border-[rgba(25,118,242,0.06)]">
+          <h3 class="font-bold text-xl mb-2">Placement Insights</h3>
+          <p class="italic text-gray-800">Explore placement stats, salary trends, and top recruiters.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
