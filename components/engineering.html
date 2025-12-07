@@ -1,142 +1,182 @@
-<!-- components/engineering.html - clean layout with NO WRAP -->
-<section id="engineering-page" class="w-full bg-white">
+<section id="engineering-page" class="w-full bg-white py-6 px-4 md:px-8">
 
   <style>
-    .eng-title {
+    .big-card {
+      background: white;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+    }
+
+    .big-title {
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 700;
-      margin-top: 16px;
-      margin-left: 16px;
+      margin-bottom: 14px;
     }
 
-    .eng-sub {
-      font-size: 12px;
-      color: #5c6b78;
-      margin-left: 16px;
-      margin-top: 2px;
-    }
-
-    /* Grid layout */
-    .eng-grid {
-      margin-top: 16px;
-      padding: 0 16px 20px;
+    .small-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
     }
 
-    @media (min-width: 768px) {
-      .eng-grid {
-        grid-template-columns: repeat(4, 1fr); /* 4×2 */
-      }
-    }
-
-    /* small tiles */
-    .tile {
+    .small-card {
       background: white;
       border-radius: 10px;
       padding: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
       display: flex;
       flex-direction: column;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
       font-size: 11px;
     }
 
-    .tile img {
-      width: 100%;
+    .small-card img {
       height: 60px;
+      width: 100%;
       object-fit: cover;
       border-radius: 6px;
     }
 
-    .tile-title {
+    .small-title {
+      font-weight: 600;
       margin-top: 6px;
       font-size: 13px;
-      font-weight: 600;
     }
 
-    .tile-desc {
-      font-size: 10px;
+    .small-desc {
       color: #6b7a86;
+      font-size: 10px;
       margin-top: 4px;
     }
 
-    .tile a {
+    .small-card a {
       margin-top: auto;
       background: #1976F2;
       color: white;
-      padding: 4px 8px;
+      text-align: center;
+      padding: 5px 8px;
       border-radius: 6px;
       font-size: 11px;
       text-decoration: none;
-      text-align: center;
     }
   </style>
 
-  <!-- Heading -->
-  <h2 class="eng-title">Engineering Entrance Prep</h2>
-  <div class="eng-sub">Compact & high-yield JEE resources.</div>
 
-  <!-- GRID (NO WRAPPER AROUND IT) -->
-  <div class="eng-grid">
+  <!-- ================= BIG CARD 1 ================== -->
+  <div class="big-card">
+    <div class="big-title">JEE Rankings & Cutoffs</div>
 
-    <div class="tile">
-      <img src="/assets/thumbnails/jeemains.jpg">
-      <div class="tile-title">JEE Mains Cutoffs</div>
-      <div class="tile-desc">Latest branch ranks.</div>
-      <a href="#">Go →</a>
+    <div class="small-grid">
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/jeemains.jpg">
+        <div class="small-title">JEE Mains Cutoffs</div>
+        <div class="small-desc">Latest ranks.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/jeeadv.jpg">
+        <div class="small-title">JEE Advanced Cutoffs</div>
+        <div class="small-desc">Updated IIT cutoffs.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/nits.jpg">
+        <div class="small-title">NIT Rankings</div>
+        <div class="small-desc">Compare NITs.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/iiits.jpg">
+        <div class="small-title">IIIT Rankings</div>
+        <div class="small-desc">Placement-based list.</div>
+        <a href="#">Go →</a>
+      </div>
+
     </div>
+  </div>
 
-    <div class="tile">
-      <img src="/assets/thumbnails/jeeadv.jpg">
-      <div class="tile-title">JEE Advanced Cutoffs</div>
-      <div class="tile-desc">IIT closing ranks.</div>
-      <a href="#">Go →</a>
+
+
+  <!-- ================= BIG CARD 2 ================== -->
+  <div class="big-card">
+    <div class="big-title">Study Materials & Notes</div>
+
+    <div class="small-grid">
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/notes.jpg">
+        <div class="small-title">Notes & Resources</div>
+        <div class="small-desc">Quick revision.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/dpp.jpg">
+        <div class="small-title">DPPs & Modules</div>
+        <div class="small-desc">Daily practice.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/math.jpg">
+        <div class="small-title">Math Boosters</div>
+        <div class="small-desc">Formula drills.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/physics.jpg">
+        <div class="small-title">Physics Concepts</div>
+        <div class="small-desc">Core clarity.</div>
+        <a href="#">Go →</a>
+      </div>
+
     </div>
+  </div>
 
-    <div class="tile">
-      <img src="/assets/thumbnails/placements.jpg">
-      <div class="tile-title">Institutes & Placements</div>
-      <div class="tile-desc">NIT / IIIT insights.</div>
-      <a href="#">Go →</a>
+
+
+  <!-- ================= BIG CARD 3 ================== -->
+  <div class="big-card">
+    <div class="big-title">PYQs & Practice Sets</div>
+
+    <div class="small-grid">
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/pyq.jpg">
+        <div class="small-title">JEE Mains PYQs</div>
+        <div class="small-desc">Topic-wise.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/pyq.jpg">
+        <div class="small-title">JEE Advanced PYQs</div>
+        <div class="small-desc">Detailed solutions.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/test.jpg">
+        <div class="small-title">Mock Tests</div>
+        <div class="small-desc">Timed practice.</div>
+        <a href="#">Go →</a>
+      </div>
+
+      <div class="small-card">
+        <img src="/assets/thumbnails/analysis.jpg">
+        <div class="small-title">Performance Analysis</div>
+        <div class="small-desc">Weakness finder.</div>
+        <a href="#">Go →</a>
+      </div>
+
     </div>
-
-    <div class="tile">
-      <img src="/assets/thumbnails/dpp.jpg">
-      <div class="tile-title">DPPs & Modules</div>
-      <div class="tile-desc">Daily practice sheets.</div>
-      <a href="#">Go →</a>
-    </div>
-
-    <div class="tile">
-      <img src="/assets/thumbnails/notes.jpg">
-      <div class="tile-title">Notes & Resources</div>
-      <div class="tile-desc">Quick revision.</div>
-      <a href="#">Go →</a>
-    </div>
-
-    <div class="tile">
-      <img src="/assets/thumbnails/pyq.jpg">
-      <div class="tile-title">PYQs & Analysis</div>
-      <div class="tile-desc">Repeated topics.</div>
-      <a href="#">Go →</a>
-    </div>
-
-    <div class="tile">
-      <img src="/assets/thumbnails/math.jpg">
-      <div class="tile-title">Math Boosters</div>
-      <div class="tile-desc">Formulas + drills.</div>
-      <a href="#">Go →</a>
-    </div>
-
-    <div class="tile">
-      <img src="/assets/thumbnails/physics.jpg">
-      <div class="tile-title">Physics Concepts</div>
-      <div class="tile-desc">Core fundamentals.</div>
-      <a href="#">Go →</a>
-    </div>
-
   </div>
 
 </section>
