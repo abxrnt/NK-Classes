@@ -17,30 +17,22 @@
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
-    :root {
-      --blue-light: #9EE9FF;
-      --blue-main: #1976F2;
-      --blue-accent: #0EA5E9;
-      --blue-dark: #07203A;
-      --blue-gradient: linear-gradient(45deg, var(--blue-light), var(--blue-accent), var(--blue-main), var(--blue-dark));
+    :root{
+      --blue-light:#9EE9FF;--blue-main:#1976F2;--blue-accent:#0EA5E9;--blue-dark:#07203A;
+      --blue-gradient:linear-gradient(45deg,var(--blue-light),var(--blue-accent),var(--blue-main),var(--blue-dark));
     }
-    body { font-family: Inter, system-ui, sans-serif; background: linear-gradient(180deg,#f7fbff 0%,#fff 100%); color:#062433; }
+    body{font-family:Inter,system-ui,sans-serif;background:linear-gradient(180deg,#f7fbff 0%,#fff 100%);color:#062433}
     .fade-in{animation:fadeIn .25s ease-out both} .fade-out{animation:fadeOut .2s ease-in both}
     @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}} @keyframes fadeOut{from{opacity:1}to{opacity:0;transform:translateY(-6px)}}
-    .nav-link{position:relative;font-weight:600;color:#07365a}
-    .nav-link::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--blue-main);transition:width .22s}
-    .nav-link:hover::after{width:100%}
+    .nav-link{position:relative;font-weight:600;color:#07365a} .nav-link::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--blue-main);transition:width .22s} .nav-link:hover::after{width:100%}
     .tab-active{color:#fff !important;background:var(--blue-gradient);border-radius:10px;padding:6px 12px}
     .card{background:white;border-radius:14px;box-shadow:0 6px 20px rgba(7,36,58,.06);padding:18px}
-    .logo-glow{box-shadow:0 0 18px rgba(25,118,242,.35)}
-    button:hover{background:var(--blue-gradient) !important;color:white !important;transition:.25s;border-radius:8px}
+    .logo-glow{box-shadow:0 0 18px rgba(25,118,242,.35)} button:hover{background:var(--blue-gradient) !important;color:white !important;transition:.25s;border-radius:8px}
     footer h2{background:var(--blue-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    nav{border-bottom-color:rgba(7,32,50,.06)}
-    .text-muted{color:#5b6b78}
-    .mobile-icon{color:#0b3b66}
-    .no-tap-highlight{-webkit-tap-highlight-color:rgba(0,0,0,0)}
-    /* small responsive tweak for auth area on very small screens */
-    @media (max-width:640px){ #authArea { display:none !important } }
+    nav{border-bottom-color:rgba(7,32,50,.06)} .text-muted{color:#5b6b78} .mobile-icon{color:#0b3b66} .no-tap-highlight{-webkit-tap-highlight-color:rgba(0,0,0,0)}
+    @media (max-width:640px){ #authArea { display:none !important } } /* hide auth area on very small screens if needed */
+    /* small circle avatar */
+    .avatar-circle { width:32px; height:32px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:#e6eef9; color:#0b3b66; font-weight:700; font-size:13px; text-transform:uppercase; }
   </style>
 </head>
 <body class="text-slate-900">
@@ -58,63 +50,46 @@
         </div>
 
         <div class="flex items-center gap-4">
+          <!-- desktop tabs (LECTURES REMOVED) -->
           <ul id="desktopTabs" class="hidden md:flex gap-3 items-center text-sm">
             <li><button data-route="home" class="nav-link px-2 py-1 rounded-md">Home</button></li>
             <li><button data-route="about" class="nav-link px-2 py-1 rounded-md">About Us</button></li>
             <li><button data-route="materials" class="nav-link px-2 py-1 rounded-md">Study Materials</button></li>
-            <li><button data-route="lectures" class="nav-link px-2 py-1 rounded-md">Lectures</button></li>
             <li><button data-route="cutoffs" class="nav-link px-2 py-1 rounded-md">Cutoffs</button></li>
             <li><button data-route="placements" class="nav-link px-2 py-1 rounded-md">Placements & Campus</button></li>
             <li><button data-route="contact" class="nav-link px-2 py-1 rounded-md">Contact Us</button></li>
           </ul>
 
-          <!-- auth area (injected / populated) -->
+          <!-- auth area (profile icon + logout OR login/register buttons) -->
           <div id="authArea" class="ml-2 hidden md:flex items-center gap-3"></div>
         </div>
       </div>
 
-      <!-- MOBILE ICON BAR (compact non-scrollable) -->
+      <!-- MOBILE ICON BAR (7 items without lectures) -->
       <div class="md:hidden pb-1">
-        <div class="grid grid-cols-7 gap-1 items-center text-center px-1 no-tap-highlight">
-          <button data-route="home" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z"/></svg>
-            <span class="text-[9px] leading-[10px]">Home</span>
-          </button>
-          <button data-route="about" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5c2.485 0 4.5 2.015 4.5 4.5s-2.015 4.5-4.5 4.5-4.5-2.015-4.5-4.5S9.515 4.5 12 4.5zm0 12c4.142 0 7.5 2.015 7.5 4.5V21H4.5v-.75c0-2.485 3.358-4.5 7.5-4.5z"/></svg>
-            <span class="text-[9px] leading-[10px]">About</span>
-          </button>
-          <button data-route="materials" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6.75V19.5A1.5 1.5 0 004.5 21h12A1.5 1.5 0 0018 19.5V6.75m-15 0L12 3l9 3.75m-15 0l9 3.75 9-3.75"/></svg>
-            <span class="text-[9px] leading-[10px]">Materials</span>
-          </button>
-          <button data-route="lectures" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5l6-3-6-3v6zm-12 9V6a1.5 1.5 0 011.5-1.5H12A1.5 1.5 0 0113.5 6v13.5A1.5 1.5 0 0112 21H4.5A1.5 1.5 0 013 19.5z"/></svg>
-            <span class="text-[9px] leading-[10px]">Lectures</span>
-          </button>
-          <button data-route="cutoffs" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18M9 3v18m6-18v18M3 12h18"/></svg>
-            <span class="text-[9px] leading-[10px]">Cutoffs</span>
-          </button>
-          <button data-route="placements" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6a9 9 0 100 18 9 9 0 000-18zm0 3v9m4.5-4.5h-9"/></svg>
-            <span class="text-[9px] leading-[10px]">Placements</span>
-          </button>
-          <button data-route="contact" class="flex flex-col items-center w-full py-1 mobile-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25v13.5A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18.75V5.25zM7.5 9h9m-9 3h9m-9 3h6"/></svg>
-            <span class="text-[9px] leading-[10px]">Contact</span>
-          </button>
+        <div class="grid grid-cols-6 gap-1 items-center text-center px-1 no-tap-highlight">
+          <button data-route="home" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z"/></svg><span class="text-[9px] leading-[10px]">Home</span></button>
+
+          <button data-route="about" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5c2.485 0 4.5 2.015 4.5 4.5s-2.015 4.5-4.5 4.5-4.5-2.015-4.5-4.5S9.515 4.5 12 4.5zm0 12c4.142 0 7.5 2.015 7.5 4.5V21H4.5v-.75c0-2.485 3.358-4.5 7.5-4.5z"/></svg><span class="text-[9px] leading-[10px]">About</span></button>
+
+          <button data-route="materials" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6.75V19.5A1.5 1.5 0 004.5 21h12A1.5 1.5 0 0018 19.5V6.75m-15 0L12 3l9 3.75m-15 0l9 3.75 9-3.75"/></svg><span class="text-[9px] leading-[10px]">Materials</span></button>
+
+          <button data-route="cutoffs" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18M9 3v18m6-18v18M3 12h18"/></svg><span class="text-[9px] leading-[10px]">Cutoffs</span></button>
+
+          <button data-route="placements" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6a9 9 0 100 18 9 9 0 000-18zm0 3v9m4.5-4.5h-9"/></svg><span class="text-[9px] leading-[10px]">Placements</span></button>
+
+          <button data-route="contact" class="flex flex-col items-center w-full py-1 mobile-icon"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25v13.5A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18.75V5.25zM7.5 9h9m-9 3h9m-9 3h6"/></svg><span class="text-[9px] leading-[10px]">Contact</span></button>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- MAIN APP (components will be loaded here) -->
+  <!-- MAIN APP -->
   <main id="app" class="max-w-6xl mx-auto px-4 md:px-8 py-6">
-    <!-- content injected by router -->
+    <!-- components will be dynamically loaded via router -->
   </main>
 
-  <!-- FOOTER (same as before) -->
+  <!-- FOOTER (unchanged) -->
   <footer class="bg-[#042235] text-gray-300 py-10 mt-16">
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
@@ -124,16 +99,8 @@
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 text-sm">
           <div class="group">
-            <p class="text-white font-semibold flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400 group-hover:text-emerald-300 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              Abishrant Shandilya
-            </p>
+            <p class="text-white font-semibold flex items-center gap-2">Abishrant Shandilya</p>
             <p class="text-gray-300 group-hover:text-gray-200 transition">Website Manager</p>
-            <div class="flex items-center gap-3 mt-2">
-              <a href="#" class="text-gray-300 hover:text-blue-300 transition" aria-label="LinkedIn">…</a>
-              <a href="#" class="text-gray-300 hover:text-blue-300 transition" aria-label="GitHub">…</a>
-              <a href="mailto:abishrant@gmail.com" class="text-gray-300 hover:text-blue-300 transition" aria-label="Email">…</a>
-            </div>
           </div>
         </div>
       </div>
@@ -141,284 +108,324 @@
     </div>
   </footer>
 
-  <!-- AUTH MODAL (Login / Register) -->
+  <!-- AUTH MODAL -->
   <div id="authModal" class="fixed inset-0 hidden items-center justify-center z-50 p-4">
     <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6 relative">
       <button id="authClose" class="absolute right-3 top-2 text-gray-600">✕</button>
+
       <div id="authTabs" class="flex gap-2 mb-4">
         <button id="showLogin" class="px-3 py-1 rounded-md tab-active">Login</button>
         <button id="showRegister" class="px-3 py-1 rounded-md">Register</button>
       </div>
 
+      <!-- LOGIN: only username + password -->
       <div id="loginForm">
-        <input id="loginEmail" type="text" placeholder="Email or username" class="w-full border px-3 py-2 rounded mb-3" />
+        <input id="loginUsername" type="text" placeholder="Username" class="w-full border px-3 py-2 rounded mb-3" />
         <input id="loginPassword" type="password" placeholder="Password" class="w-full border px-3 py-2 rounded mb-3" />
         <div id="loginError" class="text-sm text-red-500 mb-2 hidden"></div>
         <button id="loginBtn" class="w-full bg-blue-600 text-white px-4 py-2 rounded">Login</button>
       </div>
 
+      <!-- REGISTER: username, full name, password, phone, email, regn -->
       <div id="registerForm" class="hidden">
+        <input id="regUsername" type="text" placeholder="Username" class="w-full border px-3 py-2 rounded mb-3" />
         <input id="regName" type="text" placeholder="Full name" class="w-full border px-3 py-2 rounded mb-3" />
-        <input id="regEmail" type="email" placeholder="Email" class="w-full border px-3 py-2 rounded mb-3" />
         <input id="regPassword" type="password" placeholder="Password (6+ chars)" class="w-full border px-3 py-2 rounded mb-3" />
+        <input id="regPhone" type="text" placeholder="Phone" class="w-full border px-3 py-2 rounded mb-3" />
+        <input id="regEmail" type="email" placeholder="Email" class="w-full border px-3 py-2 rounded mb-3" />
+        <input id="regn" type="text" readonly class="w-full border px-3 py-2 rounded mb-3 bg-gray-50" />
         <div id="regError" class="text-sm text-red-500 mb-2 hidden"></div>
         <button id="registerBtn" class="w-full bg-emerald-600 text-white px-4 py-2 rounded">Register</button>
       </div>
     </div>
   </div>
 
-  <!-- Firebase (compat) SDKs -->
+  <!-- Firebase (compat) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
   <script>
-  // ========== FIREBASE CONFIG ==========
-  const firebaseConfig = {
-    apiKey: "AIzaSyAcIHLJdYe_tUA7t4fuapxmyeXXESo4Ze4",
-    authDomain: "nk-classes.firebaseapp.com",
-    projectId: "nk-classes",
-    storageBucket: "nk-classes.firebasestorage.app",
-    messagingSenderId: "999944440818",
-    appId: "1:999944440818:web:326234d2623f53fa25396b",
-    measurementId: "G-56128412GG"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
+    // --------- FIREBASE CONFIG ----------
+    const firebaseConfig = {
+      apiKey: "AIzaSyAcIHLJdYe_tUA7t4fuapxmyeXXESo4Ze4",
+      authDomain: "nk-classes.firebaseapp.com",
+      projectId: "nk-classes",
+      storageBucket: "nk-classes.firebasestorage.app",
+      messagingSenderId: "999944440818",
+      appId: "1:999944440818:web:326234d2623f53fa25396b",
+      measurementId: "G-56128412GG"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
   </script>
 
-  <!-- ========== HASH ROUTER (loads /components/<route>.html) ========== -->
+  <!-- HASH ROUTER (loads /components/<route>.html) -->
   <script>
-    (function () {
+    (function(){
       const app = document.getElementById('app');
-
-      // route -> component file mapping. If route not found, fallback to home.
-      const routeToFile = {
+      const mapping = {
         home: '/components/home.html',
         about: '/components/about.html',
         materials: '/components/materials.html',
-        lectures: '/components/lectures.html',
         cutoffs: '/components/cutoffs.html',
         placements: '/components/placements.html',
         contact: '/components/contact.html'
       };
-
-      async function loadRoute(route) {
-        const file = routeToFile[route] || routeToFile['home'];
+      function parseHash(){ const h = location.hash || '#/home'; const m = h.match(/^#\/?([^/?#]+)/); return m?m[1]:'home'; }
+      async function loadRoute(route){
+        const file = mapping[route] || mapping['home'];
         try {
-          const res = await fetch(file, { cache: "no-store" });
-          if (!res.ok) throw new Error('fetch failed: ' + res.status);
-          const html = await res.text();
-          app.innerHTML = html;
-          // run a small init in case the loaded component expects common helpers
-          initLoadedComponent(route);
-        } catch (err) {
-          console.warn('Failed to load', file, err);
-          // fallback: try home
-          if (file !== routeToFile['home']) {
-            try {
-              const fallback = await fetch(routeToFile['home']);
-              app.innerHTML = await fallback.text();
-              initLoadedComponent('home');
-            } catch (e) {
-              // last resort: show minimal error UI
-              app.innerHTML = `<div class="p-6 card"><h2 class="text-xl font-bold">Content unavailable</h2><p class="text-gray-600">Could not load the page. Check /components/${route}.html exists.</p></div>`;
-            }
-          } else {
-            app.innerHTML = `<div class="p-6 card"><h2 class="text-xl font-bold">Home unavailable</h2><p class="text-gray-600">Home component missing.</p></div>`;
-          }
+          const res = await fetch(file,{cache:'no-store'});
+          if (!res.ok) throw new Error('fetch '+res.status);
+          app.innerHTML = await res.text();
+          // allow components to run their own scripts if present
+        } catch(e){
+          console.warn('failed loading',file,e);
+          try { const fb = await fetch(mapping['home']); app.innerHTML = await fb.text(); } catch { app.innerHTML = '<div class="p-6 card"><h2 class="text-xl font-bold">Content unavailable</h2><p class="text-gray-600">Check /components folder.</p></div>'; }
         }
+        // mark active nav
+        document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('tab-active'));
+        document.querySelectorAll(`[data-route="${route}"]`).forEach(btn=> btn.classList.add('tab-active'));
       }
-
-      // called after injecting component HTML: useful to wire component-specific JS
-      function initLoadedComponent(route) {
-        // if component contains script tags they will run automatically.
-        // optionally you can call some route-specific init here.
-        // Example: if lectures page needs to attach handlers when loaded, you can detect route === 'lectures' and init.
-        if (route === 'lectures') {
-          // If your lectures component uses global helpers (like openLectureModal), make sure they exist.
-          // No-op here; components should include their own scripts.
-        }
-        // update active nav link
-        document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('tab-active'));
-        document.querySelectorAll(`[data-route="${route}"]`).forEach(btn => {
-          if (btn.classList.contains('nav-link')) btn.classList.add('tab-active');
-        });
-      }
-
-      // parse location.hash -> route name (e.g., '#/home' -> 'home')
-      function currentRouteFromHash() {
-        const h = location.hash || '#/home';
-        const m = h.match(/^#\/?([^/?#]+)/);
-        return m ? m[1] : 'home';
-      }
-
-      // navigate programmatically
-      function navigateTo(route) {
-        if (!route) route = 'home';
-        location.hash = '#/' + route;
-      }
-
-      // wire navbar buttons (desktop + mobile)
-      document.addEventListener('click', (e) => {
-        const btn = e.target.closest('[data-route]');
-        if (!btn) return;
-        const route = btn.getAttribute('data-route');
-        navigateTo(route);
-        // prevent default if it's a link
-        e.preventDefault();
-      });
-
-      // load initial route and on hash change
-      window.addEventListener('hashchange', () => loadRoute(currentRouteFromHash()));
-      // on first load
-      loadRoute(currentRouteFromHash());
+      window.addEventListener('hashchange', ()=> loadRoute(parseHash()));
+      document.addEventListener('click', e => { const btn = e.target.closest('[data-route]'); if(!btn) return; const route = btn.getAttribute('data-route'); location.hash = '#/'+route; e.preventDefault(); });
+      loadRoute(parseHash());
     })();
   </script>
 
-  <!-- ========== AUTH UI & Logic (Firebase + legacy fallback) ========== -->
+  <!-- AUTH UI + Logic (username login, register stores fields you requested) -->
   <script>
-    // ensure auth area visible & inject default buttons if empty
-    (function ensureAuthUI() {
-      let authArea = document.getElementById('authArea');
-      if (!authArea) {
+    // Ensure auth area present and visible, inject default if empty
+    (function ensureAuthArea(){
+      let area = document.getElementById('authArea');
+      if(!area){
         const nav = document.querySelector('nav .max-w-6xl') || document.querySelector('nav');
-        authArea = document.createElement('div');
-        authArea.id = 'authArea';
-        authArea.className = 'ml-2 flex items-center gap-3';
-        if (nav) nav.appendChild(authArea); else document.body.prepend(authArea);
+        area = document.createElement('div'); area.id='authArea'; area.className='ml-2 flex items-center gap-3';
+        if(nav) nav.appendChild(area); else document.body.prepend(area);
       }
-      authArea.classList.remove('hidden');
-      authArea.style.display = 'flex';
-      if (!authArea.innerHTML.trim()) {
-        authArea.innerHTML = `<button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button><button id="navRegister" class="px-3 py-1 rounded-md border">Register</button>`;
+      area.classList.remove('hidden'); area.style.display='flex';
+      if(!area.innerHTML.trim()){
+        area.innerHTML = `<button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button><button id="navRegister" class="px-3 py-1 rounded-md border">Register</button>`;
       }
       attachNavHandlers();
-      setTimeout(()=>console.log('DEBUG: firebase present?', !!window.firebase, 'auth?', !!(window.firebase && firebase.auth)),200);
     })();
 
-    function attachNavHandlers() {
-      document.getElementById('navLogin')?.addEventListener('click', () => showModal('login'));
-      document.getElementById('navRegister')?.addEventListener('click', () => showModal('register'));
+    function attachNavHandlers(){
+      document.getElementById('navLogin')?.addEventListener('click', ()=> showModal('login'));
+      document.getElementById('navRegister')?.addEventListener('click', ()=> showModal('register'));
     }
 
     // modal helpers
     const authModal = document.getElementById('authModal');
-    document.getElementById('authClose').addEventListener('click', () => { authModal.classList.add('hidden'); authModal.classList.remove('flex'); });
-    document.getElementById('showLogin').addEventListener('click', () => showModal('login'));
-    document.getElementById('showRegister').addEventListener('click', () => showModal('register'));
-    function showModal(view='login') {
+    document.getElementById('authClose').addEventListener('click', ()=> { authModal.classList.add('hidden'); authModal.classList.remove('flex'); });
+    document.getElementById('showLogin').addEventListener('click', ()=> showModal('login'));
+    document.getElementById('showRegister').addEventListener('click', ()=> showModal('register'));
+    function showModal(view='login'){
       document.getElementById('loginError').classList.add('hidden'); document.getElementById('regError').classList.add('hidden');
-      if (view === 'login') { document.getElementById('loginForm').classList.remove('hidden'); document.getElementById('registerForm').classList.add('hidden'); document.getElementById('showLogin').classList.add('tab-active'); document.getElementById('showRegister').classList.remove('tab-active'); }
+      if(view==='login'){ document.getElementById('loginForm').classList.remove('hidden'); document.getElementById('registerForm').classList.add('hidden'); document.getElementById('showLogin').classList.add('tab-active'); document.getElementById('showRegister').classList.remove('tab-active'); }
       else { document.getElementById('loginForm').classList.add('hidden'); document.getElementById('registerForm').classList.remove('hidden'); document.getElementById('showLogin').classList.remove('tab-active'); document.getElementById('showRegister').classList.add('tab-active'); }
+      // prefill regn with current ISO timestamp
+      document.getElementById('regn').value = new Date().toISOString();
       authModal.classList.remove('hidden'); authModal.classList.add('flex');
     }
 
-    // helpers to read/write Firestore user docs
-    async function getUserDocByUid(uid) {
-      try { const doc = await db.collection('users').doc(uid).get(); if (!doc.exists) return null; return { id: doc.id, data: doc.data() }; } catch (e) { console.error(e); return null; }
+    // helpers: get user doc by uid and find by username
+    async function getUserDocByUid(uid){
+      try{ const doc = await db.collection('users').doc(uid).get(); if(!doc.exists) return null; return {id:doc.id, data: doc.data()}; } catch(e){ console.error(e); return null; }
     }
-    async function findUserDocByIdentifier(identifier) {
-      try {
-        const usersRef = db.collection('users');
-        let q = await usersRef.where('username', '==', identifier).limit(1).get();
-        if (!q.empty) return { id: q.docs[0].id, data: q.docs[0].data() };
-        q = await usersRef.where('email', '==', identifier).limit(1).get();
-        if (!q.empty) return { id: q.docs[0].id, data: q.docs[0].data() };
-      } catch (e) { console.error('findUserDocByIdentifier error', e); }
-      return null;
+    async function findUserDocByUsername(username){
+      try{ const q = await db.collection('users').where('username','==',username).limit(1).get(); if(!q.empty) return {id:q.docs[0].id, data:q.docs[0].data()}; } catch(e){ console.error(e); } return null;
     }
 
-    // Register: create Firebase Auth user & Firestore doc (no plaintext password stored)
+    // ===== REGISTER =====
     document.getElementById('registerBtn').addEventListener('click', async () => {
+      const username = document.getElementById('regUsername').value.trim();
       const name = document.getElementById('regName').value.trim();
-      const email = document.getElementById('regEmail').value.trim();
       const password = document.getElementById('regPassword').value;
+      const phone = document.getElementById('regPhone').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const regn = document.getElementById('regn').value || new Date().toISOString();
       const errEl = document.getElementById('regError'); errEl.classList.add('hidden');
-      if (!name || !email || password.length < 6) { errEl.innerText = 'Please provide name, valid email and password (6+ chars).'; errEl.classList.remove('hidden'); return; }
-      try {
-        const userCred = await auth.createUserWithEmailAndPassword(email, password);
-        const uid = userCred.user.uid;
-        await db.collection('users').doc(uid).set({ email, name, paid: "no", phone: "", regn: new Date().toISOString(), username: email.split('@')[0] });
-        await userCred.user.updateProfile({ displayName: name });
+
+      if(!username || !name || password.length < 3){
+        errEl.innerText = 'Please enter username, full name and password (>=3 chars).';
+        errEl.classList.remove('hidden'); return;
+      }
+
+      try{
+        // check username uniqueness
+        const existing = await findUserDocByUsername(username);
+        if(existing){ errEl.innerText = 'Username already taken.'; errEl.classList.remove('hidden'); return; }
+
+        // Create Firebase Auth account using email if provided (preferred).
+        // If email not provided, we'll skip Firebase Auth creation and still create Firestore doc (legacy).
+        let uid = null;
+        if(email){
+          try{
+            const userCred = await auth.createUserWithEmailAndPassword(email, password);
+            uid = userCred.user.uid;
+            await userCred.user.updateProfile({ displayName: name });
+          } catch(firebaseErr){
+            // If Firebase account creation fails (e.g., email in use), we continue to create only Firestore doc as fallback.
+            console.warn('Firebase account creation failed — creating Firestore-only user. Error:', firebaseErr);
+          }
+        }
+
+        // IMPORTANT SECURITY NOTE:
+        // You asked to store plaintext password to match your schema. This is insecure.
+        // Keep this only if you understand the risk. Ideally migrate to Firebase Auth and remove plaintext passwords later.
+        const docRefId = uid || db.collection('users').doc().id;
+        await db.collection('users').doc(docRefId).set({
+          username,
+          name,
+          password,      // <-- stored plaintext to match your existing documents (INSECURE)
+          phone: phone || "",
+          email: email || "",
+          paid: "no",
+          regn: regn
+        });
+
+        // close modal, UI will update via onAuthStateChanged or legacy session
         authModal.classList.add('hidden'); authModal.classList.remove('flex');
-      } catch (err) { console.error('Register error', err); errEl.innerText = err.message || 'Registration failed'; errEl.classList.remove('hidden'); }
+        // If we created a Firebase user, onAuthStateChanged will run and pick it up.
+      } catch(e){
+        console.error('Registration error', e);
+        errEl.innerText = e.message || 'Registration failed';
+        errEl.classList.remove('hidden');
+      }
     });
 
-    // Login: prefer Firebase Auth; fallback to legacy Firestore password (temporary)
+    // ===== LOGIN =====
     document.getElementById('loginBtn').addEventListener('click', async () => {
-      const identifier = document.getElementById('loginEmail').value.trim();
+      const username = document.getElementById('loginUsername').value.trim();
       const password = document.getElementById('loginPassword').value;
       const errEl = document.getElementById('loginError'); errEl.classList.add('hidden');
-      if (!identifier || !password) { errEl.innerText = 'Enter email/username and password.'; errEl.classList.remove('hidden'); return; }
 
-      try { await auth.signInWithEmailAndPassword(identifier, password); authModal.classList.add('hidden'); authModal.classList.remove('flex'); return; } catch (authErr) { console.warn('Firebase signIn error (will try legacy):', authErr && authErr.code); }
+      if(!username || !password){ errEl.innerText = 'Enter username and password.'; errEl.classList.remove('hidden'); return; }
 
-      // legacy fallback
-      try {
-        const doc = await findUserDocByIdentifier(identifier);
-        if (!doc) { errEl.innerText = 'No user found with that email/username.'; errEl.classList.remove('hidden'); return; }
-        if (doc.data && doc.data.password && doc.data.password === password) {
-          // legacy login (insecure) - set local session
+      try{
+        // find user doc by username
+        const doc = await findUserDocByUsername(username);
+        if(!doc){ errEl.innerText = 'User not found.'; errEl.classList.remove('hidden'); return; }
+
+        // If Firestore doc has email and corresponding Firebase Auth user exists, try Firebase Auth
+        const email = doc.data.email;
+        if(email){
+          try{
+            await auth.signInWithEmailAndPassword(email, password);
+            // success
+            authModal.classList.add('hidden'); authModal.classList.remove('flex');
+            return;
+          } catch(firebaseErr){
+            // Firebase sign-in failed (wrong pwd or no firebase account). Fall back to plaintext match.
+            console.warn('Firebase signIn failed for email', email, firebaseErr);
+          }
+        }
+
+        // Legacy fallback: check stored plaintext password (only for migration/backwards compatibility)
+        if(doc.data && doc.data.password && doc.data.password === password){
+          // mark legacy session (insecure)
           localStorage.setItem('legacyUser', doc.id);
+          renderAuthArea(doc);
           authModal.classList.add('hidden'); authModal.classList.remove('flex');
-          renderAuthArea(doc); alert('Logged in via legacy fallback. Please update your account to use secure authentication.');
+          alert('Logged in via legacy fallback. Please migrate your account to secure authentication.');
           return;
-        } else { errEl.innerText = 'Invalid credentials.'; errEl.classList.remove('hidden'); return; }
-      } catch (e) { console.error('Legacy login error', e); errEl.innerText = 'Login failed. Try again later.'; errEl.classList.remove('hidden'); }
+        } else {
+          errEl.innerText = 'Invalid credentials.'; errEl.classList.remove('hidden'); return;
+        }
+      } catch(e){
+        console.error('Login error', e);
+        errEl.innerText = 'Login failed. Try again later.'; errEl.classList.remove('hidden');
+      }
     });
 
-    // Logout
-    async function logout() { try { await auth.signOut(); } catch (e) { console.warn(e); } localStorage.removeItem('legacyUser'); renderAuthArea(null); }
+    // ===== LOGOUT =====
+    async function logout(){
+      try{ await auth.signOut(); } catch(e){ console.warn('signOut failed', e); }
+      localStorage.removeItem('legacyUser');
+      renderAuthArea(null);
+    }
 
-    // render auth area depending on user doc
+    // ===== renderAuthArea: show circle profile icon + Logout button (no "Hi, name") =====
     const authAreaEl = document.getElementById('authArea');
-    function renderAuthArea(userDoc) {
-      if (!authAreaEl) return;
-      if (!userDoc) {
+    function renderAuthArea(userDoc){
+      if(!authAreaEl) return;
+      if(!userDoc){
         authAreaEl.innerHTML = `<button id="navLogin" class="nav-link px-3 py-1 rounded-md">Login</button><button id="navRegister" class="px-3 py-1 rounded-md border">Register</button>`;
         attachNavHandlers();
       } else {
-        const displayName = (userDoc.data && userDoc.data.name) ? userDoc.data.name : (userDoc.data && userDoc.data.email) ? userDoc.data.email : 'User';
-        const short = escapeHtml(shortName(displayName));
-        authAreaEl.innerHTML = `<div class="flex items-center gap-3"><span class="text-sm font-semibold text-slate-700">Hi, ${short}</span><button id="navLogout" class="px-3 py-1 rounded-md border text-sm">Logout</button></div>`;
+        // create initials for avatar (prefer username else name)
+        const username = userDoc.data && userDoc.data.username ? userDoc.data.username : '';
+        const name = userDoc.data && userDoc.data.name ? userDoc.data.name : '';
+        const initials = (username || name || 'U').charAt(0).toUpperCase();
+        // show avatar circle + logout button
+        authAreaEl.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="avatar-circle" title="${escapeHtml(name || username)}">${escapeHtml(initials)}</div>
+            <button id="navLogout" class="px-3 py-1 rounded-md border text-sm">Logout</button>
+          </div>
+        `;
         document.getElementById('navLogout')?.addEventListener('click', logout);
       }
     }
     function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]); }
-    function shortName(full){ return full.split(' ')[0]; }
 
-    // onAuthStateChanged: sync Firebase user -> Firestore doc; or use legacy local session
+    // ===== onAuthStateChanged: prefer Firebase user, otherwise legacy local session =====
     auth.onAuthStateChanged(async (user) => {
-      try {
-        if (user) {
+      try{
+        if(user){
+          // find user's Firestore doc by uid (docs may be under uid previously created)
           const docData = await getUserDocByUid(user.uid);
-          if (!docData) {
-            await db.collection('users').doc(user.uid).set({ name: user.displayName || '', email: user.email || '', paid: "no", phone: "", regn: new Date().toISOString(), username: user.email ? user.email.split('@')[0] : user.uid});
-            renderAuthArea({ id: user.uid, data: { name: user.displayName || user.email } });
-          } else renderAuthArea(docData);
+          if(!docData){
+            // If doc missing, create basic doc from firebase user
+            await db.collection('users').doc(user.uid).set({
+              username: user.email ? user.email.split('@')[0] : user.uid,
+              name: user.displayName || '',
+              phone: '',
+              email: user.email || '',
+              paid: "no",
+              regn: new Date().toISOString()
+            });
+            renderAuthArea({ id: user.uid, data: { username: user.email ? user.email.split('@')[0] : user.uid, name: user.displayName || '' } });
+          } else {
+            renderAuthArea(docData);
+          }
           return;
         }
+
+        // no firebase user: check legacy local session
         const legacyId = localStorage.getItem('legacyUser');
-        if (legacyId) {
-          const doc = await db.collection('users').doc(legacyId).get();
-          if (doc.exists) { renderAuthArea({ id: doc.id, data: doc.data() }); return; } else localStorage.removeItem('legacyUser');
+        if(legacyId){
+          try{
+            const doc = await db.collection('users').doc(legacyId).get();
+            if(doc.exists){ renderAuthArea({ id: doc.id, data: doc.data() }); return; } else localStorage.removeItem('legacyUser');
+          } catch(e){ console.error('legacy read error', e); localStorage.removeItem('legacyUser'); }
         }
         renderAuthArea(null);
-      } catch (e) { console.error('onAuthStateChanged error', e); renderAuthArea(null); }
-    });
-
-    // small helper to ensure authArea exists on DOM ready
-    document.addEventListener('DOMContentLoaded', () => {
-      if (!document.getElementById('authArea')) {
-        const parent = document.querySelector('.max-w-6xl') || document.body;
-        const wrapper = document.createElement('div'); wrapper.id='authArea'; wrapper.className='ml-4 flex items-center gap-3'; parent.prepend(wrapper);
+      } catch(e){
+        console.error('onAuthStateChanged handler error', e);
+        renderAuthArea(null);
       }
     });
 
-    // small error logging
-    window.addEventListener('error', (e) => console.error('Runtime error:', e.message, 'at', e.filename + ':' + e.lineno));
+    // small helper used above
+    async function getUserDocByUid(uid){
+      try{ const doc = await db.collection('users').doc(uid).get(); if(!doc.exists) return null; return { id: doc.id, data: doc.data() }; } catch(e){ console.error(e); return null; }
+    }
+
+    // Ensure authArea exists on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      if(!document.getElementById('authArea')){
+        const parent = document.querySelector('.max-w-6xl') || document.body;
+        const wrapper = document.createElement('div'); wrapper.id='authArea'; wrapper.className='ml-4 flex items-center gap-3';
+        parent.prepend(wrapper);
+      }
+    });
+
+    // small runtime error logging
+    window.addEventListener('error', (e)=> console.error('Runtime error:', e.message,'at', e.filename+':'+e.lineno));
   </script>
 </body>
 </html>
