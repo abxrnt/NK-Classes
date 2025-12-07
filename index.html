@@ -33,6 +33,11 @@
     .text-muted{color:#5b6b78}
     .avatar-circle { width:36px; height:36px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:#e6eef9; color:#0b3b66; font-weight:700; font-size:14px; text-transform:uppercase; }
     .no-tap-highlight{-webkit-tap-highlight-color:rgba(0,0,0,0)}
+#routerLoader { display: none; }
+#routerLoader.show { display: flex; }
+@media (max-width: 640px) {
+  #routerLoader img { width: 48px; height: 48px; }
+}
 
     /* AUTH MODAL VISUALS */
     .auth-backdrop {
@@ -179,6 +184,12 @@
 
   <!-- MAIN APP -->
   <main id="app" class="max-w-6xl mx-auto px-4 md:px-8 py-8">
+    <div id="routerLoader" class="fixed inset-0 z-50 hidden items-center justify-center pointer-events-none">
+  <div class="flex items-center justify-center bg-white/70 p-4 rounded-lg shadow-lg pointer-events-auto">
+    <img src="loading.gif" alt="Loading…" class="w-16 h-16" />
+  </div>
+</div>
+
     <!-- dynamic content -->
     <div class="card p-8">
       <h2 class="text-2xl font-bold mb-2">Welcome to NK Classes</h2>
@@ -609,3 +620,4 @@
   </script>
 </body>
 </html>
+
